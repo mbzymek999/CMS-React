@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Router, Switch, Route, Link } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Navbar, Container, Nav} from "react-bootstrap"
 import "./App.css";
 
 import Login from "./components/login.component";
@@ -72,66 +73,83 @@ class App extends Component {
     return (
       <Router history={history}>
         <div>
-          <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <Link to={"/home"} className="navbar-brand">
-              Home
-            </Link>
-            <div className="navbar-nav mr-auto">
+          <Navbar bg="secondary" expand="sm">
+            <Container fluid>
+              <Navbar.Brand>
+                <Link to={"/home"}>Home</Link>
+              </Navbar.Brand>
+              <Navbar.Toggle aria-controls="navbarScroll" />
+              <Navbar.Collapse id="navbarScroll">
+                <Nav
+                    className="me-auto my-2 my-lg-0"
+                    style={{ maxHeight: '100px' }}
+                    navbarScroll
+                >
+                  {showModeratorBoard && (
+                  <Nav.Link>
 
-              {showModeratorBoard && (
-                <li className="nav-item">
-                  <Link to={"/mod"} className="nav-link">
-                    Moderator Board
-                  </Link>
-                </li>
-              )}
+                        <li className="nav-item">
+                          <Link to={"/mod"} className="nav-link">
+                            Moderator
+                          </Link>
+                        </li>
+                  </Nav.Link>
+                  )}
+                  {showAdminBoard && (
+                  <Nav.Link>
+                        <li className="nav-item">
+                          <Link to={"/admin"} className="nav-link">
+                            Administrator
+                          </Link>
+                        </li>
+                  </Nav.Link>
+                  )}
 
-              {showAdminBoard && (
-                <li className="nav-item">
-                  <Link to={"/admin"} className="nav-link">
-                    Admin Board
-                  </Link>
-                </li>
-              )}
+                  {currentUser && (
+                  <Nav.Link>
+                        <li className="nav-item">
+                          <Link to={"/user"} className="nav-link">
+                            User
+                          </Link>
+                        </li>
+                  </Nav.Link>
+                  )}
+                </Nav>
+                <Nav>
+                  <Nav.Link>
+                    {currentUser ? (
+                        <div className="navbar-nav ml-auto">
+                          <li className="nav-item">
+                            <Link to={"/profile"} className="nav-link">
+                              {currentUser.username}
+                            </Link>
+                          </li>
+                          <li className="nav-item">
+                            <a href="/login" className="nav-link" onClick={this.logOut}>
+                              Wyloguj
+                            </a>
+                          </li>
+                        </div>
+                    ) : (
+                        <div className="navbar-nav ml-auto">
+                          <li className="nav-item">
+                            <Link to={"/login"} className="nav-link">
+                              Zaloguj
+                            </Link>
+                          </li>
 
-              {currentUser && (
-                <li className="nav-item">
-                  <Link to={"/user"} className="nav-link">
-                    User
-                  </Link>
-                </li>
-              )}
-            </div>
-
-            {currentUser ? (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to={"/profile"} className="nav-link">
-                    {currentUser.username}
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <a href="/login" className="nav-link" onClick={this.logOut}>
-                    LogOut
-                  </a>
-                </li>
-              </div>
-            ) : (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to={"/login"} className="nav-link">
-                    Login
-                  </Link>
-                </li>
-
-                <li className="nav-item">
-                  <Link to={"/register"} className="nav-link">
-                    Sign Up
-                  </Link>
-                </li>
-              </div>
-            )}
-          </nav>
+                          <li className="nav-item">
+                            <Link to={"/register"} className="nav-link">
+                              Zarejestruj
+                            </Link>
+                          </li>
+                        </div>
+                    )}
+                  </Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+            </Container>
+          </Navbar>
 
           <div className="container mt-3">
             <Switch>
