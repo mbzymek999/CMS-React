@@ -52,12 +52,14 @@ class Register extends Component {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeCompanyName = this.onChangeCompanyName.bind(this)
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
 
     this.state = {
       username: "",
       email: "",
+      companyName: "",
       password: "",
       successful: false,
     };
@@ -66,6 +68,12 @@ class Register extends Component {
   onChangeUsername(e) {
     this.setState({
       username: e.target.value,
+    });
+  }
+
+  onChangeCompanyName(e) {
+    this.setState({
+      companyName: e.target.value,
     });
   }
 
@@ -93,7 +101,7 @@ class Register extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       this.props
         .dispatch(
-          register(this.state.username, this.state.email, this.state.password)
+          register(this.state.username, this.state.companyName, this.state.email, this.state.password)
         )
         .then(() => {
           this.setState({
@@ -137,6 +145,17 @@ class Register extends Component {
                     value={this.state.username}
                     onChange={this.onChangeUsername}
                     validations={[required, vusername]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="companyName">Nazwa firmy</label>
+                  <Input
+                      type="text"
+                      className="form-control"
+                      name="companyName"
+                      value={this.state.companyName}
+                      onChange={this.onChangeCompanyName}
                   />
                 </div>
 

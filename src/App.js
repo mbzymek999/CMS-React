@@ -95,6 +95,7 @@ class App extends Component {
                         </li>
                   </Nav.Link>
                   )}
+
                   {showAdminBoard && (
                   <Nav.Link>
                         <li className="nav-item">
@@ -103,6 +104,16 @@ class App extends Component {
                           </Link>
                         </li>
                   </Nav.Link>
+                  )}
+
+                  {showAdminBoard && (
+                      <Nav.Link>
+                        <li className="nav-item">
+                          <Link to={"/register"} className="nav-link">
+                            Zarejestruj firmę
+                          </Link>
+                        </li>
+                      </Nav.Link>
                   )}
 
                   {currentUser && (
@@ -138,11 +149,12 @@ class App extends Component {
                             </Link>
                           </li>
 
-                          <li className="nav-item">
-                            <Link to={"/register"} className="nav-link">
-                              Zarejestruj
-                            </Link>
-                          </li>
+                          {/*<li className="nav-item">*/}
+                          {/*  <Link to={"/register"} className="nav-link">*/}
+                          {/*    Zarejestruj*/}
+                          {/*  </Link>*/}
+                          {/*</li>*/}
+
                         </div>
                     )}
                   </Nav.Link>
