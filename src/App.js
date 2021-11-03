@@ -13,6 +13,7 @@ import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardOwner from "./components/board-owner.component";
 import BoardAdmin from "./components/board-admin.component";
+import RegisterEmployee from "./components/owner/register-employee.component";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -95,6 +96,16 @@ class App extends Component {
                   </Nav.Link>
                   )}
 
+                  {showOwnerBoard && (
+                      <Nav.Link>
+                        <li className="nav-item">
+                          <Link to={"/register_employee"} className="nav-link">
+                            Dodaj pracownika do systemu
+                          </Link>
+                        </li>
+                      </Nav.Link>
+                  )}
+
                   {showAdminBoard && (
                   <Nav.Link>
                         <li className="nav-item">
@@ -148,12 +159,6 @@ class App extends Component {
                             </Link>
                           </li>
 
-                          {/*<li className="nav-item">*/}
-                          {/*  <Link to={"/register"} className="nav-link">*/}
-                          {/*    Zarejestruj*/}
-                          {/*  </Link>*/}
-                          {/*</li>*/}
-
                         </div>
                     )}
                   </Nav.Link>
@@ -167,6 +172,7 @@ class App extends Component {
               <Route exact path={["/", "/home"]} component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
+              <Route exact path="/register_employee" component={RegisterEmployee} />
               <Route exact path="/profile" component={Profile} />
               <Route path="/user" component={BoardUser} />
               <Route path="/owner" component={BoardOwner} />

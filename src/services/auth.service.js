@@ -39,6 +39,23 @@ class AuthService {
       password,
     });
   }
+
+  registerEmployee(username, name, lastName, position, phone, street, streetNumber, buildingNumber, city, postcode, email, password) {
+    return axios.post(API_URL + "signup/employee", {
+      username,
+      name,
+      lastName,
+      position,
+      phone,
+      street,
+      streetNumber,
+      buildingNumber,
+      city,
+      postcode,
+      email,
+      password,
+    });
+  }
 }
 
 export default new AuthService();
