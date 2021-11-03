@@ -11,9 +11,8 @@ import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
-import BoardModerator from "./components/board-moderator.component";
+import BoardOwner from "./components/board-owner.component";
 import BoardAdmin from "./components/board-admin.component";
-
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -28,7 +27,7 @@ class App extends Component {
     this.logOut = this.logOut.bind(this);
 
     this.state = {
-      showModeratorBoard: false,
+      showOwnerBoard: false,
       showAdminBoard: false,
       currentUser: undefined,
     };
@@ -44,7 +43,7 @@ class App extends Component {
     if (user) {
       this.setState({
         currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
+        showOwnerBoard: user.roles.includes("ROLE_OWNER"),
         showAdminBoard: user.roles.includes("ROLE_ADMIN"),
       });
     }
@@ -61,14 +60,14 @@ class App extends Component {
   logOut() {
     this.props.dispatch(logout());
     this.setState({
-      showModeratorBoard: false,
+      showOwnerBoard: false,
       showAdminBoard: false,
       currentUser: undefined,
     });
   }
 
   render() {
-    const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
+    const { currentUser, showOwnerBoard, showAdminBoard } = this.state;
 
     return (
       <Router history={history}>
@@ -85,12 +84,12 @@ class App extends Component {
                     style={{ maxHeight: '100px' }}
                     navbarScroll
                 >
-                  {showModeratorBoard && (
+                  {showOwnerBoard && (
                   <Nav.Link>
 
                         <li className="nav-item">
-                          <Link to={"/mod"} className="nav-link">
-                            Moderator
+                          <Link to={"/owner"} className="nav-link">
+                            Właściciel
                           </Link>
                         </li>
                   </Nav.Link>
@@ -170,7 +169,7 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />
               <Route path="/user" component={BoardUser} />
-              <Route path="/mod" component={BoardModerator} />
+              <Route path="/owner" component={BoardOwner} />
               <Route path="/admin" component={BoardAdmin} />
             </Switch>
           </div>
