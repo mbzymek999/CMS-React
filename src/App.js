@@ -11,9 +11,9 @@ import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
-import BoardOwner from "./components/board-owner.component";
+import BoardCompany from "./components/board-company.component";
 import BoardAdmin from "./components/board-admin.component";
-import RegisterEmployee from "./components/owner/register-employee.component";
+import RegisterEmployee from "./components/company/register-employee.component";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -28,7 +28,7 @@ class App extends Component {
     this.logOut = this.logOut.bind(this);
 
     this.state = {
-      showOwnerBoard: false,
+      showCompanyBoard: false,
       showAdminBoard: false,
       currentUser: undefined,
     };
@@ -44,7 +44,7 @@ class App extends Component {
     if (user) {
       this.setState({
         currentUser: user,
-        showOwnerBoard: user.roles.includes("ROLE_OWNER"),
+        showCompanyBoard: user.roles.includes("ROLE_COMPANY"),
         showAdminBoard: user.roles.includes("ROLE_ADMIN"),
       });
     }
@@ -61,14 +61,14 @@ class App extends Component {
   logOut() {
     this.props.dispatch(logout());
     this.setState({
-      showOwnerBoard: false,
+      showCompanyBoard: false,
       showAdminBoard: false,
       currentUser: undefined,
     });
   }
 
   render() {
-    const { currentUser, showOwnerBoard, showAdminBoard } = this.state;
+    const { currentUser, showCompanyBoard, showAdminBoard } = this.state;
 
     return (
       <Router history={history}>
@@ -85,18 +85,18 @@ class App extends Component {
                     style={{ maxHeight: '100px' }}
                     navbarScroll
                 >
-                  {showOwnerBoard && (
+                  {showCompanyBoard && (
                   <Nav.Link>
 
                         <li className="nav-item">
-                          <Link to={"/owner"} className="nav-link">
-                            Właściciel
+                          <Link to={"/company"} className="nav-link">
+                            Firma
                           </Link>
                         </li>
                   </Nav.Link>
                   )}
 
-                  {showOwnerBoard && (
+                  {showCompanyBoard && (
                       <Nav.Link>
                         <li className="nav-item">
                           <Link to={"/register_employee"} className="nav-link">
@@ -175,7 +175,7 @@ class App extends Component {
               <Route exact path="/register_employee" component={RegisterEmployee} />
               <Route exact path="/profile" component={Profile} />
               <Route path="/user" component={BoardUser} />
-              <Route path="/owner" component={BoardOwner} />
+              <Route path="/company" component={BoardCompany} />
               <Route path="/admin" component={BoardAdmin} />
             </Switch>
           </div>

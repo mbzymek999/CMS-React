@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import UserService from "../services/user.service";
 import EventBus from "../common/EventBus";
 
-export default class BoardOwner extends Component {
+export default class BoardCompany extends Component {
   constructor(props) {
     super(props);
 
@@ -13,7 +13,7 @@ export default class BoardOwner extends Component {
   }
 
   componentDidMount() {
-    UserService.getOwnerBoard().then(
+    UserService.getComapnyBoard().then(
       response => {
         this.setState({
           content: response.data
