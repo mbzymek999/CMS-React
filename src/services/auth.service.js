@@ -20,7 +20,7 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
-  register(username, companyName, shortCompanyName, nip, regon, phone, street, streetNumber, buildingNumber, city, postcode, province, country, additionalFields, email, password) {
+  register(username, companyName, shortCompanyName, nip, regon, phone, street, streetNumber, buildingNumber, city, postcode, province, country, additionalFields, maxEmployees, email, password) {
     return axios.post(API_URL + "signup/company", {
       username,
       companyName,
@@ -36,12 +36,13 @@ class AuthService {
       province,
       country,
       additionalFields,
+      maxEmployees,
       email,
       password,
     });
   }
 
-  registerEmployee(username, name, lastName, position, phone, street, streetNumber, buildingNumber, city, postcode, email,assignedDate, password) {
+  registerEmployee(username, name, lastName, position, phone, street, streetNumber, buildingNumber, city, postcode, email, assignedDate, agreementType, dateFrom, dateTo, salary, password) {
     return axios.post(API_URL + "create/agreement", {
       username,
       name,
@@ -55,6 +56,10 @@ class AuthService {
       postcode,
       email,
       assignedDate,
+      agreementType,
+      dateFrom,
+      dateTo,
+      salary,
       password,
     }, { headers: authHeader() });
   }

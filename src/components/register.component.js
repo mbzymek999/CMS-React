@@ -83,6 +83,7 @@ class Register extends Component {
       province: "",
       country: "",
       additionalFields: "",
+      maxEmployees: 1,
       password: "",
       successful: false,
     };
@@ -172,6 +173,12 @@ class Register extends Component {
     });
   }
 
+  onChangeMaxEmployees(e) {
+    this.setState({
+      maxEmployees: e.target.value,
+    });
+  }
+
   onChangeEmail(e) {
     this.setState({
       email: e.target.value,
@@ -197,7 +204,7 @@ class Register extends Component {
       this.props
         .dispatch(
           register(this.state.username, this.state.companyName, this.state.shortCompanyName, this.state.nip, this.state.regon, this.state.phone, this.state.street, this.state.streetNumber,
-              this.state.buildingNumber, this.state.city, this.state.postcode, this.state.province, this.state.country, this.state.additionalFields, this.state.email, this.state.password)
+              this.state.buildingNumber, this.state.city, this.state.postcode, this.state.province, this.state.country, this.state.additionalFields, this.state.maxEmployees, this.state.email, this.state.password)
         )
         .then(() => {
           this.setState({
@@ -412,6 +419,17 @@ class Register extends Component {
                       value={this.state.additionalFields}
                       onChange={this.onChangeAdditionalFields}
                       />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="additionalFields">Maksymalna ilość pracowników</label>
+                  <Input
+                      type="number"
+                      className="form-control"
+                      name="maxEmployees"
+                      value={this.state.maxEmployees}
+                      onChange={this.onChangeMaxEmployees}
+                  />
                 </div>
 
                 <div className="form-group mt-2">
