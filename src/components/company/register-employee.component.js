@@ -87,7 +87,9 @@ class RegisterEmployee extends Component {
             successful: false,
             agreementType: "",
             assignedDate: new Date(),
-            salary: ""
+            dateFrom: new Date(),
+            dateTo: new Date(),
+            salary: 0
         };
     }
 
@@ -169,6 +171,30 @@ class RegisterEmployee extends Component {
         });
     }
 
+    onChangeAgreementType(e) {
+        this.setState({
+            agreementType: e.target.value,
+        });
+    }
+
+    onChangeDateFrom = date => {
+        this.setState({
+            dateFrom: date,
+        });
+    }
+
+    onChangeDateTo = date => {
+        this.setState({
+            dateTo: date,
+        });
+    }
+
+    onChangeSalary(e) {
+        this.setState({
+            salary: e.target.value,
+        });
+    }
+
     handleRegister(e) {
         e.preventDefault();
 
@@ -182,7 +208,7 @@ class RegisterEmployee extends Component {
             this.props
                 .dispatch(
                     registerEmployee(this.state.username, this.state.name, this.state.lastName, this.state.position, this.state.phone, this.state.street, this.state.streetNumber,
-                        this.state.buildingNumber, this.state.city, this.state.postcode, this.state.email, this.state.assignedDate, this.state.password)
+                        this.state.buildingNumber, this.state.city, this.state.postcode, this.state.email, this.state.assignedDate, this.state.agreementType, this.state.dateFrom, this.state.dateTo, this.state.salary, this.state.password)
                 )
                 .then(() => {
                     this.setState({
@@ -215,7 +241,7 @@ class RegisterEmployee extends Component {
                             <Container>
                                 <Row>
                                     <Col>
-                                        <label className="mb-1">Data podpisania</label>
+                                        <label className="mb-1">Data podpisania:</label>
                                         <DatePicker
                                             locale="pl"
                                             selected={this.state.assignedDate}
@@ -224,7 +250,53 @@ class RegisterEmployee extends Component {
                                             className="border bg-white border-secondary rounded text-center w-100 p-1"
                                         />
                                     </Col>
-                                    <Col></Col>
+                                    <Col>
+                                        <label className="mb-1" htmlFor="name">Typ umowy</label>
+                                        <Input
+                                            type="text"
+                                            className="form-control"
+                                            name="agreementType"
+                                            value={this.state.agreementType}
+                                            onChange={this.onChangeAgreementType.bind(this)}
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <label className="mb-1">Czas trwania od:</label>
+                                        <DatePicker
+                                            locale="pl"
+                                            selected={this.state.dateFrom}
+                                            onChange={this.onChangeDateFrom.bind(this)}
+                                            dateFormat="dd-MM-yyyy"
+                                            className="border bg-white border-secondary rounded text-center w-100 p-1"
+                                        />
+                                    </Col>
+                                    <Col>
+
+                                        <label className="mb-1">Czas trwania do:</label>
+                                        <DatePicker
+                                            locale="pl"
+                                            selected={this.state.dateTo}
+                                            onChange={this.onChangeDateTo.bind(this)}
+                                            dateFormat="dd-MM-yyyy"
+                                            className="border bg-white border-secondary rounded text-center w-100 p-1"
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <Col className="col-6">
+                                            <label className="mb-1" htmlFor="name">Wynagrodzenie</label>
+                                            <Input
+                                                type="number"
+                                                className="form-control"
+                                                name="salary"
+                                                value={this.state.salary}
+                                                onChange={this.onChangeSalary.bind(this)}
+                                            />
+                                        </Col>
+                                    </Col>
                                 </Row>
                             </Container>
                         </Tab>
