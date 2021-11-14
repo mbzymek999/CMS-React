@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
@@ -41,7 +42,7 @@ class AuthService {
   }
 
   registerEmployee(username, name, lastName, position, phone, street, streetNumber, buildingNumber, city, postcode, email,assignedDate, password) {
-    return axios.post("/create/agreement", {
+    return axios.post(API_URL + "create/agreement", {
       username,
       name,
       lastName,
@@ -53,9 +54,9 @@ class AuthService {
       city,
       postcode,
       email,
+      assignedDate,
       password,
-      assignedDate
-    });
+    }, { headers: authHeader() });
   }
 }
 
