@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Router, Switch, Route, Link } from "react-router-dom";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Container, Nav} from "react-bootstrap"
 import "./App.css";
@@ -100,7 +99,7 @@ class App extends Component {
                       <Nav.Link>
                         <li className="nav-item">
                           <Link to={"/register_employee"} className="nav-link">
-                            Dodaj pracownika do systemu
+                            Stwórz umowę
                           </Link>
                         </li>
                       </Nav.Link>

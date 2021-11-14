@@ -1,10 +1,18 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker, { registerLocale } from "react-datepicker";
+import pl from "date-fns/locale/pl"; // the locale you want
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 import { isEmail } from "validator";
 import { connect } from "react-redux";
 import { registerEmployee } from "../../actions/auth";
+import {Badge, Col, Container, Row} from "react-bootstrap";
+registerLocale("pl", pl); // register it with the name you want
+
 
 const required = (value) => {
     if (!value) {
@@ -77,6 +85,9 @@ class RegisterEmployee extends Component {
             postcode: "",
             password: "",
             successful: false,
+            agreementType: "",
+            assignedDate: new Date(),
+            salary: ""
         };
     }
 
@@ -152,6 +163,12 @@ class RegisterEmployee extends Component {
         });
     }
 
+    onChangeAssignedDate = date => {
+        this.setState({
+            assignedDate: date,
+        });
+    }
+
     handleRegister(e) {
         e.preventDefault();
 
@@ -165,7 +182,7 @@ class RegisterEmployee extends Component {
             this.props
                 .dispatch(
                     registerEmployee(this.state.username, this.state.name, this.state.lastName, this.state.position, this.state.phone, this.state.street, this.state.streetNumber,
-                        this.state.buildingNumber, this.state.city, this.state.postcode, this.state.email, this.state.password)
+                        this.state.buildingNumber, this.state.city, this.state.postcode, this.state.email, this.state.assignedDate, this.state.password)
                 )
                 .then(() => {
                     this.setState({
@@ -182,16 +199,10 @@ class RegisterEmployee extends Component {
 
     render() {
         const { message } = this.props;
-
         return (
-            <div className="col-md-12">
-                <div className="card card-container">
-                    <img
-                        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                        alt="profile-img"
-                        className="profile-img-card"
-                    />
-
+            <div>
+                <div className="card bg-light col-8">
+                    <h3 className="text-center bg-primary"><Badge>Tworzenie umowy dla pracownika</Badge></h3>
                     <Form
                         onSubmit={this.handleRegister}
                         ref={(c) => {
@@ -199,188 +210,208 @@ class RegisterEmployee extends Component {
                         }}
                     >
                         {!this.state.successful && (
+                    <Tabs defaultActiveKey="first" className="mb-3">
+                        <Tab className="mb-3" eventKey="first" title="Szczegóły umowy">
+                            <Container>
+                                <Row>
+                                    <Col>
+                                        <label className="mb-1">Data podpisania</label>
+                                        <DatePicker
+                                            locale="pl"
+                                            selected={this.state.assignedDate}
+                                            onChange={this.onChangeAssignedDate.bind(this)}
+                                            dateFormat="dd-MM-yyyy"
+                                            className="border bg-white border-secondary rounded text-center w-100 p-1"
+                                        />
+                                    </Col>
+                                    <Col></Col>
+                                </Row>
+                            </Container>
+                        </Tab>
+                        <Tab eventKey="second" title="Dane pracownika">
                             <div>
-                                <div className="form-group">
-                                    <label htmlFor="username">Nazwa użytkownika</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="username"
-                                        value={this.state.username}
-                                        onChange={this.onChangeUsername}
-                                        validations={[required, vusername]}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="email">Email</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="email"
-                                        value={this.state.email}
-                                        onChange={this.onChangeEmail}
-                                        validations={[required, email]}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="password">Hasło</label>
-                                    <Input
-                                        type="password"
-                                        className="form-control"
-                                        name="password"
-                                        value={this.state.password}
-                                        onChange={this.onChangePassword}
-                                        validations={[required, vpassword]}
-                                    />
-                                </div>
-                                <hr/>
-                                <h4>Dane pracownika</h4>
-
-                                <div className="form-group">
-                                    <label htmlFor="name">Imię</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="name"
-                                        value={this.state.name}
-                                        onChange={this.onChangeName}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="lastName">Nazwisko</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="lastName"
-                                        value={this.state.lastName}
-                                        onChange={this.onChangeLastName}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="position">Stanowisko w firmie</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="position"
-                                        value={this.state.position}
-                                        onChange={this.onChangePosition}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="nip">Telefon</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="phone"
-                                        value={this.state.phone}
-                                        onChange={this.onChangePhone}
-                                    />
-                                </div>
-                                <hr/>
-                                <h4 className="mt-2">Adres</h4>
-
-                                <div className="form-group">
-                                    <label htmlFor="street">Ulica</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="street"
-                                        value={this.state.street}
-                                        onChange={this.onChangeStreet}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="streetNumber">nr Ulicy</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="streetNumber"
-                                        value={this.state.streetNumber}
-                                        onChange={this.onChangeStreetNumber}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="buildingNumber">nr mieszkania</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="buildingNumber"
-                                        value={this.state.buildingNumber}
-                                        onChange={this.onChangeBuildingNumber}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="city">Miasto</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="city"
-                                        value={this.state.city}
-                                        onChange={this.onChangeCity}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="postcode">Kod pocztowy</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="postcode"
-                                        value={this.state.postcode}
-                                        onChange={this.onChangePostcode}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="province">Województwo</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="province"
-                                        value={this.state.province}
-                                        onChange={this.onChangeProvince}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="country">Kraj</label>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="country"
-                                        value={this.state.country}
-                                        onChange={this.onChangeCountry}
-                                    />
-                                </div>
-
-                                <div className="form-group mt-2">
-                                    <button className="btn btn-primary btn-block">Dodaj pracownika do systemu</button>
-                                </div>
+                                <Container>
+                                    <Row>
+                                        <Col>
+                                            <div className="form-group">
+                                                <label htmlFor="name">Imię</label>
+                                                <Input
+                                                    type="text"
+                                                    className="form-control"
+                                                    name="name"
+                                                    value={this.state.name}
+                                                    onChange={this.onChangeName}
+                                                />
+                                            </div>
+                                        </Col>
+                                        <Col>
+                                            <div className="form-group">
+                                                <label htmlFor="lastName">Nazwisko</label>
+                                                <Input
+                                                    type="text"
+                                                    className="form-control"
+                                                    name="lastName"
+                                                    value={this.state.lastName}
+                                                    onChange={this.onChangeLastName}
+                                                />
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <div className="form-group">
+                                                <label htmlFor="position">Stanowisko w firmie</label>
+                                                <Input
+                                                    type="text"
+                                                    className="form-control"
+                                                    name="position"
+                                                    value={this.state.position}
+                                                    onChange={this.onChangePosition}
+                                                />
+                                            </div>
+                                        </Col>
+                                        <Col>
+                                            <div className="form-group">
+                                                <label htmlFor="nip">Telefon</label>
+                                                <Input
+                                                    type="text"
+                                                    className="form-control"
+                                                    name="phone"
+                                                    value={this.state.phone}
+                                                    onChange={this.onChangePhone}
+                                                />
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <div className="form-group">
+                                                <label htmlFor="street">Ulica</label>
+                                                <Input
+                                                    type="text"
+                                                    className="form-control"
+                                                    name="street"
+                                                    value={this.state.street}
+                                                    onChange={this.onChangeStreet}
+                                                />
+                                            </div>
+                                        </Col>
+                                        <Col>
+                                            <div className="form-group">
+                                                <label htmlFor="streetNumber">nr Ulicy</label>
+                                                <Input
+                                                    type="text"
+                                                    className="form-control"
+                                                    name="streetNumber"
+                                                    value={this.state.streetNumber}
+                                                    onChange={this.onChangeStreetNumber}
+                                                />
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <div className="form-group">
+                                                <label htmlFor="buildingNumber">nr mieszkania</label>
+                                                <Input
+                                                    type="text"
+                                                    className="form-control"
+                                                    name="buildingNumber"
+                                                    value={this.state.buildingNumber}
+                                                    onChange={this.onChangeBuildingNumber}
+                                                />
+                                            </div>
+                                        </Col>
+                                        <Col>
+                                            <div className="form-group">
+                                                <label htmlFor="city">Miasto</label>
+                                                <Input
+                                                    type="text"
+                                                    className="form-control"
+                                                    name="city"
+                                                    value={this.state.city}
+                                                    onChange={this.onChangeCity}
+                                                />
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col className="col-6">
+                                            <div className="form-group">
+                                                <label htmlFor="postcode">Kod pocztowy</label>
+                                                <Input
+                                                    type="text"
+                                                    className="form-control"
+                                                    name="postcode"
+                                                    value={this.state.postcode}
+                                                    onChange={this.onChangePostcode}
+                                                />
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </Container>
                             </div>
-                        )}
+                        </Tab>
+                        <Tab eventKey="third" title="Dane logowania">
+                                    <div>
+                                        <div className="form-group">
+                                            <label htmlFor="username">Nazwa użytkownika</label>
+                                            <Input
+                                                type="text"
+                                                className="form-control"
+                                                name="username"
+                                                value={this.state.username}
+                                                onChange={this.onChangeUsername}
+                                                validations={[required, vusername]}
+                                            />
+                                        </div>
 
-                        {message && (
-                            <div className="form-group">
-                                <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">
-                                    {message}
-                                </div>
+                                        <div className="form-group">
+                                            <label htmlFor="email">Email</label>
+                                            <Input
+                                                type="text"
+                                                className="form-control"
+                                                name="email"
+                                                value={this.state.email}
+                                                onChange={this.onChangeEmail}
+                                                validations={[required, email]}
+                                            />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label htmlFor="password">Hasło</label>
+                                            <Input
+                                                type="password"
+                                                className="form-control"
+                                                name="password"
+                                                value={this.state.password}
+                                                onChange={this.onChangePassword}
+                                                validations={[required, vpassword]}
+                                            />
+                                        </div>
+
+                                        <div className="form-group mt-2">
+                                            <button className="btn btn-primary btn-block">Dodaj pracownika do systemu</button>
+                                        </div>
+                                    </div>
+                        </Tab>
+                    </Tabs>
+                    )}
+
+                    {message && (
+                        <div className="form-group">
+                            <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">
+                                {message}
                             </div>
-                        )}
-                        <CheckButton
-                            style={{ display: "none" }}
-                            ref={(c) => {
-                                this.checkBtn = c;
-                            }}
-                        />
-                    </Form>
+                        </div>
+                    )}
+                    <CheckButton
+                        style={{ display: "none" }}
+                        ref={(c) => {
+                            this.checkBtn = c;
+                        }}
+                    />
+                </Form>
                 </div>
             </div>
         );

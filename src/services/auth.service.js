@@ -20,7 +20,7 @@ class AuthService {
   }
 
   register(username, companyName, shortCompanyName, nip, regon, phone, street, streetNumber, buildingNumber, city, postcode, province, country, additionalFields, email, password) {
-    return axios.post(API_URL + "signup", {
+    return axios.post(API_URL + "signup/company", {
       username,
       companyName,
       shortCompanyName,
@@ -40,8 +40,8 @@ class AuthService {
     });
   }
 
-  registerEmployee(username, name, lastName, position, phone, street, streetNumber, buildingNumber, city, postcode, email, password) {
-    return axios.post(API_URL + "signup/employee", {
+  registerEmployee(username, name, lastName, position, phone, street, streetNumber, buildingNumber, city, postcode, email,assignedDate, password) {
+    return axios.post("/create/agreement", {
       username,
       name,
       lastName,
@@ -54,6 +54,7 @@ class AuthService {
       postcode,
       email,
       password,
+      assignedDate
     });
   }
 }

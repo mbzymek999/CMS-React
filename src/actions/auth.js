@@ -45,8 +45,8 @@ export const register = (username, companyName, shortCompanyName, nip, regon, ph
   );
 };
 
-export const registerEmployee = (username, name, lastName, position, phone, street, streetNumber, buildingNumber, city, postcode, email, password) => (dispatch) => {
-  return AuthService.registerEmployee(username, name, lastName, position, phone, street, streetNumber, buildingNumber, city, postcode, email, password).then(
+export const registerEmployee = (username, name, lastName, position, phone, street, streetNumber, buildingNumber, city, postcode, email, assignedDate, password) => (dispatch) => {
+  return AuthService.registerEmployee(username, name, lastName, position, phone, street, streetNumber, buildingNumber, city, postcode, email, assignedDate, password).then(
       (response) => {
         dispatch({
           type: REGISTER_SUCCESS,

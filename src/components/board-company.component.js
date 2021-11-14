@@ -13,7 +13,7 @@ export default class BoardCompany extends Component {
   }
 
   componentDidMount() {
-    UserService.getComapnyBoard().then(
+    UserService.getCompanyBoard().then(
       response => {
         this.setState({
           content: response.data
