@@ -13,6 +13,7 @@ import BoardUser from "./components/board-user.component";
 import BoardCompany from "./components/board-company.component";
 import BoardAdmin from "./components/board-admin.component";
 import RegisterEmployee from "./components/company/register-employee.component";
+import AllPaymentsComponent from "./components/admin/all-payments.component";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -118,6 +119,16 @@ class App extends Component {
                   {showAdminBoard && (
                       <Nav.Link>
                         <li className="nav-item">
+                          <Link to={"/all_payments"} className="nav-link">
+                            Wszystkie płatności
+                          </Link>
+                        </li>
+                      </Nav.Link>
+                  )}
+
+                  {showAdminBoard && (
+                      <Nav.Link>
+                        <li className="nav-item">
                           <Link to={"/register"} className="nav-link">
                             Zarejestruj firmę
                           </Link>
@@ -176,6 +187,7 @@ class App extends Component {
               <Route path="/user" component={BoardUser} />
               <Route path="/company" component={BoardCompany} />
               <Route path="/admin" component={BoardAdmin} />
+              <Route path="/all_payments" component={AllPaymentsComponent} />
             </Switch>
           </div>
 
