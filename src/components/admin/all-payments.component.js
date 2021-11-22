@@ -30,6 +30,13 @@ export default function AllPaymentsController() {
         );
     }, []);
 
+    // const doPayment = () => {
+    //     axios.post("http://localhost:8080/checkout?idPayment=1", { headers: authHeader() })
+    //         .then(res => {
+    //             if(res.data != null) {
+    //             }
+    //         })
+    // }
 
     // const totalItems = content.length
 
@@ -64,12 +71,21 @@ export default function AllPaymentsController() {
                                <td>{item.price} zł</td>
                                <td>{item.paymentDone ? "Tak" : "Nie"}</td>
                                <td>{item.companyName}</td>
+                               <td></td>
                            </tr> :
                            <tr className="bg-danger">
                                <td>{item.paymentId}</td>
                                <td>{item.price} zł</td>
                                <td>{item.paymentDone ? "Tak" : "Nie"}</td>
                                <td>{item.companyName}</td>
+                               <td>
+                                   <form
+                                       method="post"
+                                       action={`http://localhost:8080/checkout?idPayment=${item.paymentId}`}
+                                   >
+                                       <button type="submit">Add</button>
+                                   </form>
+                               </td>
                            </tr>}
                        </>
                     )}
@@ -77,6 +93,5 @@ export default function AllPaymentsController() {
                 </table>
             </div>
         </div>
-
     );
 }
