@@ -47,21 +47,31 @@ export default function AllPaymentsController() {
         <div className="pt-2 d-flex justify-content-center">
             <div className="border w-75 p-3">
                 <label className="font" style={{ fontWeight: "bold" }}>Lista płatności</label><br />
-                <table class="table table-striped">
+                <table class="table">
                     <thead>
-                    <tr>
-                        <th scope="col">Id płatności</th>
-                        <th scope="col">Cena</th>
-                        <th scope="col">Płatność opłacona</th>
-                    </tr>
+                        <tr>
+                            <th scope="col">Id płatności</th>
+                            <th scope="col">Cena</th>
+                            <th scope="col">Płatność opłacona</th>
+                            <th scope="col">Nazwa firmy</th>
+                        </tr>
                     </thead>
                     <tbody>
                     {content.map((item) =>
-                        <tr>
-                            <td>{item.paymentId}</td>
-                            <td>{item.price}</td>
-                            <td>{item.paymentDone}</td>
-                        </tr>
+                       <>{item.paymentDone ?
+                           <tr className="bg-success">
+                               <td>{item.paymentId}</td>
+                               <td>{item.price} zł</td>
+                               <td>{item.paymentDone ? "Tak" : "Nie"}</td>
+                               <td>{item.companyName}</td>
+                           </tr> :
+                           <tr className="bg-danger">
+                               <td>{item.paymentId}</td>
+                               <td>{item.price} zł</td>
+                               <td>{item.paymentDone ? "Tak" : "Nie"}</td>
+                               <td>{item.companyName}</td>
+                           </tr>}
+                       </>
                     )}
                     </tbody>
                 </table>
