@@ -131,7 +131,7 @@ class App extends Component {
                       <Nav.Link>
                         <li className="nav-item">
                           <Link to={"/all_payments"} className="nav-link">
-                            Wszystkie płatności
+                            Płatności
                           </Link>
                         </li>
                       </Nav.Link>
