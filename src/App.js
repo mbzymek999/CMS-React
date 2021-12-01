@@ -13,8 +13,9 @@ import BoardUser from "./components/board-user.component";
 import BoardCompany from "./components/board-company.component";
 import BoardAdmin from "./components/board-admin.component";
 import RegisterEmployee from "./components/company/register-employee.component";
-import AllPaymentsComponent from "./components/admin/all-payments.component";
+import AllPaymentsComponent from "./components/admin/payment/all-payments.component";
 import CompanyPaymentsController from "./components/company/payments-component";
+import DisplayCompaniesController from "./components/admin/company/display-companies.component";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -147,15 +148,25 @@ class App extends Component {
                       </Nav.Link>
                   )}
 
-                  {currentUser && (
-                  <Nav.Link>
+                  {showAdminBoard && (
+                      <Nav.Link>
                         <li className="nav-item">
-                          <Link to={"/user"} className="nav-link">
-                            User
+                          <Link to={"/companies"} className="nav-link">
+                            Wszystkie firmy
                           </Link>
                         </li>
-                  </Nav.Link>
+                      </Nav.Link>
                   )}
+
+                  {/*{currentUser && (*/}
+                  {/*<Nav.Link>*/}
+                  {/*      <li className="nav-item">*/}
+                  {/*        <Link to={"/user"} className="nav-link">*/}
+                  {/*          User*/}
+                  {/*        </Link>*/}
+                  {/*      </li>*/}
+                  {/*</Nav.Link>*/}
+                  {/*)}*/}
                 </Nav>
                 <Nav>
                   <Nav.Link>
@@ -200,6 +211,7 @@ class App extends Component {
               <Route path="/admin" component={BoardAdmin} />
               <Route path="/all_payments" component={AllPaymentsComponent} />
               <Route path="/company_payments" component={CompanyPaymentsController} />
+              <Route path="/companies" component={DisplayCompaniesController} />
             </Switch>
           </div>
 

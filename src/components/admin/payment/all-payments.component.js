@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import EventBus from "../../common/EventBus";
-import authHeader from "../../services/auth-header";
+import EventBus from "../../../common/EventBus";
+import authHeader from "../../../services/auth-header";
 import {Button, Col, Container, Modal, Row} from "react-bootstrap";
 
 export default function AllPaymentsController() {
@@ -63,6 +63,7 @@ export default function AllPaymentsController() {
                     if (response.data != null) {
                         setShow(true);
                         setTimeout(() => setShow(false), 3000);
+                        window.location.reload(false);
                     } else {
                         setShow(false);
                     }
@@ -104,7 +105,7 @@ export default function AllPaymentsController() {
                                                 <td>{item.id}</td>
                                                 <td>{item.companyName}</td>
                                                 <td>
-                                                    <Button className="btn btn-primary" size="sm" onClick={() => createPayment(item.id)}>Dodaj płatność</Button>
+                                                    <Button className="btn btn-primary float-end" size="sm" onClick={() => createPayment(item.id)}>Dodaj płatność</Button>
                                                 </td>
                                             </tr>
                                         )}
