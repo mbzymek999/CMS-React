@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EventBus from "../../../src/common/EventBus";
 import authHeader from "../../services/auth-header";
-import {Button, Col, Container, Row} from "react-bootstrap";
+import {Button, Col, Container, Row, Table} from "react-bootstrap";
 
 export default function CompanyPaymentsController() {
     const [content, setContent] = useState([]);
@@ -32,10 +32,10 @@ export default function CompanyPaymentsController() {
 
     return (
 
-        <Container className={"mt-5"}>
-            <Row className={"border"}>
+        <Container className={"mt-5 "}>
+            <Row>
                 <Col>
-                    <table className="table">
+                    <Table striped bordered hover className={"bg-light"}>
                         <thead>
                         <tr>
                             <th scope="col">Płatność opłacona</th>
@@ -78,7 +78,7 @@ export default function CompanyPaymentsController() {
                             </>
                         )}
                         </tbody>
-                    </table>
+                    </Table>
                 </Col>
             </Row>
         </Container>

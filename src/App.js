@@ -16,6 +16,7 @@ import RegisterEmployee from "./components/company/register-employee.component";
 import AllPaymentsComponent from "./components/admin/payment/all-payments.component";
 import CompanyPaymentsController from "./components/company/payments-component";
 import DisplayCompaniesController from "./components/admin/company/display-companies.component";
+import TasksController from "./components/company/tasks.component";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -118,6 +119,16 @@ class App extends Component {
                       </Nav.Link>
                   )}
 
+                  {showCompanyBoard && (
+                      <Nav.Link>
+                        <li className="nav-item">
+                          <Link to={"/company_tasks"} className="nav-link">
+                            Zadania
+                          </Link>
+                        </li>
+                      </Nav.Link>
+                  )}
+
                   {showAdminBoard && (
                   <Nav.Link>
                         <li className="nav-item">
@@ -212,6 +223,7 @@ class App extends Component {
               <Route path="/all_payments" component={AllPaymentsComponent} />
               <Route path="/company_payments" component={CompanyPaymentsController} />
               <Route path="/companies" component={DisplayCompaniesController} />
+              <Route path="/company_tasks" component={TasksController} />
             </Switch>
           </div>
 
