@@ -3,6 +3,7 @@ import axios from "axios";
 import authHeader from "../../../services/auth-header";
 import EventBus from "../../../common/EventBus";
 import {Alert, Col, Container, Row} from "react-bootstrap";
+import DatePicker from "react-datepicker";
 
 export default function CreateTaskController() {
     const [content, setContent] = useState([]);
@@ -33,7 +34,8 @@ export default function CreateTaskController() {
     const initialValues = {
         name: "",
         description: "",
-        type: ""
+        type: "",
+        dateTo: new Date(),
     };
 
     const [values, setValues] = useState({
@@ -46,6 +48,10 @@ export default function CreateTaskController() {
     const handleSetInputs = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
+
+    const onChangeDateTo = date => {
+        setValues({ ...values, dateTo: date });
+    }
 
 
     let submitTask = (event) => {
@@ -72,12 +78,11 @@ export default function CreateTaskController() {
                     <div className="card bg-light col-8">
                         <h3 className="text-center">Stwórz nowe zadanie</h3>
                         {show ? <Alert message="Success! You added your item!" /> : null}
-                        <label htmlFor="formGroupExampleInput">Add task</label>
                         <form onSubmit={submitTask}>
                             <div className="row">
                                 <div className="col">
-                                    <div className="form-outline">
-                                        <input
+                                <label className="mb-1">Nazwa zadania</label>
+                                    <input
                                             type="text"
                                             name="name"
                                             value={values.name}
@@ -85,10 +90,9 @@ export default function CreateTaskController() {
                                             placeholder="name"
                                             className="form-control"
                                         />
-                                    </div>
                                 </div>
                                 <div className="col">
-                                    <div className="form-outline">
+                                    <label className="mb-1">Opis</label>
                                         <input
                                             type="text"
                                             value={values.description}
@@ -97,10 +101,11 @@ export default function CreateTaskController() {
                                             placeholder="description"
                                             className="form-control"
                                         />
-                                    </div>
                                 </div>
-                                <div className="col">
-                                    <div className="form-outline">
+                            </div>
+                            <Row className={"mt-2"}>
+                                <Col>
+                                    <label className="mb-1">Typ zadania</label>
                                         <input
                                             type="text"
                                             value={values.type}
@@ -109,9 +114,18 @@ export default function CreateTaskController() {
                                             placeholder="type"
                                             className="form-control"
                                         />
-                                    </div>
-                                </div>
-                            </div>
+                                </Col>
+                                <Col>
+                                    <label className="mb-1">Czas trwania do</label>
+                                    <DatePicker
+                                        locale="pl"
+                                        selected={values.dateTo}
+                                        onChange={onChangeDateTo}
+                                        dateFormat="dd-MM-yyyy"
+                                        className="border bg-white border-secondary rounded text-center w-100 p-1"
+                                    />
+                                </Col>
+                            </Row>
                             <br/>
                             <div className="d-flex justify-content-end">
                                 <button
@@ -120,7 +134,7 @@ export default function CreateTaskController() {
                                     onSubmit={submitTask}
                                     className="btn btn-primary"
                                 >
-                                    Add
+                                    Zapisz
                                 </button>
                                 {' '}
                             </div>
