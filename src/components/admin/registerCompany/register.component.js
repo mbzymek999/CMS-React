@@ -4,7 +4,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import { connect } from "react-redux";
-import { register } from "../actions/auth";
+import { register } from "../../../actions/auth";
 import {Badge, Col, Container, Row} from "react-bootstrap";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";

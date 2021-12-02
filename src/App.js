@@ -6,7 +6,7 @@ import { Navbar, Container, Nav} from "react-bootstrap"
 import "./App.css";
 
 import Login from "./components/login.component";
-import Register from "./components/register.component";
+import Register from "./components/admin/registerCompany/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
@@ -16,7 +16,8 @@ import RegisterEmployee from "./components/company/register-employee.component";
 import AllPaymentsComponent from "./components/admin/payment/all-payments.component";
 import CompanyPaymentsController from "./components/company/payments-component";
 import DisplayCompaniesController from "./components/admin/company/display-companies.component";
-import TasksController from "./components/company/tasks.component";
+import TasksController from "./components/company/task/tasks.component";
+import CreateTaskController from "./components/company/task/create-task.component";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -224,6 +225,7 @@ class App extends Component {
               <Route path="/company_payments" component={CompanyPaymentsController} />
               <Route path="/companies" component={DisplayCompaniesController} />
               <Route path="/company_tasks" component={TasksController} />
+              <Route path="/create_task" component={CreateTaskController} />
             </Switch>
           </div>
 

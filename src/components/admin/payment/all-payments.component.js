@@ -57,7 +57,6 @@ export default function AllPaymentsController() {
     }, []);
 
         const createPayment = (companyId) => {
-
             axios.post("http://localhost:8080/api/payment?companyId="+ (companyId), {}, { headers: authHeader() })
                 .then((response) => {
                     if (response.data != null) {

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import EventBus from "../../common/EventBus";
-import authHeader from "../../services/auth-header";
-import {Col, Container, Modal, Row, Table} from "react-bootstrap";
+import EventBus from "../../../common/EventBus";
+import authHeader from "../../../services/auth-header";
+import {Button, Col, Container, Modal, Row, Table} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 export default function TasksController() {
     const [task, setTasks] = useState([]);
@@ -34,6 +35,11 @@ export default function TasksController() {
         <Container className={"mt-5"}>
             <Row>
                 <Col>
+                    <Link to="/create_task">
+                        <Button className="btn btn-primary float-end" size="sm">
+                            Dodaj nowe zadanie
+                        </Button>
+                    </Link>
                     <Table striped bordered hover className={"bg-light"}>
                         <thead>
                         <tr>
