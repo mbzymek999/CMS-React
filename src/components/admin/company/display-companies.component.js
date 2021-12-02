@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
-import {Button, Col, Container, Modal, Row, Table} from "react-bootstrap";
+import { Col, Container, Row, Table} from "react-bootstrap";
 
 export default function DisplayCompaniesController() {
     const [company, setCompany] = useState([]);

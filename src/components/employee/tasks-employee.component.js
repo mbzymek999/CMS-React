@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import EventBus from "../../../common/EventBus";
-import authHeader from "../../../services/auth-header";
-import {Button, Col, Container, Row, Table} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import EventBus from "../../common/EventBus";
+import authHeader from "../../services/auth-header";
+import { Col, Container, Row, Table} from "react-bootstrap";
 
-export default function TasksController() {
+export default function TasksEmployeeController() {
     const [task, setTasks] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/company/tasks", { headers: authHeader() }).then(
+        axios.get("http://localhost:8080/employee/tasks", { headers: authHeader() }).then(
             (response) => {
                 setTasks(response.data);
             },
@@ -35,11 +34,6 @@ export default function TasksController() {
         <Container className={"mt-5"}>
             <Row>
                 <Col>
-                    <Link to="/create_task">
-                        <Button className="btn btn-primary float-end" size="sm">
-                            Dodaj nowe zadanie
-                        </Button>
-                    </Link>
                     <Table striped bordered hover className={"bg-light"}>
                         <thead>
                         <tr>
@@ -48,7 +42,7 @@ export default function TasksController() {
                             <th scope="col">Utworzono</th>
                             <th scope="col">Opis</th>
                             <th scope="col">Termin zadania</th>
-                            <th scope="col">Pracownik</th>
+                            <th scope="col">Zaakceptowano</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -59,7 +53,7 @@ export default function TasksController() {
                                 <td>{item.createdDate}</td>
                                 <td>{item.description}</td>
                                 <td>{item.dateTo}</td>
-                                <td>{item.employeeName}</td>
+                                <td>{item.accepted ? 'Tak' : 'Nie'}</td>
                             </tr>
                         )}
                         </tbody>

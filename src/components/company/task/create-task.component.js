@@ -6,7 +6,6 @@ import {Alert, Col, Container, Row} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
 export default function CreateTaskController() {
-    const [content, setContent] = useState([]);
     const [employee, setEmployee] = useState([]);
 
     useEffect(() => {
@@ -87,7 +86,6 @@ export default function CreateTaskController() {
                                             name="name"
                                             value={values.name}
                                             onChange={handleSetInputs}
-                                            placeholder="name"
                                             className="form-control"
                                         />
                                 </div>
@@ -98,7 +96,6 @@ export default function CreateTaskController() {
                                             value={values.description}
                                             name="description"
                                             onChange={handleSetInputs}
-                                            placeholder="description"
                                             className="form-control"
                                         />
                                 </div>
@@ -111,7 +108,6 @@ export default function CreateTaskController() {
                                             value={values.type}
                                             name="type"
                                             onChange={handleSetInputs}
-                                            placeholder="type"
                                             className="form-control"
                                         />
                                 </Col>

@@ -18,6 +18,7 @@ import CompanyPaymentsController from "./components/company/payments-component";
 import DisplayCompaniesController from "./components/admin/company/display-companies.component";
 import TasksController from "./components/company/task/tasks.component";
 import CreateTaskController from "./components/company/task/create-task.component";
+import TasksEmployeeController from "./components/employee/tasks-employee.component";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -34,6 +35,7 @@ class App extends Component {
     this.state = {
       showCompanyBoard: false,
       showAdminBoard: false,
+      showEmployeeBoard: false,
       currentUser: undefined,
     };
 
@@ -50,6 +52,7 @@ class App extends Component {
         currentUser: user,
         showCompanyBoard: user.roles.includes("ROLE_COMPANY"),
         showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        showEmployeeBoard: user.roles.includes("ROLE_EMPLOYEE"),
       });
     }
 
@@ -67,12 +70,13 @@ class App extends Component {
     this.setState({
       showCompanyBoard: false,
       showAdminBoard: false,
+      showEmployeeBoard: false,
       currentUser: undefined,
     });
   }
 
   render() {
-    const { currentUser, showCompanyBoard, showAdminBoard } = this.state;
+    const { currentUser, showCompanyBoard, showAdminBoard, showEmployeeBoard } = this.state;
 
     return (
       <Router history={history}>
@@ -89,16 +93,16 @@ class App extends Component {
                     style={{ maxHeight: '100px' }}
                     navbarScroll
                 >
-                  {showCompanyBoard && (
-                  <Nav.Link>
+                  {/*{showCompanyBoard && (*/}
+                  {/*<Nav.Link>*/}
 
-                        <li className="nav-item">
-                          <Link to={"/company"} className="nav-link">
-                            Firma
-                          </Link>
-                        </li>
-                  </Nav.Link>
-                  )}
+                  {/*      <li className="nav-item">*/}
+                  {/*        <Link to={"/company"} className="nav-link">*/}
+                  {/*          Firma*/}
+                  {/*        </Link>*/}
+                  {/*      </li>*/}
+                  {/*</Nav.Link>*/}
+                  {/*)}*/}
 
                   {showCompanyBoard && (
                       <Nav.Link>
@@ -170,6 +174,16 @@ class App extends Component {
                       </Nav.Link>
                   )}
 
+                  {showEmployeeBoard && (
+                      <Nav.Link>
+                        <li className="nav-item">
+                          <Link to={"/tasks_employee"} className="nav-link">
+                            Zadania
+                          </Link>
+                        </li>
+                      </Nav.Link>
+                  )}
+
                   {/*{currentUser && (*/}
                   {/*<Nav.Link>*/}
                   {/*      <li className="nav-item">*/}
@@ -184,11 +198,11 @@ class App extends Component {
                   <Nav.Link>
                     {currentUser ? (
                         <div className="navbar-nav ml-auto">
-                          <li className="nav-item">
-                            <Link to={"/profile"} className="nav-link">
-                              {currentUser.username}
-                            </Link>
-                          </li>
+                          {/*<li className="nav-item">*/}
+                          {/*  <Link to={"/profile"} className="nav-link">*/}
+                          {/*    {currentUser.username}*/}
+                          {/*  </Link>*/}
+                          {/*</li>*/}
                           <li className="nav-item">
                             <a href="/login" className="nav-link" onClick={this.logOut}>
                               Wyloguj
@@ -226,6 +240,7 @@ class App extends Component {
               <Route path="/companies" component={DisplayCompaniesController} />
               <Route path="/company_tasks" component={TasksController} />
               <Route path="/create_task" component={CreateTaskController} />
+              <Route path="/tasks_employee" component={TasksEmployeeController} />
             </Switch>
           </div>
 
