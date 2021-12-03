@@ -18,7 +18,9 @@ import CompanyPaymentsController from "./components/company/payments-component";
 import DisplayCompaniesController from "./components/admin/company/display-companies.component";
 import TasksController from "./components/company/task/tasks.component";
 import CreateTaskController from "./components/company/task/create-task.component";
-import TasksEmployeeController from "./components/employee/tasks-employee.component";
+import TasksEmployeeNotAccepted from "./components/employee/task/tasks-employee_not_accepted.component";
+import TasksEmployeeInProgress from "./components/employee/task/tasks-employee-in-progress.component";
+import TasksEmployeeDone from "./components/employee/task/tasks-employee-done.component";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -177,8 +179,28 @@ class App extends Component {
                   {showEmployeeBoard && (
                       <Nav.Link>
                         <li className="nav-item">
-                          <Link to={"/tasks_employee"} className="nav-link">
-                            Zadania
+                          <Link to={"/tasks_employee_not_accepted"} className="nav-link">
+                            Przydzielone zadania
+                          </Link>
+                        </li>
+                      </Nav.Link>
+                  )}
+
+                  {showEmployeeBoard && (
+                      <Nav.Link>
+                        <li className="nav-item">
+                          <Link to={"/tasks_employee_in_progress"} className="nav-link">
+                            Aktualne Zadania
+                          </Link>
+                        </li>
+                      </Nav.Link>
+                  )}
+
+                  {showEmployeeBoard && (
+                      <Nav.Link>
+                        <li className="nav-item">
+                          <Link to={"/tasks_employee_done"} className="nav-link">
+                            Wykonane Zadania
                           </Link>
                         </li>
                       </Nav.Link>
@@ -240,7 +262,9 @@ class App extends Component {
               <Route path="/companies" component={DisplayCompaniesController} />
               <Route path="/company_tasks" component={TasksController} />
               <Route path="/create_task" component={CreateTaskController} />
-              <Route path="/tasks_employee" component={TasksEmployeeController} />
+              <Route path="/tasks_employee_not_accepted" component={TasksEmployeeNotAccepted} />
+              <Route path="/tasks_employee_in_progress" component={TasksEmployeeInProgress} />
+              <Route path="/tasks_employee_done" component={TasksEmployeeDone} />
             </Switch>
           </div>
 

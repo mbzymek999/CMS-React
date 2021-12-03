@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import EventBus from "../../common/EventBus";
-import authHeader from "../../services/auth-header";
+import EventBus from "../../../common/EventBus";
+import authHeader from "../../../services/auth-header";
 import { Col, Container, Row, Table} from "react-bootstrap";
 
-export default function TasksEmployeeController() {
+export default function TasksEmployeeDone() {
     const [task, setTasks] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/employee/tasks", { headers: authHeader() }).then(
+        axios.get("http://localhost:8080/employee/tasks/2", { headers: authHeader() }).then(
             (response) => {
                 setTasks(response.data);
             },
@@ -42,7 +42,6 @@ export default function TasksEmployeeController() {
                             <th scope="col">Utworzono</th>
                             <th scope="col">Opis</th>
                             <th scope="col">Termin zadania</th>
-                            <th scope="col">Zaakceptowano</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -53,7 +52,6 @@ export default function TasksEmployeeController() {
                                 <td>{item.createdDate}</td>
                                 <td>{item.description}</td>
                                 <td>{item.dateTo}</td>
-                                <td>{item.accepted ? 'Tak' : 'Nie'}</td>
                             </tr>
                         )}
                         </tbody>
