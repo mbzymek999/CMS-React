@@ -1,34 +1,38 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import authHeader from "../../../services/auth-header";
-import EventBus from "../../../common/EventBus";
 import {Alert, Col, Container, Row} from "react-bootstrap";
 import DatePicker from "react-datepicker";
+import AsyncSelect from "react-select/async";
 
 export default function CreateTaskController() {
-    const [employee, setEmployee] = useState([]);
+    const [inputValue, setValue] = useState('');
+    const [selectedValue, setSelectedValue] = useState(null);
 
-    useEffect(() => {
-        axios.get("http://localhost:8080/company/employees", { headers: authHeader() }).then(
-            (response) => {
-                setEmployee(response.data);
-            },
-            (error) => {
-                const _employee =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
+    // handle input change event
+    const handleInputChange = value => {
+        setValue(value);
+    };
 
-                setEmployee(_employee);
+    // handle selection
+    const handleChange = value => {
+        setSelectedValue(value);
+    }
 
-                if (error.response && error.response.status === 401) {
-                    EventBus.dispatch("logout");
-                }
-            }
-        );
-    }, []);
+    const fetchEmployees = () => {
+        return axios.get('http://localhost:8080/company/employees', { headers: authHeader() }).then(result => {
+            const res =  result.data;
+            return res;
+        });
+    }
+
+    const handleSetInputs = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
+    };
+
+    const onChangeDateTo = date => {
+        setValues({ ...values, dateTo: date });
+    }
 
     const initialValues = {
         name: "",
@@ -40,22 +44,14 @@ export default function CreateTaskController() {
     const [values, setValues] = useState({
         name: "",
         description: "",
-        type: ""
+        type: "",
+        dateTo: new Date()
     });
     const [show, setShow] = useState(false);
 
-    const handleSetInputs = (e) => {
-        setValues({ ...values, [e.target.name]: e.target.value });
-    };
-
-    const onChangeDateTo = date => {
-        setValues({ ...values, dateTo: date });
-    }
-
-
     let submitTask = (event) => {
         event.preventDefault();
-        axios.post("http://localhost:8080/task/add?employeeId=1", values, { headers: authHeader() })
+        axios.post("http://localhost:8080/task/add?employeeId="+(selectedValue.employeeId), values, { headers: authHeader() })
             .then((response) => {
                 if (response.data != null) {
                     setShow(true);
@@ -121,6 +117,24 @@ export default function CreateTaskController() {
                                         className="border bg-white border-secondary rounded text-center w-100 p-1"
                                     />
                                 </Col>
+                            </Row>
+                            <Row className={"mt-2"}>
+                                <Col>
+                                    {/*<div className="row alert alert-info">Selected Value: {JSON.stringify(selectedValue || {}, null, 2)}</div>*/}
+                                    <label className="mb-1">Wybierz pracownika z listy</label>
+                                    <AsyncSelect
+                                        cacheOptions
+                                        defaultOptions
+                                        placeholder={""}
+                                        value={selectedValue}
+                                        getOptionLabel={e => e.name + ' ' + e.lastName}
+                                        getOptionValue={e => e.employeeId}
+                                        loadOptions={fetchEmployees}
+                                        onInputChange={handleInputChange}
+                                        onChange={handleChange}
+                                    />
+                                </Col>
+                                <Col></Col>
                             </Row>
                             <br/>
                             <div className="d-flex justify-content-end">
