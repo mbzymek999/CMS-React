@@ -5,63 +5,58 @@ import authHeader from "../../../services/auth-header";
 import {Button, Col, Container, Row, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
-export default function TasksController() {
-    const [task, setTasks] = useState([]);
-    const [page] = useState(1);
-    const [size] = useState(3);
+export default function AgreementsController() {
+    const [agreement, setAgreements] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/company/tasks?size="+ (size)+"&page="+(page), { headers: authHeader() }).then(
+        axios.get("http://localhost:8080/company/agreements", { headers: authHeader() }).then(
             (response) => {
-                setTasks(response.data);
+                setAgreements(response.data);
             },
             (error) => {
                 // history.replace("/")
-                const _task =
+                const _agreement =
                     (error.response &&
                         error.response.data &&
                         error.response.data.message) ||
                     error.message ||
                     error.toString();
 
-                setTasks(_task);
+                setAgreements(_agreement);
 
                 if (error.response && error.response.status === 401) {
                     EventBus.dispatch("logout");
                 }
             }
         );
-    }, [page,size]);
+    }, []);
 
     return (
         <Container className={"mt-5"}>
             <Row>
                 <Col>
-                    <Link to="/create_task">
-                        <Button className="btn btn-primary float-end" size="sm">
-                            Dodaj nowe zadanie
-                        </Button>
-                    </Link>
                     <Table striped bordered hover className={"bg-light"}>
                         <thead>
                         <tr>
-                            <th scope="col">Nazwa</th>
-                            <th scope="col">Typ zadania</th>
-                            <th scope="col">Utworzono</th>
-                            <th scope="col">Opis</th>
-                            <th scope="col">Termin zadania</th>
-                            <th scope="col">Pracownik</th>
+                            <th scope="col">Data podpisania</th>
+                            <th scope="col">Okres od</th>
+                            <th scope="col">Okred do</th>
+                            <th scope="col">Imię i nazwisko</th>
+                            <th scope="col">Wynagrodzenie</th>
+                            <th scope="col">Szczegóły umowy</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {task.map((item) =>
+                        {agreement.map((item) =>
                             <tr>
-                                <td>{item.name}</td>
-                                <td>{item.type}</td>
-                                <td>{item.createdDate}</td>
-                                <td>{item.description}</td>
+                                <td>{item.assignedDate}</td>
+                                <td>{item.dateFrom}</td>
                                 <td>{item.dateTo}</td>
-                                <td>{item.employeeName}</td>
+                                <td>{item.name} {item.lastName}</td>
+                                <td>{item.salary}</td>
+                                <td style={{textAlign: "center"}}>
+                                    <Button className="btn btn-primary" size="sm">Szczegóły umowy</Button>
+                                </td>
                             </tr>
                         )}
                         </tbody>

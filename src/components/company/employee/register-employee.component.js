@@ -9,7 +9,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { isEmail } from "validator";
 import { connect } from "react-redux";
-import { registerEmployee } from "../../actions/auth";
+import { registerEmployee } from "../../../actions/auth";
 import {Badge, Col, Container, Row} from "react-bootstrap";
 registerLocale("pl", pl); // register it with the name you want
 

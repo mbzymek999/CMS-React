@@ -52,7 +52,7 @@ export default function CompanyPaymentsController() {
                                     <td>{item.datePayment}</td>
                                     <td>{item.termPayment}</td>
                                     <td>{item.price} zł</td>
-                                    <td>
+                                    <td style={{textAlign: "center"}}>
                                         <form
                                             method="post"
                                             action={`http://localhost:8080/checkout?idPayment=${item.paymentId}`}
@@ -66,7 +66,7 @@ export default function CompanyPaymentsController() {
                                     <td>{item.termPayment}</td>
                                     <td>{item.datePayment}</td>
                                     <td>{item.price} zł</td>
-                                    <td>
+                                    <td style={{textAlign: "center"}}>
                                         <form
                                             method="post"
                                             action={`http://localhost:8080/checkout?idPayment=${item.paymentId}`}

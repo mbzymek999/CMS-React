@@ -43,7 +43,7 @@ class AuthService {
   }
 
   registerEmployee(username, name, lastName, position, phone, street, streetNumber, buildingNumber, city, postcode, email, assignedDate, agreementType, dateFrom, dateTo, salary, password) {
-    return axios.post(API_URL + "create/agreement", {
+    return axios.post("http://localhost:8080/create/agreement", {
       username,
       name,
       lastName,
