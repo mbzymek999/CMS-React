@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
-import {Button, Col, Container, Row, Table} from "react-bootstrap";
+import {Col, Container, Row, Table} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 export default function AgreementsController() {
     const [agreement, setAgreements] = useState([]);
@@ -47,14 +48,16 @@ export default function AgreementsController() {
                         </thead>
                         <tbody>
                         {agreement.map((item) =>
-                            <tr>
+                            <tr key={item.idAgreement}>
                                 <td>{item.assignedDate}</td>
                                 <td>{item.dateFrom}</td>
                                 <td>{item.dateTo}</td>
                                 <td>{item.name} {item.lastName}</td>
                                 <td>{item.salary}</td>
                                 <td style={{textAlign: "center"}}>
-                                    <Button className="btn btn-primary" size="sm">Szczegóły umowy</Button>
+                                <Link to={`/agreement/${item.idAgreement}`}>
+                                    Szczegóły umowy
+                                </Link>
                                 </td>
                             </tr>
                         )}

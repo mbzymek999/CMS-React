@@ -30,6 +30,7 @@ import { history } from './helpers/history';
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
+import AgreementDetails from "./components/company/agreement/AgreementDetails";
 
 class App extends Component {
   constructor(props) {
@@ -287,6 +288,7 @@ class App extends Component {
               <Route path="/create_task" component={CreateTaskController} />
               <Route path="/tasks_employee_not_accepted" component={TasksEmployeeNotAccepted} />
               <Route path="/tasks_employee_in_progress" component={TasksEmployeeInProgress} />
+              <Route path="/agreement/:idAgreement" component={AgreementDetails} />
               <Route path="/tasks_employee_done" component={TasksEmployeeDone} />
               <Route path="/agreements" component={AgreementsController} />
               <Route path="/employees" component={EmployeesController} />

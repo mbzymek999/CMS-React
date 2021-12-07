@@ -11,7 +11,7 @@ export default function TasksController() {
     const [size] = useState(3);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/company/tasks?size="+ (size)+"&page="+(page), { headers: authHeader() }).then(
+        axios.get("http://localhost:8080/company/tasks", { headers: authHeader() }).then(
             (response) => {
                 setTasks(response.data);
             },
