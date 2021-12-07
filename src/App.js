@@ -22,6 +22,7 @@ import TasksEmployeeNotAccepted from "./components/employee/task/tasks-employee_
 import TasksEmployeeInProgress from "./components/employee/task/tasks-employee-in-progress.component";
 import TasksEmployeeDone from "./components/employee/task/tasks-employee-done.component";
 import AgreementsController from "./components/company/agreement/agreements-component";
+import EmployeesController from "./components/company/employee/employees.component";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -217,26 +218,28 @@ class App extends Component {
                   {/*)}*/}
                 </Nav>
                 <Nav>
-                  <Nav.Link>
-                    <NavDropdown title={
-                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                           className="bi bi-person-lines-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
-                      </svg>
-                    }  id="navbarScrollingDropdown">
-                      <NavDropdown.Item>
-                        <Link to={"/agreements"} className="nav-link">
-                          Umowy
-                        </Link>
-                      </NavDropdown.Item>
-                      <NavDropdown.Item>
-                        <Link className="nav-link">
-                          Pacownicy
-                        </Link>
-                      </NavDropdown.Item>
-                    </NavDropdown>
-                  </Nav.Link>
+                  {showCompanyBoard && (
+                      <Nav.Link>
+                        <NavDropdown title={
+                          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                               className="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
+                          </svg>
+                        }  id="navbarScrollingDropdown">
+                          <NavDropdown.Item>
+                            <Link to={"/agreements"} className="nav-link">
+                              Umowy
+                            </Link>
+                          </NavDropdown.Item>
+                          <NavDropdown.Item>
+                            <Link to={"/employees"} className="nav-link">
+                              Pacownicy
+                            </Link>
+                          </NavDropdown.Item>
+                        </NavDropdown>
+                      </Nav.Link>
+                  )}
                   <Nav.Link>
                     {currentUser ? (
                         <div className="navbar-nav ml-auto">
@@ -286,6 +289,7 @@ class App extends Component {
               <Route path="/tasks_employee_in_progress" component={TasksEmployeeInProgress} />
               <Route path="/tasks_employee_done" component={TasksEmployeeDone} />
               <Route path="/agreements" component={AgreementsController} />
+              <Route path="/employees" component={EmployeesController} />
             </Switch>
           </div>
 

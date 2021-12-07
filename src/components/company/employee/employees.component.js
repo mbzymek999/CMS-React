@@ -4,24 +4,24 @@ import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
 import {Button, Col, Container, Row, Table} from "react-bootstrap";
 
-export default function AgreementsController() {
-    const [agreement, setAgreements] = useState([]);
+export default function EmployeesController() {
+    const [employee, setEmployees] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/company/agreements", { headers: authHeader() }).then(
+        axios.get("http://localhost:8080/company/employees", { headers: authHeader() }).then(
             (response) => {
-                setAgreements(response.data);
+                setEmployees(response.data);
             },
             (error) => {
                 // history.replace("/")
-                const _agreement =
+                const _employee =
                     (error.response &&
                         error.response.data &&
                         error.response.data.message) ||
                     error.message ||
                     error.toString();
 
-                setAgreements(_agreement);
+                setEmployees(_employee);
 
                 if (error.response && error.response.status === 401) {
                     EventBus.dispatch("logout");
@@ -37,24 +37,26 @@ export default function AgreementsController() {
                     <Table striped bordered hover className={"bg-light"}>
                         <thead>
                         <tr>
-                            <th scope="col">Data podpisania</th>
-                            <th scope="col">Okres od</th>
-                            <th scope="col">Okres do</th>
-                            <th scope="col">Imię i nazwisko</th>
-                            <th scope="col">Wynagrodzenie</th>
-                            <th scope="col">Szczegóły umowy</th>
+                            <th scope="col">Imię</th>
+                            <th scope="col">Nazwisko</th>
+                            <th scope="col">Stanowisko</th>
+                            <th scope="col">Numer telefony</th>
+                            <th scope="col">E-mail</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {agreement.map((item) =>
+                        {employee.map((item) =>
                             <tr>
-                                <td>{item.assignedDate}</td>
-                                <td>{item.dateFrom}</td>
-                                <td>{item.dateTo}</td>
-                                <td>{item.name} {item.lastName}</td>
-                                <td>{item.salary}</td>
+                                <td>{item.name}</td>
+                                <td>{item.lastName}</td>
+                                <td>{item.position}</td>
+                                <td>{item.phone}</td>
+                                <td>{item.email}</td>
                                 <td style={{textAlign: "center"}}>
-                                    <Button className="btn btn-primary" size="sm">Szczegóły umowy</Button>
+                                    <Button className="btn btn-primary mr-3 ml-3" size="sm">Edytuj</Button>
+                                </td>
+                                <td style={{textAlign: "center"}}>
+                                    <Button className="btn btn-danger" size="sm">Usuń</Button>
                                 </td>
                             </tr>
                         )}
