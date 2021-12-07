@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import authHeader from "../../../services/auth-header";
 import EventBus from "../../../common/EventBus";
-import {Col, Container, Row} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 
 const AgreementDetails = () => {
     const { idAgreement } = useParams();
@@ -62,6 +62,12 @@ const AgreementDetails = () => {
                     <p>
                         na czas określony od <strong>{agreement.dateFrom}</strong> do <strong>{agreement.dateTo}</strong>. Wynagrodzenie <strong>{agreement.salary}</strong>zł/msc
                     </p>
+                    <form
+                        method="get"
+                        action={`http://localhost:8080/pdf/generate/${idAgreement}`}
+                    >
+                        <Button className="btn btn-success mb-2" size="sm" type="submit">Generuj pdf</Button>
+                    </form>
                 </Col>
                 <Col sm={2}></Col>
             </Row>
