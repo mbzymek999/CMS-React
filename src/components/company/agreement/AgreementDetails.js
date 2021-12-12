@@ -50,14 +50,14 @@ const AgreementDetails = () => {
                     <p>
                         Nip: <strong>{agreement.nip}</strong>, regon: <strong>{agreement.regon}</strong>.
                     </p>
-                    <p>reprezentowanym przez:</p>
+                    <p>reprezentowanym przez: <strong>{agreement.representativePerson}</strong></p>
                     <p>
                         a <strong>{agreement.name} {agreement.lastName}</strong>
                     </p>
                     <p>
                         zamieszkałym <strong>{agreement.cityEmployee} </strong>
                         ul: <strong>{agreement.streetEmployee} {agreement.streetNumberEmployee}{agreement.buildingNumberEmployee ? '/' : ''}{agreement.buildingNumberEmployee} </strong>
-                        PESEL: {agreement.pesel}
+                        PESEL: <strong>{agreement.pesel}</strong>
                     </p>
                     <p>
                         na czas określony od <strong>{agreement.dateFrom}</strong> do <strong>{agreement.dateTo}</strong>. Wynagrodzenie <strong>{agreement.salary}</strong>zł/msc

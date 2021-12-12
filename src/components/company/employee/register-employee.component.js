@@ -61,6 +61,7 @@ class RegisterEmployee extends Component {
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeLastName = this.onChangeLastName.bind(this);
+        this.onChangePesel = this.onChangePesel.bind(this);
         this.onChangePosition = this.onChangePosition.bind(this);
         this.onChangePhone = this.onChangePhone.bind(this)
         this.onChangeStreet = this.onChangeStreet.bind(this)
@@ -75,6 +76,7 @@ class RegisterEmployee extends Component {
             username: "",
             name: "",
             lastName: "",
+            pesel: 0,
             position: "",
             email: "",
             phone: "",
@@ -108,6 +110,12 @@ class RegisterEmployee extends Component {
     onChangeLastName(e) {
         this.setState({
             lastName: e.target.value,
+        });
+    }
+
+    onChangePesel(e) {
+        this.setState({
+            pesel: e.target.value,
         });
     }
 
@@ -207,7 +215,7 @@ class RegisterEmployee extends Component {
         if (this.checkBtn.context._errors.length === 0) {
             this.props
                 .dispatch(
-                    registerEmployee(this.state.username, this.state.name, this.state.lastName, this.state.position, this.state.phone, this.state.street, this.state.streetNumber,
+                    registerEmployee(this.state.username, this.state.name, this.state.lastName, this.state.pesel, this.state.position, this.state.phone, this.state.street, this.state.streetNumber,
                         this.state.buildingNumber, this.state.city, this.state.postcode, this.state.email, this.state.assignedDate, this.state.agreementType, this.state.dateFrom, this.state.dateTo, this.state.salary, this.state.password)
                 )
                 .then(() => {
@@ -331,6 +339,16 @@ class RegisterEmployee extends Component {
                                             </Row>
                                             <Row>
                                                 <Col>
+                                                    <label className="mb-1" htmlFor="name">Pesel</label>
+                                                    <Input
+                                                        type="number"
+                                                        className="form-control"
+                                                        name="pesel"
+                                                        value={this.state.pesel}
+                                                        onChange={this.onChangePesel}
+                                                    />
+                                                </Col>
+                                                <Col>
                                                     <div className="form-group">
                                                         <label htmlFor="position">Stanowisko w firmie</label>
                                                         <Input
@@ -342,6 +360,8 @@ class RegisterEmployee extends Component {
                                                         />
                                                     </div>
                                                 </Col>
+                                            </Row>
+                                            <Row>
                                                 <Col>
                                                     <div className="form-group">
                                                         <label htmlFor="nip">Telefon</label>
@@ -354,8 +374,6 @@ class RegisterEmployee extends Component {
                                                         />
                                                     </div>
                                                 </Col>
-                                            </Row>
-                                            <Row>
                                                 <Col>
                                                     <div className="form-group">
                                                         <label htmlFor="street">Ulica</label>
@@ -368,6 +386,8 @@ class RegisterEmployee extends Component {
                                                         />
                                                     </div>
                                                 </Col>
+                                            </Row>
+                                            <Row>
                                                 <Col>
                                                     <div className="form-group">
                                                         <label htmlFor="streetNumber">nr Ulicy</label>
@@ -380,8 +400,6 @@ class RegisterEmployee extends Component {
                                                         />
                                                     </div>
                                                 </Col>
-                                            </Row>
-                                            <Row>
                                                 <Col>
                                                     <div className="form-group">
                                                         <label htmlFor="buildingNumber">nr mieszkania</label>
@@ -394,7 +412,9 @@ class RegisterEmployee extends Component {
                                                         />
                                                     </div>
                                                 </Col>
-                                                <Col>
+                                            </Row>
+                                            <Row>
+                                                <Col className="col-6">
                                                     <div className="form-group">
                                                         <label htmlFor="city">Miasto</label>
                                                         <Input
@@ -406,9 +426,7 @@ class RegisterEmployee extends Component {
                                                         />
                                                     </div>
                                                 </Col>
-                                            </Row>
-                                            <Row>
-                                                <Col className="col-6">
+                                                <Col>
                                                     <div className="form-group">
                                                         <label htmlFor="postcode">Kod pocztowy</label>
                                                         <Input
@@ -440,7 +458,6 @@ class RegisterEmployee extends Component {
                                                             validations={[required, vusername]}
                                                         />
                                                     </div>
-
                                                     <div className="form-group">
                                                         <label htmlFor="email">Email</label>
                                                         <Input

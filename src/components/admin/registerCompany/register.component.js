@@ -369,7 +369,7 @@ class Register extends Component {
                         </Col>
                         <Col>
                           <div className="form-group">
-                            <label htmlFor="streetNumber">nr Ulicy</label>
+                            <label htmlFor="streetNumber">Numer ulicy</label>
                             <Input
                                 type="text"
                                 className="form-control"
@@ -383,7 +383,7 @@ class Register extends Component {
                       <Row>
                         <Col className="col-6">
                           <div className="form-group">
-                            <label htmlFor="buildingNumber">nr budynku</label>
+                            <label htmlFor="buildingNumber">Numer lokalu</label>
                             <Input
                                 type="text"
                                 className="form-control"
