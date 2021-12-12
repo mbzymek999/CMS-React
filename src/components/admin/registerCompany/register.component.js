@@ -58,6 +58,7 @@ class Register extends Component {
     this.onChangeShortCompanyName = this.onChangeShortCompanyName.bind(this)
     this.onChangeNip = this.onChangeNip.bind(this)
     this.onChangeRegon = this.onChangeRegon.bind(this)
+    this.onChangeRepresentativePerson = this.onChangeRepresentativePerson.bind(this)
     this.onChangePhone = this.onChangePhone.bind(this)
     this.onChangeStreet = this.onChangeStreet.bind(this)
     this.onChangeStreetNumber = this.onChangeStreetNumber.bind(this)
@@ -73,21 +74,22 @@ class Register extends Component {
     this.state = {
       username: "",
       email: "",
-      companyName: "",
-      shortCompanyName: "",
-      nip: "",
-      regon: "",
-      phone: "",
-      street: "",
-      streetNumber: "",
-      buildingNumber: "",
-      city: "",
-      postcode: "",
-      province: "",
-      country: "",
-      additionalFields: "",
+      companyName: '',
+      shortCompanyName: '',
+      nip: '',
+      regon: '',
+      phone: '',
+      representativePerson: '',
+      street: '',
+      streetNumber: '',
+      buildingNumber: '',
+      city: '',
+      postcode: '',
+      province: '',
+      country: '',
+      additionalFields: '',
       maxEmployees: 1,
-      password: "",
+      password: '',
       successful: false,
     };
   }
@@ -119,6 +121,12 @@ class Register extends Component {
   onChangeRegon(e) {
     this.setState({
       regon: e.target.value,
+    });
+  }
+
+  onChangeRepresentativePerson(e) {
+    this.setState({
+      representativePerson: e.target.value,
     });
   }
 
@@ -206,7 +214,7 @@ class Register extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       this.props
         .dispatch(
-          register(this.state.username, this.state.companyName, this.state.shortCompanyName, this.state.nip, this.state.regon, this.state.phone, this.state.street, this.state.streetNumber,
+          register(this.state.username, this.state.companyName, this.state.shortCompanyName, this.state.nip, this.state.regon, this.state.representativePerson, this.state.phone, this.state.street, this.state.streetNumber,
               this.state.buildingNumber, this.state.city, this.state.postcode, this.state.province, this.state.country, this.state.additionalFields, this.state.maxEmployees, this.state.email, this.state.password)
         )
         .then(() => {
@@ -294,6 +302,17 @@ class Register extends Component {
                         <Row>
                           <Col>
                             <div className="form-group">
+                              <label htmlFor="representativePerson">Osoba reprezentująca</label>
+                              <Input
+                                  className="form-control"
+                                  name="representativePerson"
+                                  value={this.state.representativePerson}
+                                  onChange={this.onChangeRepresentativePerson}
+                              />
+                            </div>
+                          </Col>
+                          <Col>
+                            <div className="form-group">
                               <label htmlFor="nip">Telefon firmowy</label>
                               <Input
                                   type="text"
@@ -304,6 +323,8 @@ class Register extends Component {
                               />
                             </div>
                           </Col>
+                        </Row>
+                        <Row>
                           <Col>
                             <div className="form-group">
                               <label htmlFor="additionalFields">Maksymalna ilość pracowników</label>
@@ -316,8 +337,6 @@ class Register extends Component {
                               />
                             </div>
                           </Col>
-                        </Row>
-                        <Row>
                           <Col>
                             <div className="form-group">
                               <label htmlFor="additionalFields">Informacje dodatkowe</label>
@@ -328,9 +347,6 @@ class Register extends Component {
                                   onChange={this.onChangeAdditionalFields}
                               />
                             </div>
-                          </Col>
-                          <Col>
-
                           </Col>
                         </Row>
                       </Container>
