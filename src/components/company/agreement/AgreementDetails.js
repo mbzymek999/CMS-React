@@ -29,7 +29,7 @@ const AgreementDetails = () => {
                 }
             }
         );
-    }, []);
+    }, [idAgreement]);
 
     return (
         <Container className={"mt-5"}>
