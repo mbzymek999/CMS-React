@@ -68,27 +68,47 @@ export default function TasksController() {
                         </thead>
                         <tbody>
                         {task.map((item) =>
-                            <tr>
-                                <td>{item.name}</td>
-                                <td>{item.type}</td>
-                                <td>{item.createdDate}</td>
-                                <td>{item.description}</td>
-                                <td>{item.dateTo}</td>
-                                <td>{item.employeeName}</td>
-                            </tr>
-                        )}
+                            <>
+                                {item.statusTask === 0 ?
+                                    <tr className="bg-danger">
+                                        <td>{item.name}</td>
+                                        <td>{item.type}</td>
+                                        <td>{item.createdDate}</td>
+                                        <td>{item.description}</td>
+                                        <td>{item.dateTo}</td>
+                                        <td>{item.employeeName}</td>
+                                    </tr>:
+                                    item.statusTask === 1 ?
+                                    <tr className="bg-warning">
+                                        <td>{item.name}</td>
+                                        <td>{item.type}</td>
+                                        <td>{item.createdDate}</td>
+                                        <td>{item.description}</td>
+                                        <td>{item.dateTo}</td>
+                                        <td>{item.employeeName}</td>
+                                    </tr> :
+                                    <tr className="bg-success">
+                                        <td>{item.name}</td>
+                                        <td>{item.type}</td>
+                                        <td>{item.createdDate}</td>
+                                        <td>{item.description}</td>
+                                        <td>{item.dateTo}</td>
+                                        <td>{item.employeeName}</td>
+                                    </tr>
+                                }
+                            </>
+                                )}
                         </tbody>
                     </Table>
                     <hr/>
                     {"Ilość wyświetlanych elementów: "}
-                    <select onChange={handlePageSizeChange} value={pageSize} className="mb-2">
+                    <select onChange={handlePageSizeChange} value={pageSize} className="mb-2 form-select form-select-sm w-25">
                         {pageSizes.map((size) => (
                             <option key={size} value={size}>
                                 {size}
                             </option>
                         ))}
                     </select>
-                    <br/>
                     <Pagination
                         variant="outlined"
                         shape="rounded"
@@ -101,6 +121,5 @@ export default function TasksController() {
                 </Col>
             </Row>
         </Container>
-
     );
 }

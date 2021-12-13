@@ -36,8 +36,9 @@ export default function DisplayCompaniesController() {
                     <Table striped bordered hover>
                         <thead>
                             <tr>
-                                <th scope="col">id</th>
                                 <th scope="col">nazwa</th>
+                                <th scope="col">nip</th>
+                                <th scope="col">e-mail</th>
                                 <th scope="col">numer telefonu</th>
                                 <th scope="col">miasto</th>
                             </tr>
@@ -45,8 +46,9 @@ export default function DisplayCompaniesController() {
                         <tbody>
                         {company.map((item) =>
                             <tr>
-                                <td>{item.id}</td>
                                 <td>{item.companyName}</td>
+                                <td>{item.nip}</td>
+                                <td>{item.email}</td>
                                 <td>{item.phone}</td>
                                 <td>{item.city}</td>
                             </tr>

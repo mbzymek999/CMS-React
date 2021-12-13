@@ -35,7 +35,7 @@ export default function AllPaymentsController() {
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/companies", { headers: authHeader() }).then(
+        axios.get("http://localhost:8080/payment/companies", { headers: authHeader() }).then(
             (response) => {
                 setCompany(response.data);
             },
@@ -96,6 +96,7 @@ export default function AllPaymentsController() {
                                         <tr>
                                             <th scope="col">id</th>
                                             <th scope="col">nazwa</th>
+                                            <th scope="col">cena</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -103,6 +104,7 @@ export default function AllPaymentsController() {
                                             <tr>
                                                 <td>{item.id}</td>
                                                 <td>{item.companyName}</td>
+                                                <td>{item.pricePackage} zł</td>
                                                 <td>
                                                     <Button className="btn btn-primary float-end" size="sm" onClick={() => createPayment(item.id)}>Dodaj płatność</Button>
                                                 </td>

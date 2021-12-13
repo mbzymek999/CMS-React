@@ -49,6 +49,10 @@ const vpassword = (value) => {
   }
 };
 
+const provinces = ['dolnośląskie', 'kujawsko-pomorskie', 'lubelskie', 'lubuskie', 'łódzkie', 'małopolskie', 'mazowieckie', 'opolskie', 'podkarpackie',
+                  'podlaskie', 'pomorskie', 'śląskie', 'świętokrzyskie', 'warmińsko-mazurskie', 'wielkopolskie', 'zachodniopomorskie'];
+
+
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -65,7 +69,7 @@ class Register extends Component {
     this.onChangeBuildingNumber = this.onChangeBuildingNumber.bind(this)
     this.onChangeCity = this.onChangeCity.bind(this)
     this.onChangePostcode = this.onChangePostcode.bind(this)
-    this.onChangeProvince = this.onChangeProvince.bind(this)
+    this.handleProvinceChange = this.handleProvinceChange.bind(this)
     this.onChangeCountry = this.onChangeCountry.bind(this)
     this.onChangeAdditionalFields = this.onChangeAdditionalFields.bind(this)
     this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -166,11 +170,11 @@ class Register extends Component {
     });
   }
 
-  onChangeProvince(e) {
+  handleProvinceChange = (e) => {
     this.setState({
       province: e.target.value,
     });
-  }
+  };
 
   onChangeCountry(e) {
     this.setState({
@@ -422,13 +426,13 @@ class Register extends Component {
                         <Col>
                           <div className="form-group">
                             <label htmlFor="province">Województwo</label>
-                            <Input
-                                type="text"
-                                className="form-control"
-                                name="province"
-                                value={this.state.province}
-                                onChange={this.onChangeProvince}
-                            />
+                            <select onChange={this.handleProvinceChange} value={this.state.province} className="mb-2 form-select" aria-label="Default select example">
+                              {provinces.map((province) => (
+                                  <option key={province} value={province}>
+                                    {province}
+                                  </option>
+                              ))}
+                            </select>
                           </div>
                         </Col>
                       </Row>
