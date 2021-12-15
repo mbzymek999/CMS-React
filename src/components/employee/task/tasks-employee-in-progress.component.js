@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
-import {Button, Col, Container, Row, Table} from "react-bootstrap";
+import {Button, Card, Col, Container, Row} from "react-bootstrap";
 import {Tooltip, OverlayTrigger} from "react-bootstrap";
 
 export default function TasksEmployeeInProgress() {
-    const [showTask, setShowTasks] = useState([]);
+    const [showTasks, setShowTasks] = useState([]);
     const [taskUpdate, setTasksUpdate] = useState([]);
 
     useEffect(() => {
@@ -51,50 +51,45 @@ export default function TasksEmployeeInProgress() {
 
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
-            Naciśnij jeżeli wykonałeś zadanie
+            Naciśnij jeżeli zadanie zostało wykonane
         </Tooltip>
     );
 
     return (
-        <Container className={"mt-5"}>
+        <Container>
             <Row>
-                <Col>
-                    <Table striped bordered hover className={"bg-light"}>
-                        <thead>
-                        <tr>
-                            <th scope="col">Nazwa</th>
-                            <th scope="col">Typ zadania</th>
-                            <th scope="col">Utworzono</th>
-                            <th scope="col">Opis</th>
-                            <th scope="col">Termin zadania</th>
-                            <th scope="col">Status zadania</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {showTask.map((item) =>
-                            <tr>
-                                <td>{item.name}</td>
-                                <td>{item.type}</td>
-                                <td>{item.createdDate}</td>
-                                <td>{item.description}</td>
-                                <td>{item.dateTo}</td>
-                                <td>{item.statusTask === 1? 'W trakcie': ''}</td>
-                                <td>
-                                    <OverlayTrigger
-                                        placement="right"
-                                        delay={{ show: 250, hide: 400 }}
-                                        overlay={renderTooltip}
-                                    >
-                                        <Button className="btn btn-primary" size="sm" onClick={() => updateTask(item.idTask)}>Wykonano</Button>
-                                    </OverlayTrigger>
-                                </td>
-                            </tr>
-                        )}
-                        </tbody>
-                    </Table>
-                </Col>
+                {showTasks.map((item) =>
+                    <Col className="col-4">
+                        <Card border="warning" style={{ height: '14rem' }} className="mt-4">
+                            <Card.Header>{item.name} <span className="float-end">Data: <strong>{item.createdDate}</strong></span></Card.Header>
+                            <Card.Body>
+                                <Card.Text  style={{height: '5rem' }}>
+                                    <Row className="mb-1">
+                                        <Col>
+                                            Zadanie: <strong>{item.type}</strong>
+                                        </Col>
+                                        <Col>
+                                            Termin: <strong>{item.dateTo}</strong>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col>
+                                            {item.description}
+                                        </Col>
+                                    </Row>
+                                </Card.Text>
+                                <OverlayTrigger
+                                    placement="right"
+                                    delay={{ show: 250, hide: 400 }}
+                                    overlay={renderTooltip}
+                                >
+                                    <Button className="btn btn-primary" size="sm" onClick={() => updateTask(item.idTask)}>Wykonano</Button>
+                                </OverlayTrigger>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                )}
             </Row>
         </Container>
-
     );
 }
