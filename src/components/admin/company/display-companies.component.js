@@ -7,10 +7,14 @@ import { Col, Container, Row, Table} from "react-bootstrap";
 export default function DisplayCompaniesController() {
     const [company, setCompany] = useState([]);
 
+    const [nip, setNip] = useState("");
+    const [companyName, setCompanyName] = useState("");
+
     useEffect(() => {
-        axios.get("http://localhost:8080/companies", { headers: authHeader() }).then(
+        axios.get(`http://localhost:8080/companies/read?nip=${nip}&companyName=${companyName}`, { headers: authHeader() }).then(
             (response) => {
                 setCompany(response.data);
+                console.log(nip)
             },
             (error) => {
                 const _company =
@@ -27,10 +31,40 @@ export default function DisplayCompaniesController() {
                 }
             }
         );
-    }, []);
+    }, [nip, companyName]);
+
+    const handleFilterNip = event => {
+        setNip(event.target.value);
+    };
+
+    const handleFilterCompanyName = event => {
+        setCompanyName(event.target.value);
+    };
 
     return (
         <Container className={"mt-5"}>
+            <Row className="mb-3 bg-light">
+                <Col className="mb-4 mt-4 ml-0">
+                    <input
+                        type="text"
+                        name="nip"
+                        placeholder="NIP"
+                        value={nip}
+                        onChange={handleFilterNip}
+                        className="form-control"
+                    />
+                </Col>
+                <Col className="mb-4 mt-4">
+                    <input
+                        type="text"
+                        name="companyName"
+                        placeholder="Nazwa firmy"
+                        value={companyName}
+                        onChange={handleFilterCompanyName}
+                        className="form-control"
+                    />
+                </Col>
+            </Row>
             <Row>
                 <Col>
                     <Table striped bordered hover>
