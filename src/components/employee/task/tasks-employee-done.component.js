@@ -3,14 +3,21 @@ import axios from "axios";
 import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
 import {Card, Col, Container, Row} from "react-bootstrap";
+import {Pagination} from "@material-ui/lab";
 
 export default function TasksEmployeeDone() {
     const [task, setTasks] = useState([]);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [count, setCount] = useState(0);
+    const [pageSize, setPageSize] = useState(6);
+    const pageSizes = [6, 12, 18];
+
     useEffect(() => {
-        axios.get("http://localhost:8080/employee/tasks/2", { headers: authHeader() }).then(
+        axios.get(`http://localhost:8080/employee/tasks/2?size=${pageSize}&page=${currentPage-1}`, { headers: authHeader() }).then(
             (response) => {
-                setTasks(response.data);
+                setTasks(response.data.tasks);
+                setCount(response.data.totalPages);
             },
             (error) => {
                 // history.replace("/")
@@ -28,14 +35,23 @@ export default function TasksEmployeeDone() {
                 }
             }
         );
-    }, []);
+    }, [currentPage,pageSize]);
+
+    const handleChange = (event, value) => {
+        setCurrentPage(value);
+    };
+
+    const handlePageSizeChange = (event) => {
+        setPageSize(event.target.value);
+        setCurrentPage(1);
+    };
 
     return (
         <Container>
             <Row className="mt-0 p-0">
                 {task.map((item) =>
                     <Col className="col-4">
-                        <Card border="success" style={{ height: '14rem' }} className="mt-4">
+                        <Card border="success" style={{ height: '14rem' }} className="mt-3">
                             <Card.Header>{item.name} <span className="float-end">Data: <strong>{item.createdDate}</strong></span></Card.Header>
                             <Card.Body>
                                 <Card.Text>
@@ -57,6 +73,24 @@ export default function TasksEmployeeDone() {
                         </Card>
                     </Col>
                 )}
+                <hr/>
+                {"Wyświetl: "}
+                <select onChange={handlePageSizeChange} value={pageSize} className="mb-2 ms-2 form-select form-select-sm w-25">
+                    {pageSizes.map((size) => (
+                        <option key={size} value={size}>
+                            {size}
+                        </option>
+                    ))}
+                </select>
+                <Pagination
+                    variant="outlined"
+                    shape="rounded"
+                    count={count}
+                    page={currentPage}
+                    onChange={handleChange}
+                    size='medium'
+                    color='primary'
+                />
             </Row>
         </Container>
     );

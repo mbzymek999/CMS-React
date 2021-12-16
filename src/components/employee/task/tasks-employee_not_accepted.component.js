@@ -11,7 +11,7 @@ export default function TasksEmployeeNotAccepted() {
     useEffect(() => {
         axios.get("http://localhost:8080/employee/tasks/0", { headers: authHeader() }).then(
             (response) => {
-                setShowTasks(response.data);
+                setShowTasks(response.data.tasks);
             },
             (error) => {
                 // history.replace("/")
