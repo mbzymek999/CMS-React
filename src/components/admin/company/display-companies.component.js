@@ -42,8 +42,8 @@ export default function DisplayCompaniesController() {
     };
 
     return (
-        <Container className={"mt-5"}>
-            <Row className="mb-3 bg-light">
+        <Container className={"mt-5 m-0 p-0"}>
+            <Row className=" m-0 bg-light border-start border-top border-end">
                 <Col className="mb-4 mt-4 ml-0">
                     <input
                         type="text"

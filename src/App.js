@@ -14,7 +14,7 @@ import BoardCompany from "./components/board-company.component";
 import BoardAdmin from "./components/board-admin.component";
 import RegisterEmployee from "./components/company/employee/register-employee.component";
 import AllPaymentsComponent from "./components/admin/payment/all-payments.component";
-import CompanyPaymentsController from "./components/company/payments-component";
+import CompanyPaymentsController from "./components/company/payment/payments-component";
 import DisplayCompaniesController from "./components/admin/company/display-companies.component";
 import TasksController from "./components/company/task/tasks.component";
 import CreateTaskController from "./components/company/task/create-task.component";
@@ -86,7 +86,7 @@ class App extends Component {
     return (
       <Router history={history}>
         <div>
-          <Navbar bg="secondary" expand="sm">
+          <Navbar style={{background: "rgba(6,65,96,0.65)"}} expand="sm">
             <Container fluid>
               <Navbar.Brand href="/home">Home</Navbar.Brand>
               <Navbar.Collapse></Navbar.Collapse>

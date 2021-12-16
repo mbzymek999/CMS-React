@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
-import {Button, Col, Container, FormCheck, Row, Table} from "react-bootstrap";
+import {Badge, Button, Col, Container, FormCheck, Row, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {Pagination} from "@material-ui/lab";
 import {Checkbox} from "@material-ui/core";
@@ -99,7 +99,7 @@ export default function TasksController() {
         <Container className={"mt-5"}>
             <Row>
                 <Col>
-                    Niezaakcpeptowane
+                    <Badge className="bg-danger">Niezaakcpeptowane</Badge>
                     <input
                         type="checkbox"
                         className="m-3"
@@ -109,7 +109,7 @@ export default function TasksController() {
                             transform: "scale(2)",
                         }}
                     />
-                    Zaakcpeptowane
+                    <Badge className="bg-warning">W trakcie</Badge>
                     <input
                         type="checkbox"
                         className="m-3"
@@ -119,7 +119,7 @@ export default function TasksController() {
                             transform: "scale(2)",
                         }}
                     />
-                    Wykonane
+                    <Badge className="bg-success">Wykonane</Badge>
                     <input
                         type="checkbox"
                         className="m-3"
@@ -143,6 +143,7 @@ export default function TasksController() {
                     <Table striped bordered hover className={"bg-light"}>
                         <thead>
                         <tr>
+                            <th></th>
                             <th scope="col">Nazwa</th>
                             <th scope="col">Typ zadania</th>
                             <th scope="col">Utworzono</th>
@@ -155,7 +156,8 @@ export default function TasksController() {
                         {task.map((item) =>
                             <>
                                 {item.statusTask === 0 ?
-                                    <tr style={{background: 'crimson'}}>
+                                    <tr>
+                                        <td style={{background: 'crimson'}}></td>
                                         <td>{item.name}</td>
                                         <td>{item.type}</td>
                                         <td>{item.createdDate}</td>
@@ -164,7 +166,8 @@ export default function TasksController() {
                                         <td>{item.employeeName}</td>
                                     </tr>:
                                     item.statusTask === 1 ?
-                                    <tr style={{background: 'gold'}}>
+                                    <tr>
+                                        <td style={{background: 'gold'}}></td>
                                         <td>{item.name}</td>
                                         <td>{item.type}</td>
                                         <td>{item.createdDate}</td>
@@ -172,7 +175,8 @@ export default function TasksController() {
                                         <td>{item.dateTo}</td>
                                         <td>{item.employeeName}</td>
                                     </tr> :
-                                    <tr style={{background: 'forestgreen'}}>
+                                    <tr>
+                                        <td style={{background: 'forestgreen'}}></td>
                                         <td>{item.name}</td>
                                         <td>{item.type}</td>
                                         <td>{item.createdDate}</td>
