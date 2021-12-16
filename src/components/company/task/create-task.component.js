@@ -9,6 +9,8 @@ export default function CreateTaskController() {
     const [inputValue, setValue] = useState('');
     const [selectedValue, setSelectedValue] = useState(null);
 
+    const types = ['pilne', 'ważne', 'średni priorytet', 'niski priorytet'];
+
     // handle input change event
     const handleInputChange = value => {
         setValue(value);
@@ -30,6 +32,11 @@ export default function CreateTaskController() {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
 
+    const handleSetType = (e) => {
+        setValues({ ...values, type: e.target.value });
+    };
+
+
     const onChangeDateTo = date => {
         setValues({ ...values, dateTo: date });
     }
@@ -50,6 +57,7 @@ export default function CreateTaskController() {
     const [show, setShow] = useState(false);
 
     let submitTask = (event) => {
+        console.log(values)
         event.preventDefault();
         axios.post("http://localhost:8080/task/add?employeeId="+(selectedValue.employeeId), values, { headers: authHeader() })
             .then((response) => {
@@ -99,13 +107,15 @@ export default function CreateTaskController() {
                             <Row className={"mt-2"}>
                                 <Col>
                                     <label className="mb-1">Typ zadania</label>
-                                        <input
-                                            type="text"
-                                            value={values.type}
-                                            name="type"
-                                            onChange={handleSetInputs}
-                                            className="form-control"
-                                        />
+                                    <select
+                                        onChange={handleSetType}
+                                        value={values.type} className="mb-2 form-select" aria-label="Default select example">
+                                        {types.map((type) => (
+                                            <option key={type} value={type}>
+                                                {type}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </Col>
                                 <Col>
                                     <label className="mb-1">Czas trwania do</label>

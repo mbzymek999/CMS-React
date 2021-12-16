@@ -56,7 +56,7 @@ export default function EmployeesController() {
                                     <Button className="btn btn-primary mr-3 ml-3" size="sm">Edytuj</Button>
                                 </td>
                                 <td style={{textAlign: "center"}}>
-                                    <Button className="btn btn-danger" size="sm">Usuń</Button>
+                                    <Button className="btn btn-danger" size="sm">Archiwizuj</Button>
                                 </td>
                             </tr>
                         )}

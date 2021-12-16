@@ -8,7 +8,9 @@ import {Button, Col, Container, Row} from "react-bootstrap";
 const AgreementDetails = () => {
     const { idAgreement } = useParams();
     const [agreement, setAgreements] = useState([]);
-
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     useEffect(() => {
         axios.get("http://localhost:8080/company/agreement/"+ idAgreement, { headers: authHeader() }).then(
             (response) => {
@@ -57,16 +59,27 @@ const AgreementDetails = () => {
                     <p>
                         zamieszkałym <strong>{agreement.cityEmployee} </strong>
                         ul: <strong>{agreement.streetEmployee} {agreement.streetNumberEmployee}{agreement.buildingNumberEmployee ? '/' : ''}{agreement.buildingNumberEmployee} </strong>
-                        PESEL: <strong>{agreement.pesel}</strong>
+                        PESEL: <strong>
+                        {show === false ? '************' : agreement.pesel}
+                        </strong>
                     </p>
                     <p>
-                        na czas określony od <strong>{agreement.dateFrom}</strong> do <strong>{agreement.dateTo}</strong>. Wynagrodzenie <strong>{agreement.salary}</strong>zł/msc
+                        na czas określony od <strong>{agreement.dateFrom}</strong> do <strong>{agreement.dateTo}</strong>. Wynagrodzenie:
+                        <strong> {show === false ? ' ***** ' : agreement.salary}</strong> zł/msc
                     </p>
                     <form
                         method="get"
                         action={`http://localhost:8080/pdf/generate/${idAgreement}`}
                     >
                         <Button className="btn btn-success mb-2" size="sm" type="submit">Generuj pdf</Button>
+                        {   show === false ?
+                            <Button className="btn btn-info mb-2 ms-2" size="sm" onClick={handleShow}>
+                                Podaż ukryte dane
+                            </Button> :
+                            <Button className="btn btn-info mb-2 ms-2" size="sm" onClick={handleClose}>
+                                Ukryj dane
+                            </Button>
+                        }
                     </form>
                 </Col>
                 <Col sm={2}></Col>
