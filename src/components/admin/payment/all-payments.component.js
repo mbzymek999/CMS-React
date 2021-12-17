@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
-import {Button, Col, Container, Modal, Row} from "react-bootstrap";
+import {Button, Col, Container, Modal, Row, Table} from "react-bootstrap";
 
 export default function AllPaymentsController() {
     const [content, setContent] = useState([]);
@@ -91,7 +91,7 @@ export default function AllPaymentsController() {
                         <Modal.Body>
                             <Row>
                                 <Col>
-                                    <table className="table table-striped">
+                                    <Table striped bordered hover className={"bg-light"}>
                                         <thead>
                                         <tr>
                                             <th scope="col">id</th>
@@ -111,7 +111,7 @@ export default function AllPaymentsController() {
                                             </tr>
                                         )}
                                         </tbody>
-                                    </table>
+                                    </Table>
                                 </Col>
                             </Row>
                         </Modal.Body>
@@ -128,9 +128,10 @@ export default function AllPaymentsController() {
             </Row>
             <Row>
                 <Col>
-                    <table className="table border">
+                    <Table striped className="table border">
                         <thead>
                         <tr>
+                            <th></th>
                             <th scope="col">Id płatności</th>
                             <th scope="col">Termin płatności</th>
                             <th scope="col">Data wystawienia</th>
@@ -142,7 +143,8 @@ export default function AllPaymentsController() {
                         <tbody>
                         {content.map((item) =>
                             <>{item.paymentDone ?
-                                <tr className="bg-success">
+                                <tr>
+                                    <td style={{background: 'forestgreen'}}></td>
                                     <td>{item.paymentId}</td>
                                     <td>{item.datePayment}</td>
                                     <td>{item.termPayment}</td>
@@ -150,7 +152,8 @@ export default function AllPaymentsController() {
                                     <td>{item.paymentDone ? "Tak" : "Nie"}</td>
                                     <td>{item.companyName}</td>
                                 </tr> :
-                                <tr className="bg-danger">
+                                <tr>
+                                    <td style={{background: 'crimson'}}></td>
                                     <td>{item.paymentId}</td>
                                     <td>{item.datePayment}</td>
                                     <td>{item.termPayment}</td>
@@ -161,7 +164,7 @@ export default function AllPaymentsController() {
                             </>
                         )}
                         </tbody>
-                    </table>
+                    </Table>
                 </Col>
             </Row>
         </Container>
