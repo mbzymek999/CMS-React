@@ -62,7 +62,6 @@ export default function TasksController() {
             if (!statusTask0)
                 setStatusTask(0);
             else setStatusTask(3)
-
     };
 
     const handleFilterStatusTaskInProgress = () => {
@@ -74,7 +73,6 @@ export default function TasksController() {
             if (!statusTask1)
                 setStatusTask(1);
             else setStatusTask(3)
-
     };
 
     const handleFilterStatusTaskDone = () => {

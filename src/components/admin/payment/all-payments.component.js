@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
-import {Button, Col, Container, Modal, Row, Table} from "react-bootstrap";
+import {Badge, Button, Col, Container, Modal, Row, Table} from "react-bootstrap";
+import {Pagination} from "@material-ui/lab";
 
 export default function AllPaymentsController() {
     const [content, setContent] = useState([]);
@@ -10,11 +11,21 @@ export default function AllPaymentsController() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [count, setCount] = useState(0);
+    const [pageSize, setPageSize] = useState(5);
+    const pageSizes = [5, 10, 15];
+
+    const [paymentDone, setPaymentDone] = useState([]);
+    const [paymentDoneFalse, setPaymentDoneFalse] = useState(false);
+    const [paymentDoneTrue, setPaymentDoneTrue] = useState(false);
+
 
     useEffect(() => {
-        axios.get("http://localhost:8080/payments", { headers: authHeader() }).then(
+        axios.get(`http://localhost:8080/payments/read?size=${pageSize}&page=${currentPage-1}&paymentDone=${paymentDone}`, { headers: authHeader() }).then(
             (response) => {
-                setContent(response.data);
+                setContent(response.data.payments);
+                setCount(response.data.totalPages);
             },
             (error) => {
                 // history.replace("/")
@@ -32,7 +43,34 @@ export default function AllPaymentsController() {
                 }
             }
         );
-    }, []);
+    }, [currentPage,pageSize, paymentDone]);
+
+    const handleChange = (event, value) => {
+        setCurrentPage(value);
+    };
+
+    const handlePageSizeChange = (event) => {
+        setPageSize(event.target.value);
+        setCurrentPage(1);
+    };
+
+    const handleFilterPaymentDoneNotPaid = () => {
+        setPaymentDoneFalse(!paymentDoneFalse)
+        if(paymentDoneTrue)
+            setPaymentDoneTrue(!paymentDoneTrue);
+        if(!paymentDoneFalse)
+            setPaymentDone(false);
+        else setPaymentDone([])
+    };
+
+    const handleFilterPaymentDonePaid = () => {
+        setPaymentDoneTrue(!paymentDoneTrue)
+        if(paymentDoneFalse)
+            setPaymentDoneFalse(!paymentDoneFalse);
+        if(!paymentDoneTrue)
+            setPaymentDone(true);
+        else setPaymentDone([])
+    };
 
     useEffect(() => {
         axios.get("http://localhost:8080/payment/companies", { headers: authHeader() }).then(
@@ -73,6 +111,30 @@ export default function AllPaymentsController() {
 
     return (
         <Container className={"mt-5"}>
+            <Row>
+                <Col>
+                    <Badge className="bg-danger">Nieopłacone</Badge>
+                    <input
+                        type="checkbox"
+                        className="m-3"
+                        onChange={handleFilterPaymentDoneNotPaid}
+                        checked={paymentDoneFalse}
+                        style={{
+                            transform: "scale(2)",
+                        }}
+                    />
+                    <Badge className="bg-success">Opłacone</Badge>
+                    <input
+                        type="checkbox"
+                        className="m-3"
+                        onChange={handleFilterPaymentDonePaid}
+                        checked={paymentDoneTrue}
+                        style={{
+                            transform: "scale(2)",
+                        }}
+                    />
+                </Col>
+            </Row>
             <Row>
                 <Col>
                     <Button className="btn btn-primary float-end" size="sm" onClick={handleShow}>
@@ -165,6 +227,24 @@ export default function AllPaymentsController() {
                         )}
                         </tbody>
                     </Table>
+                    <hr/>
+                    {"Ilość wyświetlanych elementów: "}
+                    <select onChange={handlePageSizeChange} value={pageSize} className="mb-2 form-select form-select-sm w-25">
+                        {pageSizes.map((size) => (
+                            <option key={size} value={size}>
+                                {size}
+                            </option>
+                        ))}
+                    </select>
+                    <Pagination
+                        variant="outlined"
+                        shape="rounded"
+                        count={count}
+                        page={currentPage}
+                        onChange={handleChange}
+                        size='medium'
+                        color='primary'
+                    />
                 </Col>
             </Row>
         </Container>
