@@ -4,7 +4,12 @@ import { Router, Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Navbar, Container, Nav, NavDropdown, Button} from "react-bootstrap"
 import "./App.css";
-
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSignOutAlt} from "@fortawesome/free-solid-svg-icons/faSignOutAlt";
+import {faSignInAlt} from "@fortawesome/free-solid-svg-icons";
+import {faHandshake} from "@fortawesome/free-solid-svg-icons";
+import {faPeopleCarry} from "@fortawesome/free-solid-svg-icons";
+import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
 import Login from "./components/login.component";
 import Register from "./components/admin/registerCompany/register.component";
 import Home from "./components/home.component";
@@ -23,14 +28,13 @@ import TasksEmployeeInProgress from "./components/employee/task/tasks-employee-i
 import TasksEmployeeDone from "./components/employee/task/tasks-employee-done.component";
 import AgreementsController from "./components/company/agreement/agreements-component";
 import EmployeesController from "./components/company/employee/employees.component";
+import AgreementDetails from "./components/company/agreement/AgreementDetails";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
-
 import { history } from './helpers/history';
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
-import AgreementDetails from "./components/company/agreement/AgreementDetails";
 
 class App extends Component {
   constructor(props) {
@@ -222,21 +226,26 @@ class App extends Component {
                   <Nav>
                     {showCompanyBoard && (
                         <Nav.Link>
-                          <NavDropdown title={
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                                 className="bi bi-person-lines-fill" viewBox="0 0 16 16">
-                              <path
-                                  d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
-                            </svg>
+                          <NavDropdown
+                              className="text-white"
+                              key="start"
+                              drop="start"
+                              title={
+                                <FontAwesomeIcon icon={faUserCircle} style={{fontSize: "28px"}} className="text-white"></FontAwesomeIcon>
                           }  id="navbarScrollingDropdown">
                             <NavDropdown.Item>
                               <Link to={"/agreements"} className="nav-link">
-                                Umowy
+                                <FontAwesomeIcon icon={faHandshake}></FontAwesomeIcon> Umowy
                               </Link>
                             </NavDropdown.Item>
                             <NavDropdown.Item>
                               <Link to={"/employees"} className="nav-link">
-                                Pacownicy
+                                <FontAwesomeIcon icon={faPeopleCarry}></FontAwesomeIcon> Pacownicy
+                              </Link>
+                            </NavDropdown.Item>
+                            <NavDropdown.Item>
+                              <Link to={"/login"} className="nav-link" onClick={this.logOut}>
+                                  <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon> Wyloguj się
                               </Link>
                             </NavDropdown.Item>
                           </NavDropdown>
@@ -244,23 +253,25 @@ class App extends Component {
                     )}
                     <Nav.Link>
                       {currentUser ? (
-                          <div className="navbar-nav ml-auto">
+                          <div>
                             {/*<li className="nav-item">*/}
                             {/*  <Link to={"/profile"} className="nav-link">*/}
                             {/*    {currentUser.username}*/}
                             {/*  </Link>*/}
                             {/*</li>*/}
+                            {!showCompanyBoard && (
                             <li className="nav-item">
                               <a href="/login" className="nav-link" onClick={this.logOut}>
-                                Wyloguj
+                                <FontAwesomeIcon icon={faSignOutAlt} className="text-white" size="lg"></FontAwesomeIcon> <span className="text-white p-1 pt-0">Wyloguj się</span>
                               </a>
                             </li>
+                            )}
                           </div>
                       ) : (
                           <div className="navbar-nav ml-auto">
                             <li className="nav-item">
                               <Link to={"/login"} className="nav-link">
-                                Zaloguj
+                                <FontAwesomeIcon icon={faSignInAlt} className="text-white" size="lg"></FontAwesomeIcon> <span className="text-white p-1 pt-0">Zaloguj się</span>
                               </Link>
                             </li>
 

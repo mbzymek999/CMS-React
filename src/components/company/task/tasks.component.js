@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
-import {Badge, Button, Col, Container, FormCheck, Row, Table} from "react-bootstrap";
+import {Badge, Button, Col, Container, Row, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {Pagination} from "@material-ui/lab";
-import {Checkbox} from "@material-ui/core";
 
 export default function TasksController() {
     const [task, setTasks] = useState([]);
@@ -19,8 +18,6 @@ export default function TasksController() {
     const [statusTask1, setStatusTask1] = useState(false);
     const [statusTask2, setStatusTask2] = useState(false);
     const [statusTask, setStatusTask] = useState(3);
-
-    const [isChecked, setIsChecked] = useState(false);
 
     useEffect(() => {
         axios.get(`http://localhost:8080/company/tasks/read?size=${pageSize}&page=${currentPage-1}&statusTask=${statusTask}`, { headers: authHeader() }).then(
@@ -55,10 +52,6 @@ export default function TasksController() {
         setPageSize(event.target.value);
         setCurrentPage(1);
     };
-
-    const handleChangeCheckbox = e => {
-        setIsChecked(!isChecked);
-    }
 
     const handleFilterStatusTaskNotAccepted = () => {
             setStatusTask0(!statusTask0);
