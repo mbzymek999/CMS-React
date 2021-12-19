@@ -3,6 +3,7 @@ import axios from "axios";
 import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
 import {Button, Col, Container, Row, Table} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 export default function EmployeesController() {
     const [employee, setEmployees] = useState([]);
@@ -53,7 +54,11 @@ export default function EmployeesController() {
                                 <td>{item.phone}</td>
                                 <td>{item.email}</td>
                                 <td style={{textAlign: "center"}}>
-                                    <Button className="btn btn-primary mr-3 ml-3" size="sm">Edytuj</Button>
+                                    <Link to={`/update_employee/${item.employeeId}`}>
+                                        <Button className="btn btn-primary float-end" size="sm">
+                                            Edytuj
+                                        </Button>
+                                    </Link>
                                 </td>
                                 <td style={{textAlign: "center"}}>
                                     <Button className="btn btn-danger" size="sm">Archiwizuj</Button>

@@ -29,6 +29,7 @@ import TasksEmployeeDone from "./components/employee/task/tasks-employee-done.co
 import AgreementsController from "./components/company/agreement/agreements-component";
 import EmployeesController from "./components/company/employee/employees.component";
 import AgreementDetails from "./components/company/agreement/AgreementDetails";
+import UpdateEmployeeComponent from "./components/company/employee/update-employee.component";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 import { history } from './helpers/history';
@@ -304,6 +305,7 @@ class App extends Component {
                 <Route path="/tasks_employee_done" component={TasksEmployeeDone} />
                 <Route path="/agreements" component={AgreementsController} />
                 <Route path="/employees" component={EmployeesController} />
+                <Route path="/update_employee/:employeeId" component={UpdateEmployeeComponent} />
               </Switch>
             </div>
 
