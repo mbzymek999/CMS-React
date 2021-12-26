@@ -4,12 +4,13 @@ import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
 import {Col, Container, Row, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import globalUrl from "../../../state/globalUrl";
 
 export default function AgreementsController() {
     const [agreement, setAgreements] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/company/agreements", { headers: authHeader() }).then(
+        axios.get(`${globalUrl().url}/company/agreements`, { headers: authHeader() }).then(
             (response) => {
                 setAgreements(response.data);
             },

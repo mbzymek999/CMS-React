@@ -3,12 +3,13 @@ import axios from "axios";
 import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
 import {Button, Col, Container, Row, Table} from "react-bootstrap";
+import globalUrl from "../../../state/globalUrl";
 
 export default function CompanyPaymentsController() {
     const [content, setContent] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/company/payments", { headers: authHeader() }).then(
+        axios.get(`${globalUrl().url}/company/payments`, { headers: authHeader() }).then(
             (response) => {
                 setContent(response.data);
             },
@@ -57,7 +58,7 @@ export default function CompanyPaymentsController() {
                                     <td style={{textAlign: "center"}}>
                                         <form
                                             method="post"
-                                            action={`http://localhost:8080/checkout?idPayment=${item.paymentId}`}
+                                            action={`${globalUrl().url}/checkout?idPayment=${item.paymentId}`}
                                         >
                                             <Button className="btn btn-primary" size="sm" type="submit">Zapłać</Button>
                                         </form>
@@ -72,7 +73,7 @@ export default function CompanyPaymentsController() {
                                     <td style={{textAlign: "center"}}>
                                         <form
                                             method="post"
-                                            action={`http://localhost:8080/checkout?idPayment=${item.paymentId}`}
+                                            action={`${globalUrl().url}/checkout?idPayment=${item.paymentId}`}
                                         >
                                             <Button className="btn btn-primary" size="sm" type="submit">Zapłać</Button>
                                         </form>

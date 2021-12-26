@@ -3,6 +3,7 @@ import axios from "axios";
 import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
 import { Col, Container, Row, Table} from "react-bootstrap";
+import globalUrl from "../../../state/globalUrl";
 
 export default function DisplayCompaniesController() {
     const [company, setCompany] = useState([]);
@@ -11,7 +12,7 @@ export default function DisplayCompaniesController() {
     const [companyName, setCompanyName] = useState("");
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/companies/read?nip=${nip}&companyName=${companyName}`, { headers: authHeader() }).then(
+        axios.get(`${globalUrl().url}/companies/read?nip=${nip}&companyName=${companyName}`, { headers: authHeader() }).then(
             (response) => {
                 setCompany(response.data);
                 console.log(nip)

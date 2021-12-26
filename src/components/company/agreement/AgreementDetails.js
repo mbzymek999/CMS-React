@@ -4,6 +4,7 @@ import axios from "axios";
 import authHeader from "../../../services/auth-header";
 import EventBus from "../../../common/EventBus";
 import {Button, Col, Container, Row} from "react-bootstrap";
+import globalUrl from "../../../state/globalUrl";
 
 const AgreementDetails = () => {
     const { idAgreement } = useParams();
@@ -12,7 +13,7 @@ const AgreementDetails = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     useEffect(() => {
-        axios.get("http://localhost:8080/company/agreement/"+ idAgreement, { headers: authHeader() }).then(
+        axios.get(`${globalUrl().url}/company/agreement/`+ idAgreement, { headers: authHeader() }).then(
             (response) => {
                 setAgreements(response.data);
             },
@@ -69,7 +70,7 @@ const AgreementDetails = () => {
                     </p>
                     <form
                         method="get"
-                        action={`http://localhost:8080/pdf/generate/${idAgreement}`}
+                        action={`${globalUrl().url}/pdf/generate/${idAgreement}`}
                     >
                         <Button className="btn btn-success mb-2" size="sm" type="submit">Generuj pdf</Button>
                         {   show === false ?

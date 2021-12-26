@@ -1,10 +1,12 @@
 import axios from "axios";
 import authHeader from "./auth-header";
+import globalUrl from "../state/globalUrl";
 
-const API_URL = "http://localhost:8080/api/auth/";
+const API_URL = `${globalUrl().url}/api/auth/`;
 
 class AuthService {
   login(username, password) {
+    console.log(globalUrl().url)
     return axios
       .post(API_URL + "signin", { username, password })
       .then((response) => {
@@ -44,7 +46,7 @@ class AuthService {
   }
 
   registerEmployee(username, name, lastName, pesel, position, phone, street, streetNumber, buildingNumber, city, postcode, email, assignedDate, agreementType, dateFrom, dateTo, salary, password) {
-    return axios.post("http://localhost:8080/create/agreement", {
+    return axios.post(`${globalUrl().url}/create/agreement`, {
       username,
       name,
       lastName,

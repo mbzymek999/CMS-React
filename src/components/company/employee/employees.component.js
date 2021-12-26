@@ -4,12 +4,13 @@ import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
 import {Button, Col, Container, Row, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import globalUrl from "../../../state/globalUrl";
 
 export default function EmployeesController() {
     const [employee, setEmployees] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/company/employees", { headers: authHeader() }).then(
+        axios.get(`${globalUrl().url}/company/employees`, { headers: authHeader() }).then(
             (response) => {
                 setEmployees(response.data);
             },

@@ -4,6 +4,7 @@ import authHeader from "../../../services/auth-header";
 import {Alert, Col, Container, Row} from "react-bootstrap";
 import EventBus from "../../../common/EventBus";
 import {useParams} from "react-router-dom";
+import globalUrl from "../../../state/globalUrl";
 
 export default function UpdateEmployeeComponent() {
     const [employee, setEmployee] = useState([]);
@@ -16,7 +17,7 @@ export default function UpdateEmployeeComponent() {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/company/employee/"+ employeeId, { headers: authHeader() }).then(
+        axios.get(`${globalUrl().url}/company/employee/`+ employeeId, { headers: authHeader() }).then(
             (response) => {
                 setEmployee(response.data);
             },
@@ -39,7 +40,7 @@ export default function UpdateEmployeeComponent() {
 
     let updateEmployee = (event) => {
         event.preventDefault();
-        axios.put("http://localhost:8080/company/employee/update/"+(employeeId), employee, { headers: authHeader() })
+        axios.put(`${globalUrl().url}/company/employee/update/`+(employeeId), employee, { headers: authHeader() })
             .then((response) => {
                 if (response.data != null) {
                     setShow(true);

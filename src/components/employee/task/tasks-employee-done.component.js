@@ -4,6 +4,7 @@ import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
 import {Card, Col, Container, Row} from "react-bootstrap";
 import {Pagination} from "@material-ui/lab";
+import globalUrl from "../../../state/globalUrl";
 
 export default function TasksEmployeeDone() {
     const [task, setTasks] = useState([]);
@@ -14,7 +15,7 @@ export default function TasksEmployeeDone() {
     const pageSizes = [6, 12, 18];
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/employee/tasks/2?size=${pageSize}&page=${currentPage-1}`, { headers: authHeader() }).then(
+        axios.get(`${globalUrl().url}/employee/tasks/2?size=${pageSize}&page=${currentPage-1}`, { headers: authHeader() }).then(
             (response) => {
                 setTasks(response.data.tasks);
                 setCount(response.data.totalPages);

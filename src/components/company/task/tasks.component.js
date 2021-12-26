@@ -5,6 +5,7 @@ import authHeader from "../../../services/auth-header";
 import {Badge, Button, Col, Container, Row, Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {Pagination} from "@material-ui/lab";
+import globalUrl from "../../../state/globalUrl";
 
 export default function TasksController() {
     const [task, setTasks] = useState([]);
@@ -20,7 +21,7 @@ export default function TasksController() {
     const [statusTask, setStatusTask] = useState(3);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/company/tasks/read?size=${pageSize}&page=${currentPage-1}&statusTask=${statusTask}`, { headers: authHeader() }).then(
+        axios.get(`${globalUrl().url}/company/tasks/read?size=${pageSize}&page=${currentPage-1}&statusTask=${statusTask}`, { headers: authHeader() }).then(
             (response) => {
                 setTasks(response.data.tasks);
                 setCount(response.data.totalPages);

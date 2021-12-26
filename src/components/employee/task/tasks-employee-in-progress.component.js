@@ -4,13 +4,14 @@ import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
 import {Button, Card, Col, Container, Row} from "react-bootstrap";
 import {Tooltip, OverlayTrigger} from "react-bootstrap";
+import globalUrl from "../../../state/globalUrl";
 
 export default function TasksEmployeeInProgress() {
     const [showTasks, setShowTasks] = useState([]);
     const [taskUpdate, setTasksUpdate] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/employee/tasks/1", { headers: authHeader() }).then(
+        axios.get(`${globalUrl().url}/employee/tasks/1`, { headers: authHeader() }).then(
             (response) => {
                 setShowTasks(response.data.tasks);
             },
@@ -33,7 +34,7 @@ export default function TasksEmployeeInProgress() {
     }, []);
 
     function updateTask(idTask) {
-        axios.put('http://localhost:8080/employee/task/update/'+ (idTask), {
+        axios.put(`${globalUrl().url}/employee/task/update/`+ (idTask), {
             statusTask: 2
         },{ headers: authHeader() })
             .then((response) => {

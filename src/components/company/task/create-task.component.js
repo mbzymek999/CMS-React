@@ -4,6 +4,7 @@ import authHeader from "../../../services/auth-header";
 import {Alert, Col, Container, Row} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import AsyncSelect from "react-select/async";
+import globalUrl from "../../../state/globalUrl";
 
 export default function CreateTaskController() {
     const [inputValue, setValue] = useState('');
@@ -22,7 +23,7 @@ export default function CreateTaskController() {
     }
 
     const fetchEmployees = () => {
-        return axios.get('http://localhost:8080/company/employees', { headers: authHeader() }).then(result => {
+        return axios.get(`${globalUrl().url}/company/employees`, { headers: authHeader() }).then(result => {
             const res =  result.data;
             return res;
         });
@@ -59,7 +60,7 @@ export default function CreateTaskController() {
     let submitTask = (event) => {
         console.log(values)
         event.preventDefault();
-        axios.post("http://localhost:8080/task/add?employeeId="+(selectedValue.employeeId), values, { headers: authHeader() })
+        axios.post(`${globalUrl().url}/task/add?employeeId=`+(selectedValue.employeeId), values, { headers: authHeader() })
             .then((response) => {
                 if (response.data != null) {
                     setShow(true);

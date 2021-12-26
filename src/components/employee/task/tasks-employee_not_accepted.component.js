@@ -3,13 +3,14 @@ import axios from "axios";
 import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
 import {Button, Card, Col, Container, Row} from "react-bootstrap";
+import globalUrl from "../../../state/globalUrl";
 
 export default function TasksEmployeeNotAccepted() {
     const [showTasks, setShowTasks] = useState([]);
     const [taskUpdate, setTasksUpdate] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/employee/tasks/0", { headers: authHeader() }).then(
+        axios.get(`${globalUrl().url}/employee/tasks/0`, { headers: authHeader() }).then(
             (response) => {
                 setShowTasks(response.data.tasks);
             },
@@ -32,7 +33,7 @@ export default function TasksEmployeeNotAccepted() {
     }, []);
 
     function updateTask(idTask) {
-        axios.put('http://localhost:8080/employee/task/update/'+ (idTask), {
+        axios.put(`${globalUrl().url}/employee/task/update/`+ (idTask), {
             statusTask: 1
         },{ headers: authHeader() })
             .then((response) => {

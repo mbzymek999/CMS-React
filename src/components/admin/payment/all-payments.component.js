@@ -4,6 +4,7 @@ import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
 import {Badge, Button, Col, Container, Modal, Row, Table} from "react-bootstrap";
 import {Pagination} from "@material-ui/lab";
+import globalUrl from "../../../state/globalUrl";
 
 export default function AllPaymentsController() {
     const [content, setContent] = useState([]);
@@ -22,7 +23,7 @@ export default function AllPaymentsController() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/payments/read?size=${pageSize}&page=${currentPage-1}&paymentDone=${paymentDone}`, { headers: authHeader() }).then(
+        axios.get(`${globalUrl().url}/payments/read?size=${pageSize}&page=${currentPage-1}&paymentDone=${paymentDone}`, { headers: authHeader() }).then(
             (response) => {
                 setContent(response.data.payments);
                 setCount(response.data.totalPages);
@@ -73,7 +74,7 @@ export default function AllPaymentsController() {
     };
 
     useEffect(() => {
-        axios.get("http://localhost:8080/payment/companies", { headers: authHeader() }).then(
+        axios.get(`${globalUrl().url}/payment/companies`, { headers: authHeader() }).then(
             (response) => {
                 setCompany(response.data);
             },
@@ -95,7 +96,7 @@ export default function AllPaymentsController() {
     }, []);
 
         const createPayment = (companyId) => {
-            axios.post("http://localhost:8080/api/payment?companyId="+ (companyId), {}, { headers: authHeader() })
+            axios.post(`${globalUrl().url}/api/payment?companyId=`+ (companyId), {}, { headers: authHeader() })
                 .then((response) => {
                     if (response.data != null) {
                         setShow(true);
