@@ -233,7 +233,7 @@ class App extends Component {
                               drop="start"
                               title={
                                 <FontAwesomeIcon icon={faUserCircle} style={{fontSize: "28px"}} className="text-white"></FontAwesomeIcon>
-                          }  id="navbarScrollingDropdown">
+                              }  id="navbarScrollingDropdown">
                             <NavDropdown.Item>
                               <Link to={"/agreements"} className="nav-link">
                                 <FontAwesomeIcon icon={faHandshake}></FontAwesomeIcon> Umowy
@@ -246,7 +246,7 @@ class App extends Component {
                             </NavDropdown.Item>
                             <NavDropdown.Item>
                               <Link to={"/login"} className="nav-link" onClick={this.logOut}>
-                                  <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon> Wyloguj się
+                                <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon> Wyloguj się
                               </Link>
                             </NavDropdown.Item>
                           </NavDropdown>
@@ -261,11 +261,11 @@ class App extends Component {
                             {/*  </Link>*/}
                             {/*</li>*/}
                             {!showCompanyBoard && (
-                            <li className="nav-item">
-                              <a href="/login" className="nav-link" onClick={this.logOut}>
-                                <FontAwesomeIcon icon={faSignOutAlt} className="text-white" size="lg"></FontAwesomeIcon> <span className="text-white p-1 pt-0">Wyloguj się</span>
-                              </a>
-                            </li>
+                                <li className="nav-item">
+                                  <a href="/login" className="nav-link" onClick={this.logOut}>
+                                    <FontAwesomeIcon icon={faSignOutAlt} className="text-white" size="lg"></FontAwesomeIcon> <span className="text-white p-1 pt-0">Wyloguj się</span>
+                                  </a>
+                                </li>
                             )}
                           </div>
                       ) : (
