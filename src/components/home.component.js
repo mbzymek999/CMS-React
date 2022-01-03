@@ -56,7 +56,7 @@ export default class Home extends Component {
                             <h4 style={{textAlign: "center"}}>Monitoruj postępy pracowników, dzięki <strong>CmsSoftware</strong> żadne zadanie nie zostanie pominięte!</h4>
                         </div>
                         <div className="mt-5">
-                            <img src={process.env.PUBLIC_URL + '/tasks.PNG'} className="img-fluid mx-auto d-block"/>
+                            <img src="https://drive.google.com/uc?export=view&id=1elARbGMg9m07EdMrtJoE3diYL8YwO4Iy" className="img-fluid mx-auto d-block" alt="Widok zadań"/>
                         </div>
                     </Col>
                     {/*<Col className="mt-5">*/}
