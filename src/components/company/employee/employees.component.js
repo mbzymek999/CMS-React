@@ -42,7 +42,7 @@ export default function EmployeesController() {
                             <th scope="col">Imię</th>
                             <th scope="col">Nazwisko</th>
                             <th scope="col">Stanowisko</th>
-                            <th scope="col">Numer telefony</th>
+                            <th scope="col">Numer telefonu</th>
                             <th scope="col">E-mail</th>
                         </tr>
                         </thead>
@@ -56,7 +56,7 @@ export default function EmployeesController() {
                                 <td>{item.email}</td>
                                 <td style={{textAlign: "center"}}>
                                     <Link to={`/update_employee/${item.employeeId}`}>
-                                        <Button className="btn btn-primary float-end" size="sm">
+                                        <Button className="btn btn-primary" size="sm">
                                             Edytuj
                                         </Button>
                                     </Link>

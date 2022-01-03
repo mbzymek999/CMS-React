@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
-
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
 import { connect } from "react-redux";
 import { login } from "../actions/auth";
 
@@ -12,7 +10,7 @@ const required = (value) => {
   if (!value) {
     return (
       <div className="alert alert-danger" role="alert">
-        This field is required!
+        Pole jest wymagane!
       </div>
     );
   }
@@ -58,7 +56,7 @@ class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       dispatch(login(this.state.username, this.state.password))
         .then(() => {
-          history.push("/profile");
+          history.push("/home");
           window.location.reload();
         })
         .catch(() => {
@@ -77,7 +75,7 @@ class Login extends Component {
     const { isLoggedIn, message } = this.props;
 
     if (isLoggedIn) {
-      return <Redirect to="/profile" />;
+      return <Redirect to="/home" />;
     }
 
     return (

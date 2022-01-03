@@ -18,7 +18,7 @@ const required = (value) => {
     if (!value) {
         return (
             <div className="alert alert-danger" role="alert">
-                This field is required!
+                Pole jest wymagane!
             </div>
         );
     }
@@ -249,7 +249,7 @@ class RegisterEmployee extends Component {
                                     <Container>
                                         <Row>
                                             <Col>
-                                                <label className="mb-1">Data podpisania:</label>
+                                                <label className="mb-1">Data podpisania</label>
                                                 <DatePicker
                                                     locale="pl"
                                                     selected={this.state.assignedDate}
@@ -271,7 +271,7 @@ class RegisterEmployee extends Component {
                                         </Row>
                                         <Row>
                                             <Col>
-                                                <label className="mb-1">Czas trwania od:</label>
+                                                <label className="mb-1">Data rozpoczęcia</label>
                                                 <DatePicker
                                                     locale="pl"
                                                     selected={this.state.dateFrom}
@@ -282,7 +282,7 @@ class RegisterEmployee extends Component {
                                             </Col>
                                             <Col>
 
-                                                <label className="mb-1">Czas trwania do:</label>
+                                                <label className="mb-1">Data zakończenia</label>
                                                 <DatePicker
                                                     locale="pl"
                                                     selected={this.state.dateTo}

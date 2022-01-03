@@ -77,6 +77,7 @@ class App extends Component {
 
   logOut() {
     this.props.dispatch(logout());
+    history.push("/home");
     this.setState({
       showCompanyBoard: false,
       showAdminBoard: false,
@@ -91,7 +92,7 @@ class App extends Component {
     return (
         <Router history={history}>
           <div>
-            <Navbar style={{background: "rgba(6,65,96,0.91)"}} className="m-0 p-0" expand="sm">
+            <Navbar style={{background: "#081e3f"}} className="m-0 p-0" expand="sm">
               <Container fluid>
                 <Navbar.Brand href="/home">
                   <h3 className="m-0 " style={{color: "ghostwhite"}}><b>Cms<span style={{color: "gold"}}>Software</span></b></h3>
@@ -144,15 +145,15 @@ class App extends Component {
                         </Nav.Link>
                     )}
 
-                    {showAdminBoard && (
-                        <Nav.Link>
-                          <li className="nav-item">
-                            <Link to={"/admin"} className="nav-link">
-                              <Button style={{background: "rgba(6,65,96,0.91)"}} size="sm" className="btn btn-outline-light buttonNav">Administrator</Button>
-                            </Link>
-                          </li>
-                        </Nav.Link>
-                    )}
+                    {/*{showAdminBoard && (*/}
+                    {/*    <Nav.Link>*/}
+                    {/*      <li className="nav-item">*/}
+                    {/*        <Link to={"/admin"} className="nav-link">*/}
+                    {/*          <Button style={{background: "rgba(6,65,96,0.91)"}} size="sm" className="btn btn-outline-light buttonNav">Administrator</Button>*/}
+                    {/*        </Link>*/}
+                    {/*      </li>*/}
+                    {/*    </Nav.Link>*/}
+                    {/*)}*/}
 
                     {showAdminBoard && (
                         <Nav.Link>
@@ -283,9 +284,9 @@ class App extends Component {
                 </Navbar.Collapse>
               </Container>
             </Navbar>
+            <Route exact path={["/", "/home"]} component={Home} />
             <div className="container mt-3">
               <Switch>
-                <Route exact path={["/", "/home"]} component={Home} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/register_employee" component={RegisterEmployee} />

@@ -155,7 +155,7 @@ export default function TasksController() {
                                         <td>{item.createdDate}</td>
                                         <td>{item.description}</td>
                                         <td>{item.dateTo}</td>
-                                        <td>{item.employeeName}</td>
+                                        <td>{item.employeeName} {item.employeeLastName}</td>
                                     </tr>:
                                     item.statusTask === 1 ?
                                     <tr>
@@ -165,7 +165,8 @@ export default function TasksController() {
                                         <td>{item.createdDate}</td>
                                         <td>{item.description}</td>
                                         <td>{item.dateTo}</td>
-                                        <td>{item.employeeName}</td>
+                                        <td>{item.employeeName} {item.employeeLastName}</td>
+
                                     </tr> :
                                     <tr>
                                         <td style={{background: 'forestgreen'}}></td>
@@ -174,7 +175,7 @@ export default function TasksController() {
                                         <td>{item.createdDate}</td>
                                         <td>{item.description}</td>
                                         <td>{item.dateTo}</td>
-                                        <td>{item.employeeName}</td>
+                                        <td>{item.employeeName} {item.employeeLastName}</td>
                                     </tr>
                                 }
                             </>
