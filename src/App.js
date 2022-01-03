@@ -94,7 +94,7 @@ class App extends Component {
             <Navbar style={{background: "rgba(6,65,96,0.91)"}} className="m-0 p-0" expand="sm">
               <Container fluid>
                 <Navbar.Brand href="/home">
-                  <h3 className="m-0 " style={{color: "ghostwhite"}}><b>Cms<span style={{color: "gold"}}>System</span></b></h3>
+                  <h3 className="m-0 " style={{color: "ghostwhite"}}><b>Cms<span style={{color: "gold"}}>Software</span></b></h3>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
@@ -283,7 +283,6 @@ class App extends Component {
                 </Navbar.Collapse>
               </Container>
             </Navbar>
-
             <div className="container mt-3">
               <Switch>
                 <Route exact path={["/", "/home"]} component={Home} />

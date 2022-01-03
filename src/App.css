@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Andada+Pro&family=Sora&display=swap" rel="stylesheet');
 label {
   display: block;
   margin-top: 10px;
@@ -63,4 +64,8 @@ label {
 .buttonNav:hover {
   text-decoration: underline;
   color: white;
+}
+
+body {
+  font-family: 'Sora', sans-serif;
 }
