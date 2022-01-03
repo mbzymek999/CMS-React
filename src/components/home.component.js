@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import UserService from "../services/user.service";
 import {Col, Container, Row} from "react-bootstrap";
-import tasks from '../images/tasks.PNG';
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -57,7 +56,7 @@ export default class Home extends Component {
                             <h4 style={{textAlign: "center"}}>Monitoruj postępy pracowników, dzięki <strong>CmsSoftware</strong> żadne zadanie nie zostanie pominięte!</h4>
                         </div>
                         <div className="mt-5">
-                            <img src={tasks}  className="img-fluid mx-auto d-block"/>
+                            <img src={process.env.PUBLIC_URL + '/tasks.PNG'} className="img-fluid mx-auto d-block"/>
                         </div>
                     </Col>
                     {/*<Col className="mt-5">*/}
