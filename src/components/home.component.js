@@ -1,6 +1,10 @@
 import React, {useState} from "react";
-import {Badge, Card, Col, Container, Row} from "react-bootstrap";
+import {Badge, Button, Card, Col, Container, Row} from "react-bootstrap";
 import FormRange from "react-bootstrap/FormRange";
+import message from '../images/message.png';
+import {faPhoneAlt} from "@fortawesome/free-solid-svg-icons";
+import {faMailBulk} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export default function HomeComponent() {
 
@@ -72,6 +76,82 @@ export default function HomeComponent() {
                                         onChange={e => setNumberEmployee(e.target.value)}
                                         size='lg'
                                     />
+                                </Col>
+                            </Row>
+                        </Card>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Card style={{backgroundColor: "rgba(244,244,248,0.8)"}} className="mb-5">
+                            <Row>
+                                <Col className="col-6 h-50">
+                                    <Container>
+                                        <img src={message} className="img-fluid" alt="contact"/>
+                                        <Row className="mt-4">
+                                            <Col sm={"5"}>
+                                                <p style={{fontSize: "20px"}}>
+                                                    <FontAwesomeIcon icon={faPhoneAlt} style={{fontSize: "20px"}} className="text-black"></FontAwesomeIcon> Telefon:
+                                                    <p><span style={{color: "#037743"}}><strong> 791-792-938</strong></span></p>
+                                                </p>
+                                            </Col>
+                                            <Col>
+
+                                                <p style={{fontSize: "20px"}}>
+                                                    <FontAwesomeIcon icon={faMailBulk} style={{fontSize: "20px"}} className="text-black"></FontAwesomeIcon> E-mail:
+                                                    <span style={{color: "#037743"}}><strong> cmssystemcom@gmail.com</strong></span>
+                                                </p>
+                                            </Col>
+                                        </Row>
+                                    </Container>
+                                </Col>
+                                <Col>
+                                    <h3 style={{textAlign: "center"}} className="mt-5"><strong>Wyślij nam wiadomość!</strong></h3>
+                                    <Row>
+                                        <Col sm="10">
+                                            <label>Wprowadź nazwę firmy</label>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                className="form-control"
+                                            />
+                                        </Col>
+                                    </Row>
+                                    <Row className="mt-3">
+                                        <Col sm="10">
+                                            <label>Wprowadź e-mail</label>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                className="form-control"
+                                            />
+                                        </Col>
+                                    </Row>
+                                    <Row className="mt-3">
+                                        <Col sm="10">
+                                            <label>Wprowadź numer telefonu</label>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                className="form-control"
+                                            />
+                                        </Col>
+                                    </Row>
+                                    <Row className="mt-3">
+                                        <Col sm="10">
+                                            <label>Wiadomość</label>
+                                            <textarea
+                                                type="text"
+                                                name="name"
+                                                className="form-control"
+                                            />
+                                        </Col>
+                                    </Row>
+                                    <Row className="mt-4">
+                                        <Col>
+                                            <Button className="btn btn-success">Wyślij wiadomość</Button>
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Row>
                         </Card>
