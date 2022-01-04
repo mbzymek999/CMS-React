@@ -1,14 +1,16 @@
 import React, {useState} from "react";
 import {Badge, Button, Card, Col, Container, Row} from "react-bootstrap";
 import FormRange from "react-bootstrap/FormRange";
-import message from '../images/message.png';
 import {faPhoneAlt} from "@fortawesome/free-solid-svg-icons";
 import {faMailBulk} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import globalUrl from "../state/globalUrl";
 
 export default function HomeComponent() {
 
     const [numberEmployees, setNumberEmployee] = useState(5);
+
 
     const priceFunction = () => {
         if (numberEmployees > 0 && numberEmployees <= 5) {
@@ -23,6 +25,45 @@ export default function HomeComponent() {
             return (numberEmployees * 4.5).toFixed(2);
         }
     }
+
+    const handleSetInputs = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
+    };
+
+    const initialValues = {
+        companyName: "",
+        email: "",
+        phone: "",
+        message: ""
+    };
+
+    const [values, setValues] = useState({
+        companyName: "",
+        email: "",
+        phone: "",
+        message: ""
+    });
+
+    let sendMessage = (event) => {
+        console.log(values)
+        event.preventDefault();
+        axios.post(`${globalUrl().url}/message/send`, values)
+            .then((response) => {
+                if (response.data != null) {
+                    setShow(true);
+                    setTimeout(() => setShow(false), 3000);
+                    window.location.reload(false);
+                } else {
+                    setShow(false);
+                }
+            }).catch(err => {
+            console.log(err)
+        })
+        setValues(initialValues);
+    };
+
+    const [setShow] = useState(false);
+
 
     return (
         <div style={{
@@ -87,7 +128,7 @@ export default function HomeComponent() {
                             <Row>
                                 <Col className="col-6 h-50">
                                     <Container>
-                                        <img src={message} className="img-fluid" alt="contact"/>
+                                        <img src="https://drive.google.com/uc?export=view&id=17vEJyXNaK4_FkLqr1X8E_FOyvUnwnntY" className="img-fluid" alt="contact"/>
                                         <Row className="mt-4">
                                             <Col sm={"5"}>
                                                 <p style={{fontSize: "20px"}}>
@@ -107,51 +148,66 @@ export default function HomeComponent() {
                                 </Col>
                                 <Col>
                                     <h3 style={{textAlign: "center"}} className="mt-5"><strong>Wyślij nam wiadomość!</strong></h3>
-                                    <Row>
-                                        <Col sm="10">
-                                            <label>Wprowadź nazwę firmy</label>
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                className="form-control"
-                                            />
-                                        </Col>
-                                    </Row>
-                                    <Row className="mt-3">
-                                        <Col sm="10">
-                                            <label>Wprowadź e-mail</label>
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                className="form-control"
-                                            />
-                                        </Col>
-                                    </Row>
-                                    <Row className="mt-3">
-                                        <Col sm="10">
-                                            <label>Wprowadź numer telefonu</label>
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                className="form-control"
-                                            />
-                                        </Col>
-                                    </Row>
-                                    <Row className="mt-3">
-                                        <Col sm="10">
-                                            <label>Wiadomość</label>
-                                            <textarea
-                                                type="text"
-                                                name="name"
-                                                className="form-control"
-                                            />
-                                        </Col>
-                                    </Row>
-                                    <Row className="mt-4">
-                                        <Col>
-                                            <Button className="btn btn-success">Wyślij wiadomość</Button>
-                                        </Col>
-                                    </Row>
+                                    <form onSubmit={sendMessage}>
+                                        <Row>
+                                            <Col sm="10">
+                                                <label>Wprowadź nazwę firmy</label>
+                                                <input
+                                                    type="text"
+                                                    name="companyName"
+                                                    value={values.companyName}
+                                                    onChange={handleSetInputs}
+                                                    className="form-control"
+                                                />
+                                            </Col>
+                                        </Row>
+                                        <Row className="mt-3">
+                                            <Col sm="10">
+                                                <label>Wprowadź e-mail</label>
+                                                <input
+                                                    type="text"
+                                                    name="email"
+                                                    value={values.email}
+                                                    onChange={handleSetInputs}
+                                                    className="form-control"
+                                                />
+                                            </Col>
+                                        </Row>
+                                        <Row className="mt-3">
+                                            <Col sm="10">
+                                                <label>Wprowadź numer telefonu</label>
+                                                <input
+                                                    type="text"
+                                                    name="phone"
+                                                    value={values.phone}
+                                                    onChange={handleSetInputs}
+                                                    className="form-control"
+                                                />
+                                            </Col>
+                                        </Row>
+                                        <Row className="mt-3">
+                                            <Col sm="10">
+                                                <label>Wiadomość</label>
+                                                <textarea
+                                                    type="text"
+                                                    name="message"
+                                                    value={values.message}
+                                                    onChange={handleSetInputs}
+                                                    className="form-control"
+                                                />
+                                            </Col>
+                                        </Row>
+
+                                        <br/>
+                                        <div className="d-flex">
+                                            <Button
+                                                className="btn btn-success"
+                                                type="submit"
+                                                onSubmit={sendMessage}
+                                            >Wyślij wiadomość</Button>
+                                        </div>
+                                    </form>
+
                                 </Col>
                             </Row>
                         </Card>
