@@ -10,6 +10,7 @@ import {faSignInAlt} from "@fortawesome/free-solid-svg-icons";
 import {faHandshake} from "@fortawesome/free-solid-svg-icons";
 import {faPeopleCarry} from "@fortawesome/free-solid-svg-icons";
 import {faUserCircle} from "@fortawesome/free-solid-svg-icons";
+import {faMailBulk} from "@fortawesome/free-solid-svg-icons";
 import Login from "./components/login.component";
 import Register from "./components/admin/registerCompany/register.component";
 import Home from "./components/home.component";
@@ -30,6 +31,7 @@ import AgreementsController from "./components/company/agreement/agreements-comp
 import EmployeesController from "./components/company/employee/employees.component";
 import AgreementDetails from "./components/company/agreement/AgreementDetails";
 import UpdateEmployeeComponent from "./components/company/employee/update-employee.component";
+import DisplayMessagesController from "./components/admin/message/display-messages.component";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 import { history } from './helpers/history';
@@ -226,6 +228,11 @@ class App extends Component {
                     {/*)}*/}
                   </Nav>
                   <Nav>
+                    {showAdminBoard && (
+                        <Link to={"/messages"} className="nav-link">
+                          <FontAwesomeIcon icon={faMailBulk}  size="lg" className="text-white mt-2"></FontAwesomeIcon> <span className="text-white p-1 pt-0">Wiadomości</span>
+                        </Link>
+                    )}
                     {showCompanyBoard && (
                         <Nav.Link>
                           <NavDropdown
@@ -305,6 +312,7 @@ class App extends Component {
                 <Route path="/tasks_employee_done" component={TasksEmployeeDone} />
                 <Route path="/agreements" component={AgreementsController} />
                 <Route path="/employees" component={EmployeesController} />
+                <Route path="/messages" component={DisplayMessagesController} />
                 <Route path="/update_employee/:employeeId" component={UpdateEmployeeComponent} />
               </Switch>
             </div>
