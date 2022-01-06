@@ -32,6 +32,7 @@ import EmployeesController from "./components/company/employee/employees.compone
 import AgreementDetails from "./components/company/agreement/AgreementDetails";
 import UpdateEmployeeComponent from "./components/company/employee/update-employee.component";
 import DisplayMessagesController from "./components/admin/message/display-messages.component";
+import MessageEmailComponent from "./components/admin/message/message-email.component";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 import { history } from './helpers/history';
@@ -309,6 +310,7 @@ class App extends Component {
                 <Route path="/tasks_employee_not_accepted" component={TasksEmployeeNotAccepted} />
                 <Route path="/tasks_employee_in_progress" component={TasksEmployeeInProgress} />
                 <Route path="/agreement/:idAgreement" component={AgreementDetails} />
+                <Route path="/message/read/:idClient" component={MessageEmailComponent} />
                 <Route path="/tasks_employee_done" component={TasksEmployeeDone} />
                 <Route path="/agreements" component={AgreementsController} />
                 <Route path="/employees" component={EmployeesController} />

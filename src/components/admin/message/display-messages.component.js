@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
-import { Col, Container, Row, Table} from "react-bootstrap";
+import {Col, Container, Row, Table} from "react-bootstrap";
 import globalUrl from "../../../state/globalUrl";
+import {Link} from "react-router-dom";
 
 export default function DisplayMessagesController() {
     const [message, setMessage] = useState([]);
-
+    // const [show, setShow] = useState(false);
+    // const handleClose = () => setShow(false);
+    // const handleShow = () => setShow(true);
 
     useEffect(() => {
         axios.get(`${globalUrl().url}/message/read`, { headers: authHeader() }).then(
@@ -35,13 +38,14 @@ export default function DisplayMessagesController() {
         <Container className={"mt-5 m-0 p-0"}>
             <Row>
                 <Col>
-                    <Table striped bordered hover>
+                    <Table striped bordered hover responsive>
                         <thead>
                         <tr>
-                            <th scope="col">nazwa firmy</th>
-                            <th scope="col">e-mail</th>
-                            <th scope="col">nr telefonu</th>
-                            <th scope="col">Wiadomość</th>
+                            <th>nazwa firmy</th>
+                            <th>e-mail</th>
+                            <th>nr telefonu</th>
+                            <th>Wiadomość</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -50,7 +54,37 @@ export default function DisplayMessagesController() {
                                 <td>{item.companyName}</td>
                                 <td>{item.email}</td>
                                 <td>{item.phone}</td>
-                                <td>{item.message}</td>
+                                <td style={{wordBreak: "break-all"}}>{item.message}</td>
+                                <td>
+                                    {/*<Button className="btn btn-success" size="sm" onClick={handleShow}>*/}
+                                    {/*   Odpowiedz*/}
+                                    {/*</Button>*/}
+                                    <Link to={`/message/read/${item.idClient}`}>
+                                        Wiadomość
+                                    </Link>
+                                    {/*<Modal*/}
+                                    {/*    show={show}*/}
+                                    {/*    onHide={handleClose}*/}
+                                    {/*    backdrop="static"*/}
+                                    {/*    keyboard={false}*/}
+                                    {/*>*/}
+                                    {/*    <Modal.Header closeButton>*/}
+                                    {/*        <Modal.Title>Odpowiedz na wiadomość</Modal.Title>*/}
+                                    {/*    </Modal.Header>*/}
+                                    {/*    <Modal.Body>*/}
+                                    {/*        <Row>*/}
+                                    {/*            <Col>*/}
+                                    {/*                {item.idClient}*/}
+                                    {/*            </Col>*/}
+                                    {/*        </Row>*/}
+                                    {/*    </Modal.Body>*/}
+                                    {/*    <Modal.Footer>*/}
+                                    {/*        <Button variant="secondary" onClick={handleClose}>*/}
+                                    {/*            zamknij*/}
+                                    {/*        </Button>*/}
+                                    {/*    </Modal.Footer>*/}
+                                    {/*</Modal>*/}
+                                </td>
                             </tr>
                         )}
                         </tbody>

@@ -10,7 +10,8 @@ import globalUrl from "../state/globalUrl";
 export default function HomeComponent() {
 
     const [numberEmployees, setNumberEmployee] = useState(5);
-
+    const [isLoading, setLoading] = useState(false);
+    const [isSuccessful, setSuccessful] = useState(0);
 
     const priceFunction = () => {
         if (numberEmployees > 0 && numberEmployees <= 5) {
@@ -45,25 +46,32 @@ export default function HomeComponent() {
     });
 
     let sendMessage = (event) => {
-        console.log(values)
+        let dataContainer1 = document.getElementById('data-container1');
+        let dataContainer2 = document.getElementById('data-container2');
+        setLoading(true);
         event.preventDefault();
         axios.post(`${globalUrl().url}/message/send`, values)
             .then((response) => {
                 if (response.data != null) {
-                    setShow(true);
-                    setTimeout(() => setShow(false), 3000);
-                    window.location.reload(false);
+                    setLoading(false);
+                    dataContainer1.setAttribute('data-value', response.data);
+                    dataContainer1.innerHTML = response.data;
+                    setSuccessful(1);
                 } else {
-                    setShow(false);
+                    dataContainer1.setAttribute('data-value', response.data);
+                    dataContainer1.innerHTML = response.data;
+                    setLoading(false);
+                    setSuccessful(2);
                 }
             }).catch(err => {
             console.log(err)
+            dataContainer2.setAttribute('data-value', err.data);
+            dataContainer2.innerHTML = err.data;
+            setLoading(false);
+            setSuccessful(2);
         })
         setValues(initialValues);
     };
-
-    const [setShow] = useState(false);
-
 
     return (
         <div style={{
@@ -200,14 +208,30 @@ export default function HomeComponent() {
 
                                         <br/>
                                         <div className="d-flex">
-                                            <Button
-                                                className="btn btn-success"
-                                                type="submit"
-                                                onSubmit={sendMessage}
-                                            >Wyślij wiadomość</Button>
+                                            { !isLoading &&
+                                                <Button
+                                                    className="btn btn-success"
+                                                    type="submit"
+                                                    onSubmit={sendMessage}
+                                                >Wyślij wiadomość</Button>
+                                            }
+                                            { isLoading &&
+                                                <button
+                                                    className="btn btn-success"
+                                                    disabled
+                                                    type="submit"
+                                                >
+                                                <span className="spinner-border spinner-border-sm" role="status"
+                                                      aria-hidden="true"/>
+                                                    Wyślij wiadomość...
+                                                </button>
+                                            }
                                         </div>
                                     </form>
-
+                                    <div id="data-container1" className={ isSuccessful === 1 && "alert alert-success"} data-value="">
+                                    </div>
+                                    <div id="data-container2" className={ isSuccessful === 2 && "alert alert-danger"} data-value="">
+                                    </div>
                                 </Col>
                             </Row>
                         </Card>

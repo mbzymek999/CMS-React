@@ -504,6 +504,14 @@ class Register extends Component {
                 </Tabs>
             )}
 
+            {this.state.successful && (
+                <div className="form-group">
+                  <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">
+                    <p style={{textAlign: "center"}}>Firma zarejestowana pomyślne!</p>
+                  </div>
+                </div>
+            )}
+
             {message && (
                 <div className="form-group">
                   <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">
