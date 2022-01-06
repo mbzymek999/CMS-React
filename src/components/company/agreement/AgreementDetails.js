@@ -73,6 +73,8 @@ const AgreementDetails = () => {
                         action={`${globalUrl().url}/pdf/generate/${idAgreement}`}
                     >
                         <Button className="btn btn-success mb-2" size="sm" type="submit">Generuj pdf</Button>
+
+
                         {   show === false ?
                             <Button className="btn btn-info mb-2 ms-2" size="sm" onClick={handleShow}>
                                 Podaż ukryte dane

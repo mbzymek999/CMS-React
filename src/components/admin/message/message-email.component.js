@@ -82,12 +82,12 @@ const MessageEmailComponent = () => {
                     <h6 className="mt-3" style={{textAlign:"center"}}>
                         <strong>Wiadomość</strong>
                     </h6>
-                    <p>idClient <strong>{message.idClient}</strong> pomiędzy:</p>
-                    <p>email klienta <strong>{message.emailMessage}</strong> pomiędzy:</p>
-                    <form onSubmit={sendEmail}>
+                    <p>Klient <strong>{message.companyName}</strong> e-mail: <strong>{message.emailMessage}</strong> </p>
+                    <p>Wiadomość: <strong>{message.message}</strong></p>
+                    <form onSubmit={sendEmail} className="mb-4">
                         <Row className="mt-3">
                             <Col sm="10">
-                                <label>Wiadomość</label>
+                                <label>Odpowiedz</label>
                                 <textarea
                                     type="text"
                                     name="answer"

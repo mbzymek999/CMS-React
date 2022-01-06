@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import axios from "axios";
 import authHeader from "../../../services/auth-header";
-import {Alert, Col, Container, Row} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import AsyncSelect from "react-select/async";
 import globalUrl from "../../../state/globalUrl";
@@ -9,6 +9,8 @@ import globalUrl from "../../../state/globalUrl";
 export default function CreateTaskController() {
     const [inputValue, setValue] = useState('');
     const [selectedValue, setSelectedValue] = useState(null);
+    const [isSuccessful, setSuccessful] = useState(null);
+    const [isLoading, setLoading] = useState(false);
 
     const types = ['pilne', 'ważne', 'średni priorytet', 'niski priorytet'];
 
@@ -58,20 +60,39 @@ export default function CreateTaskController() {
     const [show, setShow] = useState(false);
 
     let submitTask = (event) => {
-        let responseError = document.getElementById('data-response-error');
         console.log(values)
         event.preventDefault();
+        setLoading(true);
+        if(selectedValue === null) {
+            setLoading(false);
+        }
+        setSuccessful(0);
+        let responseOk = document.getElementById('data-response-ok');
+        let responseError = document.getElementById('data-response-error');
         axios.post(`${globalUrl().url}/task/add?employeeId=`+(selectedValue.employeeId), values, { headers: authHeader() })
             .then((response) => {
                 if (response.data != null) {
                     setShow(true);
+                    setLoading(false);
+                    setSuccessful(1);
+                    responseOk.setAttribute('data-value', response.data);
+                    responseOk.innerHTML = response.data;
                     setTimeout(() => setShow(false), 3000);
-                    window.location.reload(false);
+                    // window.location.reload(false);
                 } else {
+                    setLoading(false);
                     setShow(false);
+                    setSuccessful(1);
+                    responseError.setAttribute('data-value', response.data);
+                    responseError.innerHTML = response.data;
+
                 }
             }).catch(err => {
             console.log(err)
+            setLoading(false);
+            setSuccessful(2);
+            responseError.setAttribute('data-value', err.data);
+            responseError.innerHTML = err.data;
         })
         setValues(initialValues);
     };
@@ -82,7 +103,6 @@ export default function CreateTaskController() {
                 <Col>
                     <div className="card bg-light col-8">
                         <h3 className="text-center">Stwórz nowe zadanie</h3>
-                        {show ? <Alert message="Success! You added your item!" /> : null}
                         <form onSubmit={submitTask}>
                             <div className="row">
                                 <div className="col">
@@ -148,19 +168,38 @@ export default function CreateTaskController() {
                                 </Col>
                                 <Col></Col>
                             </Row>
-                            <div className={ selectedValue === null && "alert alert-danger"} data-value="">
+                            {/*<div className={ selectedValue === null && "alert alert-danger"} data-value="">*/}
+                            {/*</div>*/}
+
+                            {isSuccessful === 0 && (
+                                <div className={ selectedValue === null && "alert alert-danger mt-0 mb-0"} role="alert">
+                                    Nie wybrano pracownika!
+                                </div>
+                            )}
+                            <div id="data-response-ok" className={ isSuccessful === 1 && "alert alert-success mt-0 mb-0"} data-value="">
+                            </div>
+                            <div id="data-response-error" className={ isSuccessful === 2 && "alert alert-danger mt-0 mb-0"} data-value="">
                             </div>
                             <br/>
-                            <div className="d-flex justify-content-end">
-                                <button
-                                    style={{marginRight: "5px"}}
-                                    type="submit"
-                                    onSubmit={submitTask}
-                                    className="btn btn-primary"
-                                >
-                                    Zapisz
-                                </button>
-                                {' '}
+                            <div className="d-flex">
+                                { !isLoading &&
+                                    <Button
+                                        className="btn btn-primary"
+                                        type="submit"
+                                        onSubmit={submitTask}
+                                    >Zapisz</Button>
+                                }
+                                { isLoading &&
+                                    <button
+                                        className="btn btn-primary"
+                                        disabled
+                                        type="submit"
+                                    >
+                                                <span className="spinner-border spinner-border-sm" role="status"
+                                                      aria-hidden="true"/>
+                                        Zapisywanie...
+                                    </button>
+                                }
                             </div>
                         </form>
                     </div>
