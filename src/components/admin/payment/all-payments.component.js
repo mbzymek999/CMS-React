@@ -16,6 +16,8 @@ export default function AllPaymentsController() {
     const [count, setCount] = useState(0);
     const [pageSize, setPageSize] = useState(5);
     const pageSizes = [5, 10, 15];
+    const [isLoading, setLoading] = useState(false);
+
 
     const [paymentDone, setPaymentDone] = useState([]);
     const [paymentDoneFalse, setPaymentDoneFalse] = useState(false);
@@ -96,16 +98,20 @@ export default function AllPaymentsController() {
     }, []);
 
         const createPayment = (companyId) => {
+            setLoading(true);
             axios.post(`${globalUrl().url}/api/payment?companyId=`+ (companyId), {}, { headers: authHeader() })
                 .then((response) => {
                     if (response.data != null) {
                         setShow(true);
+                        setLoading(false);
                         setTimeout(() => setShow(false), 3000);
                         window.location.reload(false);
                     } else {
                         setShow(false);
+                        setLoading(false);
                     }
                 }).catch(err => {
+                setLoading(false);
                 console.log(err)
             })
         };
@@ -149,7 +155,9 @@ export default function AllPaymentsController() {
                         keyboard={false}
                     >
                         <Modal.Header closeButton>
-                            <Modal.Title>Wybierz firme z listy</Modal.Title>
+                            <Modal.Title>
+                                <h4>Wybierz firme z listy</h4>
+                            </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <Row>
@@ -169,7 +177,27 @@ export default function AllPaymentsController() {
                                                 <td>{item.companyName}</td>
                                                 <td>{item.pricePackage} zł</td>
                                                 <td>
-                                                    <Button className="btn btn-primary float-end" size="sm" onClick={() => createPayment(item.id)}>Dodaj płatność</Button>
+                                                    <div style={{textAlign: "center"}}>
+                                                        { !isLoading &&
+                                                            <Button
+                                                                className="btn btn-primary"
+                                                                size="sm"
+                                                                onClick={() => createPayment(item.id)}
+                                                            >Dodaj płatność</Button>
+                                                        }
+                                                        { isLoading &&
+                                                            <Button
+                                                                className="btn btn-primary"
+                                                                disabled
+                                                                type="submit"
+                                                                size="sm"
+                                                            >
+                                                        <span className="spinner-border spinner-border-sm" role="status"
+                                                              aria-hidden="true"/>
+                                                                Dodaj płatność...
+                                                            </Button>
+                                                        }
+                                                    </div>
                                                 </td>
                                             </tr>
                                         )}

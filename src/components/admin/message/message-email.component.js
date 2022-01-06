@@ -9,6 +9,8 @@ import globalUrl from "../../../state/globalUrl";
 const MessageEmailComponent = () => {
     const { idClient } = useParams();
     const [message, setMessage] = useState([]);
+    const [isLoading, setLoading] = useState(false);
+    const [isSuccessful, setSuccessful] = useState(0);
 
     useEffect(() => {
         axios.get(`${globalUrl().url}/message/read/`+ idClient, { headers: authHeader() }).then(
@@ -45,13 +47,28 @@ const MessageEmailComponent = () => {
     });
 
     let sendEmail = (event) => {
+        let responseOk = document.getElementById('data-response-ok');
+        let responseError = document.getElementById('data-response-error');
+        setLoading(true);
         event.preventDefault();
         axios.post(`${globalUrl().url}/message/email?clientEmail=${message.emailMessage}`, values, { headers: authHeader() })
             .then((response) => {
                 if (response.data != null) {
+                    setLoading(false);
+                    responseOk.setAttribute('data-value', response.data);
+                    responseOk.innerHTML = response.data;
+                    setSuccessful(1);
                 } else {
+                    setLoading(false);
+                    responseError.setAttribute('data-value', response.data);
+                    responseError.innerHTML = response.data;
+                    setSuccessful(2);
                 }
             }).catch(err => {
+            setLoading(false);
+            responseError.setAttribute('data-value', err.data);
+            responseError.innerHTML = err.data;
+            setSuccessful(2);
             console.log(err)
         })
         setValues(initialValues);
@@ -82,11 +99,37 @@ const MessageEmailComponent = () => {
                         </Row>
 
                         <br/>
-                        <Button
-                            className="btn btn-success"
-                            type="submit"
-                            onSubmit={sendEmail}
-                        >Wyślij wiadomość</Button>
+
+
+                        <div className="d-flex">
+                            { !isLoading &&
+                                <Button
+                                    className="btn btn-success"
+                                    type="submit"
+                                    onSubmit={sendEmail}
+                                >Wyślij wiadomość</Button>
+                            }
+                            { isLoading &&
+                                <button
+                                    className="btn btn-success"
+                                    disabled
+                                    type="submit"
+                                >
+                                                <span className="spinner-border spinner-border-sm" role="status"
+                                                      aria-hidden="true"/>
+                                    Wyślij wiadomość...
+                                </button>
+                            }
+                        </div>
+                        <div id="data-response-ok" className={ isSuccessful === 1 && "alert alert-success"} data-value="">
+                        </div>
+                        <div id="data-response-error" className={ isSuccessful === 2 && "alert alert-danger"} data-value="">
+                        </div>
+                        {/*<Button*/}
+                        {/*    className="btn btn-success"*/}
+                        {/*    type="submit"*/}
+                        {/*    onSubmit={sendEmail}*/}
+                        {/*>Wyślij wiadomość</Button>*/}
                     </form>
                 </Col>
                 <Col sm={2}></Col>

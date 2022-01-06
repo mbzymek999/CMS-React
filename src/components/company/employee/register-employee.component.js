@@ -87,6 +87,7 @@ class RegisterEmployee extends Component {
             postcode: "",
             password: "",
             successful: false,
+            isLoading: false,
             agreementType: "",
             assignedDate: new Date(),
             dateFrom: new Date(),
@@ -210,9 +211,16 @@ class RegisterEmployee extends Component {
             successful: false,
         });
 
+        this.setState({
+            isLoading: false,
+        });
+
         this.form.validateAll();
 
         if (this.checkBtn.context._errors.length === 0) {
+            this.setState({
+                isLoading: true
+            });
             this.props
                 .dispatch(
                     registerEmployee(this.state.username, this.state.name, this.state.lastName, this.state.pesel, this.state.position, this.state.phone, this.state.street, this.state.streetNumber,
@@ -221,11 +229,13 @@ class RegisterEmployee extends Component {
                 .then(() => {
                     this.setState({
                         successful: true,
+                        isLoading: false
                     });
                 })
                 .catch(() => {
                     this.setState({
                         successful: false,
+                        isLoading: false
                     });
                 });
         }
@@ -474,9 +484,26 @@ class RegisterEmployee extends Component {
                                                         <Badge className={"bg-warning"}><h5><strong>Hasło</strong> zostanie wygenerowane automatycznie oraz wysłane na podany wyżej adres e-mail!</h5></Badge>
                                                     </div>
 
-                                                    <div className="form-group mt-2">
-                                                        <button className="btn btn-primary btn-block">Dodaj pracownika do systemu</button>
+                                                    {/*<div className="form-group mt-2">*/}
+                                                    {/*    <button className="btn btn-primary btn-block">Dodaj pracownika do systemu</button>*/}
+                                                    {/*</div>*/}
+
+                                                    <div className="d-flex">
+                                                        { !this.state.isLoading &&
+                                                            <button className="btn btn-primary btn-block">Dodaj pracownika do systemu</button>
+                                                        }
+                                                        { this.state.isLoading &&
+                                                                <button
+                                                                    className="btn btn-primary btn-block"
+                                                                    disabled
+                                                                >
+                                                                    <span className="spinner-border spinner-border-sm" role="status"
+                                                                          aria-hidden="true"/>
+                                                                    Dodawanie pracownika do systemu...
+                                                                </button>
+                                                        }
                                                     </div>
+
                                                 </div>
                                             </Col>
                                         </Row>
@@ -485,9 +512,16 @@ class RegisterEmployee extends Component {
                             </Tabs>
                         )}
 
-                        <Container>
-                            <Row className={"mt-3"}>
+                        <Container className="mt-0">
+                            <Row className="mt-0">
                                 <Col>
+                                    {this.state.successful && (
+                                            <div className={ this.state.successful ? "alert alert-success mt-0" : "alert alert-danger mt-0" } role="alert">
+                                                <p style={{textAlign: "center"}}>Pracownik został pomyślnie dodany do systemu!</p>
+                                                <p style={{textAlign: "center"}}>Dane logowania zostały wysłane na podany adres e-mail.</p>
+                                            </div>
+                                    )}
+
                                     {message && (
                                         <div className="form-group">
                                             <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">

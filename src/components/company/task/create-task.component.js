@@ -58,6 +58,7 @@ export default function CreateTaskController() {
     const [show, setShow] = useState(false);
 
     let submitTask = (event) => {
+        let responseError = document.getElementById('data-response-error');
         console.log(values)
         event.preventDefault();
         axios.post(`${globalUrl().url}/task/add?employeeId=`+(selectedValue.employeeId), values, { headers: authHeader() })
@@ -147,6 +148,8 @@ export default function CreateTaskController() {
                                 </Col>
                                 <Col></Col>
                             </Row>
+                            <div className={ selectedValue === null && "alert alert-danger"} data-value="">
+                            </div>
                             <br/>
                             <div className="d-flex justify-content-end">
                                 <button
