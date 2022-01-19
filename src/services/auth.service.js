@@ -45,7 +45,7 @@ class AuthService {
     }, { headers: authHeader() });
   }
 
-  registerEmployee(username, name, lastName, pesel, position, phone, street, streetNumber, buildingNumber, city, postcode, email, assignedDate, agreementType, dateFrom, dateTo, salary, password) {
+  registerEmployee(username, name, lastName, pesel, position, phone, street, streetNumber, buildingNumber, city, postcode, email, assignedDate, agreementType, dateFrom, dateTo, salary, bankAccount, password) {
     return axios.post(`${globalUrl().url}/create/agreement`, {
       username,
       name,
@@ -64,6 +64,7 @@ class AuthService {
       dateFrom,
       dateTo,
       salary,
+      bankAccount,
       password,
     }, { headers: authHeader() });
   }

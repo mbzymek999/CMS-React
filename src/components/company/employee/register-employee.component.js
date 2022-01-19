@@ -24,6 +24,16 @@ const required = (value) => {
     }
 };
 
+const requiredMessage = (value) => {
+    if (!value) {
+        return (
+            <div className="alert alert-danger" role="alert">
+                Sprawdź puste pola!
+            </div>
+        );
+    }
+};
+
 const email = (value) => {
     if (!isEmail(value)) {
         return (
@@ -71,6 +81,7 @@ class RegisterEmployee extends Component {
         this.onChangePostcode = this.onChangePostcode.bind(this)
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
+        this.onChangeBankAccount = this.onChangeBankAccount.bind(this);
 
         this.state = {
             username: "",
@@ -92,7 +103,8 @@ class RegisterEmployee extends Component {
             assignedDate: new Date(),
             dateFrom: new Date(),
             dateTo: new Date(),
-            salary: 0
+            salary: 0,
+            bankAccount: ""
         };
     }
 
@@ -204,6 +216,12 @@ class RegisterEmployee extends Component {
         });
     }
 
+    onChangeBankAccount(e) {
+        this.setState({
+            bankAccount: e.target.value,
+        });
+    }
+
     handleRegister(e) {
         e.preventDefault();
 
@@ -223,8 +241,9 @@ class RegisterEmployee extends Component {
             });
             this.props
                 .dispatch(
-                    registerEmployee(this.state.username, this.state.name, this.state.lastName, this.state.pesel, this.state.position, this.state.phone, this.state.street, this.state.streetNumber,
-                        this.state.buildingNumber, this.state.city, this.state.postcode, this.state.email, this.state.assignedDate, this.state.agreementType, this.state.dateFrom, this.state.dateTo, this.state.salary, this.state.password)
+                    registerEmployee(this.state.username, this.state.name, this.state.lastName, this.state.pesel, this.state.position, this.state.phone, this.state.street,
+                        this.state.streetNumber, this.state.buildingNumber, this.state.city, this.state.postcode, this.state.email, this.state.assignedDate,
+                        this.state.agreementType, this.state.dateFrom, this.state.dateTo, this.state.salary, this.state.bankAccount, this.state.password)
                 )
                 .then(() => {
                     this.setState({
@@ -266,6 +285,7 @@ class RegisterEmployee extends Component {
                                                     onChange={this.onChangeAssignedDate.bind(this)}
                                                     dateFormat="dd-MM-yyyy"
                                                     className="border bg-white border-secondary rounded text-center w-100 p-1"
+                                                    validations={[required]}
                                                 />
                                             </Col>
                                             <Col>
@@ -288,6 +308,7 @@ class RegisterEmployee extends Component {
                                                     onChange={this.onChangeDateFrom.bind(this)}
                                                     dateFormat="dd-MM-yyyy"
                                                     className="border bg-white border-secondary rounded text-center w-100 p-1"
+                                                    validations={[required]}
                                                 />
                                             </Col>
                                             <Col>
@@ -299,21 +320,30 @@ class RegisterEmployee extends Component {
                                                     onChange={this.onChangeDateTo.bind(this)}
                                                     dateFormat="dd-MM-yyyy"
                                                     className="border bg-white border-secondary rounded text-center w-100 p-1"
+                                                    validations={[required]}
                                                 />
                                             </Col>
                                         </Row>
                                         <Row>
-                                            <Col>
-                                                <Col className="col-6">
-                                                    <label className="mb-1" htmlFor="name">Wynagrodzenie</label>
-                                                    <Input
-                                                        type="number"
-                                                        className="form-control"
-                                                        name="salary"
-                                                        value={this.state.salary}
-                                                        onChange={this.onChangeSalary.bind(this)}
-                                                    />
-                                                </Col>
+                                            <Col className="col-6">
+                                                <label className="mb-1" htmlFor="name">Wynagrodzenie</label>
+                                                <Input
+                                                    type="number"
+                                                    className="form-control"
+                                                    name="salary"
+                                                    value={this.state.salary}
+                                                    onChange={this.onChangeSalary.bind(this)}
+                                                />
+                                            </Col>
+                                            <Col className="col-6">
+                                                <label className="mb-1" htmlFor="name">Konto bankowe</label>
+                                                <Input
+                                                    type="text"
+                                                    className="form-control"
+                                                    name="bankAccount"
+                                                    value={this.state.bankAccount}
+                                                    onChange={this.onChangeBankAccount}
+                                                />
                                             </Col>
                                         </Row>
                                     </Container>
@@ -331,6 +361,7 @@ class RegisterEmployee extends Component {
                                                             name="name"
                                                             value={this.state.name}
                                                             onChange={this.onChangeName}
+                                                            validations={[required]}
                                                         />
                                                     </div>
                                                 </Col>
@@ -343,6 +374,7 @@ class RegisterEmployee extends Component {
                                                             name="lastName"
                                                             value={this.state.lastName}
                                                             onChange={this.onChangeLastName}
+                                                            validations={[required]}
                                                         />
                                                     </div>
                                                 </Col>
@@ -356,6 +388,7 @@ class RegisterEmployee extends Component {
                                                         name="pesel"
                                                         value={this.state.pesel}
                                                         onChange={this.onChangePesel}
+                                                        validations={[required]}
                                                     />
                                                 </Col>
                                                 <Col>
@@ -381,6 +414,7 @@ class RegisterEmployee extends Component {
                                                             name="phone"
                                                             value={this.state.phone}
                                                             onChange={this.onChangePhone}
+                                                            validations={[required]}
                                                         />
                                                     </div>
                                                 </Col>
@@ -400,19 +434,20 @@ class RegisterEmployee extends Component {
                                             <Row>
                                                 <Col>
                                                     <div className="form-group">
-                                                        <label htmlFor="streetNumber">nr Ulicy</label>
+                                                        <label htmlFor="streetNumber">Nr. budynku</label>
                                                         <Input
                                                             type="text"
                                                             className="form-control"
                                                             name="streetNumber"
                                                             value={this.state.streetNumber}
                                                             onChange={this.onChangeStreetNumber}
+                                                            validations={[required]}
                                                         />
                                                     </div>
                                                 </Col>
                                                 <Col>
                                                     <div className="form-group">
-                                                        <label htmlFor="buildingNumber">nr mieszkania</label>
+                                                        <label htmlFor="buildingNumber">Nr. mieszkania</label>
                                                         <Input
                                                             type="text"
                                                             className="form-control"
@@ -433,6 +468,7 @@ class RegisterEmployee extends Component {
                                                             name="city"
                                                             value={this.state.city}
                                                             onChange={this.onChangeCity}
+                                                            validations={[required]}
                                                         />
                                                     </div>
                                                 </Col>
@@ -445,6 +481,7 @@ class RegisterEmployee extends Component {
                                                             name="postcode"
                                                             value={this.state.postcode}
                                                             onChange={this.onChangePostcode}
+                                                            validations={[required]}
                                                         />
                                                     </div>
                                                 </Col>
@@ -488,9 +525,11 @@ class RegisterEmployee extends Component {
                                                     {/*    <button className="btn btn-primary btn-block">Dodaj pracownika do systemu</button>*/}
                                                     {/*</div>*/}
 
-                                                    <div className="d-flex">
+                                                    <div className="d-flex"
+                                                    >
                                                         { !this.state.isLoading &&
-                                                            <button className="btn btn-primary btn-block">Dodaj pracownika do systemu</button>
+                                                            <button className="btn btn-primary btn-block"
+                                                            >Dodaj pracownika do systemu</button>
                                                         }
                                                         { this.state.isLoading &&
                                                                 <button
@@ -550,7 +589,7 @@ class RegisterEmployee extends Component {
 function mapStateToProps(state) {
     const { message } = state.message;
     return {
-        message,
+        message
     };
 }
 

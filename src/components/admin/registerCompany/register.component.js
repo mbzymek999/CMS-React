@@ -12,7 +12,7 @@ import Tab from "react-bootstrap/Tab";
 const required = (value) => {
   if (!value) {
     return (
-      <div className="alert alert-danger" role="alert">
+      <div className="alert alert-danger pt-2 pb-2" role="alert">
         Pole jest wymagane!
       </div>
     );
@@ -261,6 +261,7 @@ class Register extends Component {
                                   name="companyName"
                                   value={this.state.companyName}
                                   onChange={this.onChangeCompanyName}
+                                  validations={[required]}
                               />
                             </div>
                           </Col>
@@ -287,6 +288,7 @@ class Register extends Component {
                                   name="nip"
                                   value={this.state.nip}
                                   onChange={this.onChangeNip}
+                                  validations={[required]}
                               />
                             </div>
                           </Col>
@@ -299,6 +301,7 @@ class Register extends Component {
                                   name="regon"
                                   value={this.state.regon}
                                   onChange={this.onChangeRegon}
+                                  validations={[required]}
                               />
                             </div>
                           </Col>
@@ -324,6 +327,7 @@ class Register extends Component {
                                   name="phone"
                                   value={this.state.phone}
                                   onChange={this.onChangePhone}
+                                  validations={[required]}
                               />
                             </div>
                           </Col>
@@ -373,13 +377,14 @@ class Register extends Component {
                         </Col>
                         <Col>
                           <div className="form-group">
-                            <label htmlFor="streetNumber">Numer ulicy</label>
+                            <label htmlFor="streetNumber">Nr. budynku</label>
                             <Input
                                 type="text"
                                 className="form-control"
                                 name="streetNumber"
                                 value={this.state.streetNumber}
                                 onChange={this.onChangeStreetNumber}
+                                validations={[required]}
                             />
                           </div>
                         </Col>
@@ -387,7 +392,7 @@ class Register extends Component {
                       <Row>
                         <Col className="col-6">
                           <div className="form-group">
-                            <label htmlFor="buildingNumber">Numer lokalu</label>
+                            <label htmlFor="buildingNumber">Nr. lokalu</label>
                             <Input
                                 type="text"
                                 className="form-control"
@@ -406,6 +411,7 @@ class Register extends Component {
                                 name="city"
                                 value={this.state.city}
                                 onChange={this.onChangeCity}
+                                validations={[required]}
                             />
                           </div>
                         </Col>
@@ -420,6 +426,7 @@ class Register extends Component {
                                 name="postcode"
                                 value={this.state.postcode}
                                 onChange={this.onChangePostcode}
+                                validations={[required]}
                             />
                           </div>
                         </Col>
@@ -513,7 +520,7 @@ class Register extends Component {
             )}
 
             {message && (
-                <div className="form-group">
+                <div className="form-group m-0">
                   <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">
                     {message}
                   </div>
