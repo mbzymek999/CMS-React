@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import EventBus from "../../../common/EventBus";
 import authHeader from "../../../services/auth-header";
-import {Badge, Button, Col, Container, Modal, Row, Table} from "react-bootstrap";
+import {Badge, Button, Card, Col, Container, Modal, Row, Table} from "react-bootstrap";
 import {Pagination} from "@material-ui/lab";
 import globalUrl from "../../../state/globalUrl";
 
@@ -25,13 +25,13 @@ export default function AllPaymentsController() {
 
 
     useEffect(() => {
-        axios.get(`${globalUrl().url}/payments/read?size=${pageSize}&page=${currentPage-1}&paymentDone=${paymentDone}`, { headers: authHeader() }).then(
+        axios.get(`${globalUrl().url}/payments/read?size=${pageSize}&page=${currentPage-1}&paymentDone=${paymentDone}`,
+            { headers: authHeader() }).then(
             (response) => {
                 setContent(response.data.payments);
                 setCount(response.data.totalPages);
             },
             (error) => {
-                // history.replace("/")
                 const _content =
                     (error.response &&
                         error.response.data &&
@@ -117,7 +117,7 @@ export default function AllPaymentsController() {
         };
 
     return (
-        <Container className={"mt-5"}>
+        <Card className={"mt-5 bg-light"}>
             <Row>
                 <Col>
                     <Badge className="bg-danger">Nieopłacone</Badge>
@@ -207,9 +207,6 @@ export default function AllPaymentsController() {
                             </Row>
                         </Modal.Body>
                         <Modal.Footer>
-                            {/*<Button onClick={createPayment(1)}>*/}
-                            {/*    Zapisz*/}
-                            {/*</Button>*/}
                             <Button variant="secondary" onClick={handleClose}>
                                 zamknij
                             </Button>
@@ -223,7 +220,6 @@ export default function AllPaymentsController() {
                         <thead>
                         <tr>
                             <th></th>
-                            <th scope="col">Id płatności</th>
                             <th scope="col">Termin płatności</th>
                             <th scope="col">Data wystawienia</th>
                             <th scope="col">Cena</th>
@@ -236,18 +232,16 @@ export default function AllPaymentsController() {
                             <>{item.paymentDone ?
                                 <tr>
                                     <td style={{background: 'forestgreen'}}></td>
-                                    <td>{item.paymentId}</td>
-                                    <td>{item.datePayment}</td>
                                     <td>{item.termPayment}</td>
+                                    <td>{item.datePayment}</td>
                                     <td>{item.price} zł</td>
                                     <td>{item.paymentDone ? "Tak" : "Nie"}</td>
                                     <td>{item.companyName}</td>
                                 </tr> :
                                 <tr>
                                     <td style={{background: 'crimson'}}></td>
-                                    <td>{item.paymentId}</td>
-                                    <td>{item.datePayment}</td>
                                     <td>{item.termPayment}</td>
+                                    <td>{item.datePayment}</td>
                                     <td>{item.price} zł</td>
                                     <td>{item.paymentDone ? "Tak" : "Nie"}</td>
                                     <td>{item.companyName}</td>
@@ -276,7 +270,7 @@ export default function AllPaymentsController() {
                     />
                 </Col>
             </Row>
-        </Container>
+        </Card>
 
     );
 }

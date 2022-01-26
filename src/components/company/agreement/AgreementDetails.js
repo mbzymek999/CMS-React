@@ -58,10 +58,14 @@ const AgreementDetails = () => {
                         a <strong>{agreement.name} {agreement.lastName}</strong>
                     </p>
                     <p>
-                        zamieszkałym <strong>{agreement.cityEmployee} </strong>
-                        ul: <strong>{agreement.streetEmployee} {agreement.streetNumberEmployee}{agreement.buildingNumberEmployee ? '/' : ''}{agreement.buildingNumberEmployee} </strong>
+                        zamieszkałym <strong> {show === false ? '********' : agreement.cityEmployee} </strong>
+                        ul: <strong>
+                        {show === false ? '****' : agreement.streetEmployee}
+                        {show === false ? '****' : agreement.streetNumberEmployee}
+                        {show === false ? '**** ' : agreement.buildingNumberEmployee ? '/' : ''} {show === false ? ' ************ ' : agreement.buildingNumberEmployee}
+                    </strong>
                         PESEL: <strong>
-                        {show === false ? '************' : agreement.pesel}
+                        {show === false ? '************ ' : agreement.pesel}
                         </strong>
                     </p>
                     <p>

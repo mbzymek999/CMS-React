@@ -84,8 +84,11 @@ const MessageEmailComponent = () => {
                     </h6>
                     <p>Klient <strong>{message.companyName}</strong> e-mail: <strong>{message.emailMessage}</strong> </p>
                     <p>Wiadomość: <strong>{message.message}</strong></p>
-                    <form onSubmit={sendEmail} className="mb-4">
-                        <Row className="mt-3">
+                    <form
+                        role="form"
+                        onSubmit={sendEmail}
+                        className="mb-4">
+                        <Row className="mt-2">
                             <Col sm="10">
                                 <label>Odpowiedz</label>
                                 <textarea

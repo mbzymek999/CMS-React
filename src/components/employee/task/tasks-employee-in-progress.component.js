@@ -57,7 +57,9 @@ export default function TasksEmployeeInProgress() {
     );
 
     return (
-        <Container>
+        <Container
+            role="cards"
+        >
             <Row>
                 {showTasks.map((item) =>
                     <Col className="col-4">

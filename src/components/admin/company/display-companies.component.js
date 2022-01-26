@@ -68,7 +68,9 @@ export default function DisplayCompaniesController() {
             </Row>
             <Row>
                 <Col>
-                    <Table striped bordered hover>
+                    <Table striped bordered hover
+                            role="table"
+                    >
                         <thead>
                             <tr>
                                 <th scope="col">nazwa</th>

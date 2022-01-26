@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import AsyncSelect from "react-select/async";
 import globalUrl from "../../../state/globalUrl";
 
-export default function CreateTaskController() {
+function CreateTaskController() {
     const [inputValue, setValue] = useState('');
     const [selectedValue, setSelectedValue] = useState(null);
     const [isSuccessful, setSuccessful] = useState(null);
@@ -108,6 +108,7 @@ export default function CreateTaskController() {
                                 <div className="col">
                                 <label className="mb-1">Nazwa zadania</label>
                                     <input
+                                            role = "name"
                                             type="text"
                                             name="name"
                                             value={values.name}
@@ -118,6 +119,7 @@ export default function CreateTaskController() {
                                 <div className="col">
                                     <label className="mb-1">Opis</label>
                                         <input
+                                            role = "description"
                                             type="text"
                                             value={values.description}
                                             name="description"
@@ -152,7 +154,6 @@ export default function CreateTaskController() {
                             </Row>
                             <Row className={"mt-2"}>
                                 <Col>
-                                    {/*<div className="row alert alert-info">Selected Value: {JSON.stringify(selectedValue || {}, null, 2)}</div>*/}
                                     <label className="mb-1">Wybierz pracownika z listy</label>
                                     <AsyncSelect
                                         cacheOptions
@@ -209,3 +210,5 @@ export default function CreateTaskController() {
 
     );
 }
+
+export default CreateTaskController

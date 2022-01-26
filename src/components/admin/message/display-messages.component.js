@@ -38,7 +38,9 @@ export default function DisplayMessagesController() {
         <Container className={"mt-5 m-0 p-0"}>
             <Row>
                 <Col>
-                    <Table striped bordered hover responsive>
+                    <Table striped bordered hover responsive
+                            role="table"
+                    >
                         <thead>
                         <tr>
                             <th>nazwa firmy</th>
@@ -56,34 +58,9 @@ export default function DisplayMessagesController() {
                                 <td>{item.phone}</td>
                                 <td style={{wordBreak: "break-all"}}>{item.message}</td>
                                 <td>
-                                    {/*<Button className="btn btn-success" size="sm" onClick={handleShow}>*/}
-                                    {/*   Odpowiedz*/}
-                                    {/*</Button>*/}
                                     <Link to={`/message/read/${item.idClient}`}>
                                         Wiadomość
                                     </Link>
-                                    {/*<Modal*/}
-                                    {/*    show={show}*/}
-                                    {/*    onHide={handleClose}*/}
-                                    {/*    backdrop="static"*/}
-                                    {/*    keyboard={false}*/}
-                                    {/*>*/}
-                                    {/*    <Modal.Header closeButton>*/}
-                                    {/*        <Modal.Title>Odpowiedz na wiadomość</Modal.Title>*/}
-                                    {/*    </Modal.Header>*/}
-                                    {/*    <Modal.Body>*/}
-                                    {/*        <Row>*/}
-                                    {/*            <Col>*/}
-                                    {/*                {item.idClient}*/}
-                                    {/*            </Col>*/}
-                                    {/*        </Row>*/}
-                                    {/*    </Modal.Body>*/}
-                                    {/*    <Modal.Footer>*/}
-                                    {/*        <Button variant="secondary" onClick={handleClose}>*/}
-                                    {/*            zamknij*/}
-                                    {/*        </Button>*/}
-                                    {/*    </Modal.Footer>*/}
-                                    {/*</Modal>*/}
                                 </td>
                             </tr>
                         )}

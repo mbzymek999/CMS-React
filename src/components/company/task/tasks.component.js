@@ -132,7 +132,9 @@ export default function TasksController() {
                             Dodaj nowe zadanie
                         </Button>
                     </Link>
-                    <Table striped bordered hover className={"bg-light"}>
+                    <Table
+                        striped bordered hover className={"bg-light"}
+                    >
                         <thead>
                         <tr>
                             <th></th>

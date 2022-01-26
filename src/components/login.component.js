@@ -5,13 +5,14 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { connect } from "react-redux";
 import { login } from "../actions/auth";
+import {Badge, Card, Col, Row} from "react-bootstrap";
 
 const required = (value) => {
   if (!value) {
     return (
-      <div className="alert alert-danger" role="alert">
-        Pole jest wymagane!
-      </div>
+        <div className="alert alert-danger" role="alert">
+          Pole jest wymagane!
+        </div>
     );
   }
 };
@@ -55,15 +56,15 @@ class Login extends Component {
 
     if (this.checkBtn.context._errors.length === 0) {
       dispatch(login(this.state.username, this.state.password))
-        .then(() => {
-          history.push("/home");
-          window.location.reload();
-        })
-        .catch(() => {
-          this.setState({
-            loading: false
+          .then(() => {
+            history.push("/home");
+            window.location.reload();
+          })
+          .catch(() => {
+            this.setState({
+              loading: false
+            });
           });
-        });
     } else {
       this.setState({
         loading: false,
@@ -79,72 +80,84 @@ class Login extends Component {
     }
 
     return (
-      <div className="col-md-12">
-        <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
 
-          <Form
-            onSubmit={this.handleLogin}
-            ref={(c) => {
-              this.form = c;
-            }}
-          >
-            <div className="form-group">
-              <label htmlFor="username">Nazwa użytkownika</label>
-              <Input
-                type="text"
-                className="form-control"
-                name="username"
-                value={this.state.username}
-                onChange={this.onChangeUsername}
-                validations={[required]}
-              />
-            </div>
+        <Row>
+          <Col></Col>
+          <Col className={"col-sm-6 center"}>
+            <Card className="mb-5 bg-light">
+              <Row>
+                <Col>
+                  <img src="https://drive.google.com/uc?export=view&id=17vEJyXNaK4_FkLqr1X8E_FOyvUnwnntY" className="img-fluid" alt="contact"/>
+                </Col>
+                <Col>
+                  <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="profile-img" className="profile-img-card mt-4" />
+                  <h3 style={{textAlign: "center"}} className="mt-3"><Badge><strong>Panel logowania</strong></Badge></h3>
+                </Col>
+              </Row>
+              <Row className="mt-3">
+                <Col>
+                  <Form
+                      onSubmit={this.handleLogin}
+                      ref={(c) => {
+                        this.form = c;
+                      }}
+                  >
+                    <div className="form-group">
+                      <label htmlFor="username">Nazwa użytkownika</label>
+                      <Input
+                          type="text"
+                          className="form-control"
+                          name="username"
+                          value={this.state.username}
+                          onChange={this.onChangeUsername}
+                          validations={[required]}
+                      />
+                    </div>
 
-            <div className="form-group mb-2">
-              <label htmlFor="password">Hasło</label>
-              <Input
-                type="password"
-                className="form-control"
-                name="password"
-                value={this.state.password}
-                onChange={this.onChangePassword}
-                validations={[required]}
-              />
-            </div>
+                    <div className="form-group mb-2">
+                      <label htmlFor="password">Hasło</label>
+                      <Input
+                          type="password"
+                          className="form-control"
+                          name="password"
+                          value={this.state.password}
+                          onChange={this.onChangePassword}
+                          validations={[required]}
+                      />
+                    </div>
 
-            <div className="form-group">
-              <button
-                className="btn btn-primary btn-block"
-                disabled={this.state.loading}
-              >
-                {this.state.loading && (
-                  <span className="spinner-border spinner-border-sm"></span>
-                )}
-                <span>Login</span>
-              </button>
-            </div>
+                    <div className="form-group">
+                      <button
+                          className="btn btn-success btn-block"
+                          disabled={this.state.loading}
+                      >
+                        {this.state.loading && (
+                            <span className="spinner-border spinner-border-sm"></span>
+                        )}
+                        <span>Zaloguj się</span>
+                      </button>
+                    </div>
 
-            {message && (
-              <div className="form-group">
-                <div className="alert alert-danger" role="alert">
-                  {message}
-                </div>
-              </div>
-            )}
-            <CheckButton
-              style={{ display: "none" }}
-              ref={(c) => {
-                this.checkBtn = c;
-              }}
-            />
-          </Form>
-        </div>
-      </div>
+                    {message && (
+                        <div className="form-group">
+                          <div className="alert alert-danger" role="alert">
+                            {message}
+                          </div>
+                        </div>
+                    )}
+                    <CheckButton
+                        style={{ display: "none" }}
+                        ref={(c) => {
+                          this.checkBtn = c;
+                        }}
+                    />
+                  </Form>
+                </Col>
+              </Row>
+            </Card>
+          </Col>
+          <Col></Col>
+        </Row>
     );
   }
 }

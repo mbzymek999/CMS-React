@@ -67,6 +67,7 @@ export default function UpdateEmployeeComponent() {
                                 <Col>
                                     <label className="mb-1">Stanowisko</label>
                                     <input
+                                        role="position"
                                         type="text"
                                         name="position"
                                         value={employee.position}
@@ -77,6 +78,7 @@ export default function UpdateEmployeeComponent() {
                                 <Col>
                                     <label className="mb-1">Numer telefonu</label>
                                     <input
+                                        role="phone"
                                         type="text"
                                         name="phone"
                                         value={employee.phone}
@@ -89,6 +91,7 @@ export default function UpdateEmployeeComponent() {
                                 <Col>
                                     <label className="mb-1">Ulica</label>
                                     <input
+                                        role="street"
                                         type="text"
                                         name="street"
                                         value={employee.street}
@@ -99,6 +102,7 @@ export default function UpdateEmployeeComponent() {
                                 <Col>
                                     <label className="mb-1">Numer ulicy</label>
                                     <input
+                                        role="streetNumber"
                                         type="text"
                                         name="streetNumber"
                                         value={employee.streetNumber}
@@ -111,6 +115,7 @@ export default function UpdateEmployeeComponent() {
                                 <Col>
                                     <label className="mb-1">Numer domu</label>
                                     <input
+                                        role="buildingNumber"
                                         type="text"
                                         name="buildingNumber"
                                         value={employee.buildingNumber}
@@ -121,6 +126,7 @@ export default function UpdateEmployeeComponent() {
                                 <Col>
                                     <label className="mb-1">Kod pocztowy</label>
                                     <input
+                                        role="postcode"
                                         type="text"
                                         name="postcode"
                                         value={employee.postcode}
@@ -133,6 +139,7 @@ export default function UpdateEmployeeComponent() {
                                 <Col>
                                     <label className="mb-1">Miasto</label>
                                     <input
+                                        role="city"
                                         type="text"
                                         name="city"
                                         value={employee.city}

@@ -36,7 +36,9 @@ export default function EmployeesController() {
         <Container className={"mt-5"}>
             <Row>
                 <Col>
-                    <Table striped bordered hover className={"bg-light"}>
+                    <Table
+                        role="table"
+                        striped bordered hover className={"bg-light"}>
                         <thead>
                         <tr>
                             <th scope="col">Imię</th>
@@ -61,9 +63,9 @@ export default function EmployeesController() {
                                         </Button>
                                     </Link>
                                 </td>
-                                <td style={{textAlign: "center"}}>
-                                    <Button className="btn btn-danger" size="sm">Archiwizuj</Button>
-                                </td>
+                                {/*<td style={{textAlign: "center"}}>*/}
+                                {/*    <Button className="btn btn-danger" size="sm">Archiwizuj</Button>*/}
+                                {/*</td>*/}
                             </tr>
                         )}
                         </tbody>

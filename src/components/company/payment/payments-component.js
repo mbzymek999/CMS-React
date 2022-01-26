@@ -36,7 +36,10 @@ export default function CompanyPaymentsController() {
         <Container className={"mt-5 "}>
             <Row>
                 <Col>
-                    <Table striped bordered hover className={"bg-light"}>
+                    <Table
+                        striped bordered hover className={"bg-light"}
+                        role="table"
+                    >
                         <thead>
                         <tr>
                             <th></th>

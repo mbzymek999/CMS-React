@@ -48,11 +48,17 @@ export default function TasksEmployeeDone() {
     };
 
     return (
-        <Container>
+        <Container
+            role="cards"
+        >
             <Row className="mt-0 p-0">
                 {task.map((item) =>
                     <Col className="col-4">
-                        <Card border="success" style={{ height: '14rem' }} className="mt-3">
+                        <Card
+                            border="success"
+                            style={{ height: '14rem' }}
+                            className="mt-3"
+                        >
                             <Card.Header>{item.name} <span className="float-end">Data: <strong>{item.createdDate}</strong></span></Card.Header>
                             <Card.Body>
                                 <Card.Text>

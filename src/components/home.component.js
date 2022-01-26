@@ -78,7 +78,9 @@ export default function HomeComponent() {
             backgroundColor: "#b8c6db",
             backgroundImage: "linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%)"
         }}>
-            <Container>
+            <Container
+                role="home"
+            >
                 <Row>
                     <Col>
                         <Card style={{backgroundColor: "rgba(228,230,243,0.32)"}}>

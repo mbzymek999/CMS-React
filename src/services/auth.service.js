@@ -5,8 +5,8 @@ import globalUrl from "../state/globalUrl";
 const API_URL = `${globalUrl().url}/api/auth/`;
 
 class AuthService {
+
   login(username, password) {
-    console.log(globalUrl().url)
     return axios
       .post(API_URL + "signin", { username, password })
       .then((response) => {
@@ -17,7 +17,6 @@ class AuthService {
         return response.data;
       });
   }
-
   logout() {
     localStorage.removeItem("user");
   }

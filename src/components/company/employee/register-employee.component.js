@@ -378,10 +378,8 @@ class RegisterEmployee extends Component {
                                                         />
                                                     </div>
                                                 </Col>
-                                            </Row>
-                                            <Row>
                                                 <Col>
-                                                    <label className="mb-1" htmlFor="name">Pesel</label>
+                                                    <label className="" htmlFor="name">Pesel</label>
                                                     <Input
                                                         type="number"
                                                         className="form-control"
@@ -391,6 +389,8 @@ class RegisterEmployee extends Component {
                                                         validations={[required]}
                                                     />
                                                 </Col>
+                                            </Row>
+                                            <Row>
                                                 <Col>
                                                     <div className="form-group">
                                                         <label htmlFor="position">Stanowisko w firmie</label>
@@ -403,21 +403,6 @@ class RegisterEmployee extends Component {
                                                         />
                                                     </div>
                                                 </Col>
-                                            </Row>
-                                            <Row>
-                                                <Col>
-                                                    <div className="form-group">
-                                                        <label htmlFor="nip">Telefon</label>
-                                                        <Input
-                                                            type="text"
-                                                            className="form-control"
-                                                            name="phone"
-                                                            value={this.state.phone}
-                                                            onChange={this.onChangePhone}
-                                                            validations={[required]}
-                                                        />
-                                                    </div>
-                                                </Col>
                                                 <Col>
                                                     <div className="form-group">
                                                         <label htmlFor="street">Ulica</label>
@@ -427,6 +412,18 @@ class RegisterEmployee extends Component {
                                                             name="street"
                                                             value={this.state.street}
                                                             onChange={this.onChangeStreet}
+                                                        />
+                                                    </div>
+                                                </Col>
+                                                <Col>
+                                                    <div className="form-group">
+                                                        <label htmlFor="buildingNumber">Nr. mieszkania</label>
+                                                        <Input
+                                                            type="text"
+                                                            className="form-control"
+                                                            name="buildingNumber"
+                                                            value={this.state.buildingNumber}
+                                                            onChange={this.onChangeBuildingNumber}
                                                         />
                                                     </div>
                                                 </Col>
@@ -447,20 +444,6 @@ class RegisterEmployee extends Component {
                                                 </Col>
                                                 <Col>
                                                     <div className="form-group">
-                                                        <label htmlFor="buildingNumber">Nr. mieszkania</label>
-                                                        <Input
-                                                            type="text"
-                                                            className="form-control"
-                                                            name="buildingNumber"
-                                                            value={this.state.buildingNumber}
-                                                            onChange={this.onChangeBuildingNumber}
-                                                        />
-                                                    </div>
-                                                </Col>
-                                            </Row>
-                                            <Row>
-                                                <Col className="col-6">
-                                                    <div className="form-group">
                                                         <label htmlFor="city">Miasto</label>
                                                         <Input
                                                             type="text"
@@ -473,6 +456,21 @@ class RegisterEmployee extends Component {
                                                     </div>
                                                 </Col>
                                                 <Col>
+                                                    <div className="form-group">
+                                                        <label htmlFor="nip">Telefon</label>
+                                                        <Input
+                                                            type="text"
+                                                            className="form-control"
+                                                            name="phone"
+                                                            value={this.state.phone}
+                                                            onChange={this.onChangePhone}
+                                                            validations={[required]}
+                                                        />
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col className={"col-4"}>
                                                     <div className="form-group">
                                                         <label htmlFor="postcode">Kod pocztowy</label>
                                                         <Input
