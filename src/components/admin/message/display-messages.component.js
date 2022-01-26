@@ -8,9 +8,6 @@ import {Link} from "react-router-dom";
 
 export default function DisplayMessagesController() {
     const [message, setMessage] = useState([]);
-    // const [show, setShow] = useState(false);
-    // const handleClose = () => setShow(false);
-    // const handleShow = () => setShow(true);
 
     useEffect(() => {
         axios.get(`${globalUrl().url}/message/read`, { headers: authHeader() }).then(

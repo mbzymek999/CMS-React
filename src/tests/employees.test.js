@@ -1,10 +1,10 @@
 import React from 'react'
 import {render, screen} from '@testing-library/react'
 import '@testing-library/jest-dom'
-import AllPaymentsController from "../../admin/payment/all-payments.component";
+import EmployeesController from "../components/company/employee/employees.component";
 
-test('testing payment table', async () => {
-    render(<AllPaymentsController/>)
+test('testing rendering table employees', async () => {
+    render(<EmployeesController/>)
     expect(screen.getAllByRole('table')).toHaveLength(1)
 })
 

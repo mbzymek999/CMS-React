@@ -162,7 +162,9 @@ export default function AllPaymentsController() {
                         <Modal.Body>
                             <Row>
                                 <Col>
-                                    <Table striped bordered hover className={"bg-light"}>
+                                    <Table
+                                        striped bordered hover className={"bg-light"}
+                                    >
                                         <thead>
                                         <tr>
                                             <th scope="col">id</th>

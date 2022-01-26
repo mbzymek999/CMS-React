@@ -1,7 +1,7 @@
 import React from 'react'
 import {render, screen} from '@testing-library/react'
 import '@testing-library/jest-dom'
-import CreateTaskController from "./create-task.component";
+import CreateTaskController from "../components/company/task/create-task.component";
 
 test('testing form create task', async () => {
     render(<CreateTaskController/>)
