@@ -132,6 +132,7 @@ function CreateTaskController() {
                                 <Col>
                                     <label className="mb-1">Typ zadania</label>
                                     <select
+                                        role = "select"
                                         onChange={handleSetType}
                                         value={values.type} className="mb-2 form-select" aria-label="Default select example">
                                         {types.map((type) => (

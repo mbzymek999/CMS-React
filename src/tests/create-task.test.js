@@ -7,7 +7,9 @@ test('testing form create task', async () => {
     render(<CreateTaskController/>)
         expect(screen.getAllByRole('name')).toHaveLength(1)
         expect(screen.getAllByRole('description')).toHaveLength(1)
+        expect(screen.getAllByRole('select')).toHaveLength(1)
 })
+
 
 
 

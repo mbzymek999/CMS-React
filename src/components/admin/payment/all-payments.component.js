@@ -40,10 +40,6 @@ export default function AllPaymentsController() {
                     error.toString();
 
                 setContent(_content);
-
-                if (error.response && error.response.status === 401) {
-                    EventBus.dispatch("logout");
-                }
             }
         );
     }, [currentPage,pageSize, paymentDone]);

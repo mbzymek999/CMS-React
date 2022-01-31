@@ -81,7 +81,7 @@ const AgreementDetails = () => {
 
                         {   show === false ?
                             <Button className="btn btn-info mb-2 ms-2" size="sm" onClick={handleShow}>
-                                Podaż ukryte dane
+                                Pokaż ukryte dane
                             </Button> :
                             <Button className="btn btn-info mb-2 ms-2" size="sm" onClick={handleClose}>
                                 Ukryj dane
